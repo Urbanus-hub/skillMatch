@@ -61,7 +61,7 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}} 
           with:
             bucket: skillmatch-frontend
-            dist-folder: ./dist/skill-match-ai/browser
+            dist-folder: ./dist/skill-match-ai
             bucket-region: us-east-1
 
         - name: Output URL
