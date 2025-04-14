@@ -1,0 +1,225 @@
+/* skillmatch-onboarding.component.css */
+.onboarding-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .header-area {
+    background-color: #3498db;
+    color: white;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 60px;
+  }
+  
+  .logo .icon {
+    margin-right: 8px;
+  }
+  
+  .wave-container {
+    text-align: center;
+    padding-bottom: 100px;
+  }
+  
+  .welcome-text {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+  
+  .prompt-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    animation: slideIn 0.5s ease-out 0.3s both;
+  }
+  
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    border-radius: 100% 100% 0 0;
+  }
+  
+  .content-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .profile-card, .status-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    width: 320px;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-card:hover, .status-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .initials {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .username {
+    margin: 10px 0 5px;
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  .user-status {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .profile-completion {
+    margin-bottom: 20px;
+  }
+  
+  .completion-label {
+    font-size: 0.9rem;
+    color: #3498db;
+    margin-bottom: 8px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #3498db;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.8s ease-out;
+  }
+  
+  .profile-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .step {
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: #777;
+    transition: color 0.3s ease;
+  }
+  
+  .step.active {
+    color: #3498db;
+    font-weight: 500;
+  }
+  
+  .step:last-child {
+    border-bottom: none;
+  }
+  
+  .status-card .status-title {
+    color: #3498db;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  .processing-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+  }
+  
+  .processing-icon {
+    display: inline-flex;
+    margin-right: 10px;
+  }
+  
+  .processing-text {
+    color: #3498db;
+  }
+  
+  .redirect-message {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 30px;
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .content-area {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .profile-card, .status-card {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+  }

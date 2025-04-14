@@ -1,0 +1,265 @@
+/* job-seeker-profile.component.css */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Segoe UI", "Roboto", sans-serif;
+    background-color: #f0f0f0;
+    position: relative;
+  }
+  
+  /* Header styles */
+  .profile-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .profile-header h1 {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  
+  /* Logo section */
+  .logo-section {
+    background-color: #2196F3;
+    padding: 16px 24px;
+    position: relative;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+  
+  .logo-text {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .wave-shape {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none"><path fill="%23f0f0f0" d="M0,0 C240,95 480,100 720,50 C960,0 1200,40 1440,80 L1440,100 L0,100 Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+  
+  /* Stepper styles */
+  .stepper-container {
+    padding: 20px 0;
+  }
+  
+  .stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .step.active .step-number {
+    background-color: #2196F3;
+  }
+  
+  .step.completed .step-number {
+    background-color: #4CAF50;
+  }
+  
+  .step-label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .step.active .step-label {
+    color: #2196F3;
+    font-weight: 500;
+  }
+  
+  .step-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #ccc;
+    max-width: 100px;
+    margin: 0 15px;
+    position: relative;
+    top: -15px;
+  }
+  
+  /* Form container */
+  .form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .form-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+  }
+  
+  .form-header {
+    background-color: #2196F3;
+    color: white;
+    padding: 20px;
+  }
+  
+  .form-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .form-content {
+    padding: 20px;
+  }
+  
+  /* Form elements */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .select-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+  }
+  
+  /* Form actions */
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+  }
+  
+  .btn-skip {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-continue {
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-continue:hover {
+    background-color: #1976D2;
+  }
+  
+  /* Zoom controls */
+  .zoom-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .zoom-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .stepper {
+      padding: 0 20px;
+    }
+    
+    .form-card {
+      border-radius: 0;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .btn-skip, .btn-continue {
+      width: 100%;
+    }
+  }

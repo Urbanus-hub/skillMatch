@@ -1,0 +1,150 @@
+<!-- enterprise-details.component.html -->
+<div class="main-container">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon"><img src="logoImage.png" alt=""></span>
+        <h1>SkillMatch</h1>
+      </div>
+      <div class="profile-icon">
+        <div class="avatar"></div>
+      </div>
+    </header>
+  
+    
+  
+    <div class="content-container">
+      <div class="sidebar">
+        <h3 class="sidebar-title">Employer Details:</h3>
+        
+        <div class="sidebar-menu">
+          <div class="menu-item completed">
+            <div class="menu-item-content">
+              <div class="checkmark-circle">
+                <div class="checkmark"></div>
+              </div>
+              <span>Contacts</span>
+            </div>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div class="menu-item completed">
+            <div class="menu-item-content">
+              <div class="checkmark-circle">
+                <div class="checkmark"></div>
+              </div>
+              <span>Career fields</span>
+            </div>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div class="menu-item active">
+            <div class="menu-item-content">
+              <div class="step-number">3</div>
+              <span>Enterprise details</span>
+            </div>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="step-number">4</div>
+              <span>Job listings</span>
+            </div>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="step-number">5</div>
+              <span>Review & submit</span>
+            </div>
+            <i class="arrow-icon">›</i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-container">
+        <h2 class="form-title">Enterprise Details</h2>
+        
+        <form [formGroup]="enterpriseForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="industry">Industry *</label>
+              <input 
+                type="text" 
+                id="industry" 
+                formControlName="industry" 
+                class="form-control"
+                [ngClass]="{'invalid': enterpriseForm.get('industry').touched && enterpriseForm.get('industry').invalid}"
+              >
+            </div>
+  
+            <div class="form-group">
+              <label for="companyWebsite">Company website (optional)</label>
+              <input 
+                type="text" 
+                id="companyWebsite" 
+                formControlName="companyWebsite" 
+                class="form-control"
+              >
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="companySize">Company size *</label>
+              <input 
+                type="text" 
+                id="companySize" 
+                formControlName="companySize" 
+                class="form-control"
+                [ngClass]="{'invalid': enterpriseForm.get('companySize').touched && enterpriseForm.get('companySize').invalid}"
+              >
+            </div>
+  
+            <div class="form-group">
+              <label for="companyType">Company type (optional)</label>
+              <input 
+                type="text" 
+                id="companyType" 
+                formControlName="companyType" 
+                class="form-control"
+              >
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="jobTitle">Job Title *</label>
+              <input 
+                type="text" 
+                id="jobTitle" 
+                formControlName="jobTitle" 
+                class="form-control"
+                [ngClass]="{'invalid': enterpriseForm.get('jobTitle').touched && enterpriseForm.get('jobTitle').invalid}"
+              >
+            </div>
+  
+            <div class="form-group">
+              <label for="headquarter">Headquarter</label>
+              <input 
+                type="text" 
+                id="headquarter" 
+                formControlName="headquarter" 
+                class="form-control"
+              >
+            </div>
+          </div>
+        </form>
+  
+        <div class="actions">
+          <button class="back-button" (click)="goBack()">
+            <span class="back-icon">‹</span> Back
+          </button>
+          <button class="next-button" [disabled]="!enterpriseForm.valid" (click)="onDone()">
+            All done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

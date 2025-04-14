@@ -1,0 +1,170 @@
+
+
+<!-- skill-match.component.html -->
+<div class="skill-match-container">
+    <div class="header">
+      <div class="logo">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="logo-text">SkillMatch</span>
+      </div>
+      
+      <div class="header-right">
+        <div class="company-info">
+          <span class="company-name">{{ companyName }}</span>
+        </div>
+        <div class="user-profile">
+          <div class="user-avatar">
+            <span>{{ userName.charAt(0) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="wave-background">
+      <div class="wave wave1"></div>
+      <div class="wave wave2"></div>
+    </div>
+    
+    
+    
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="sidebar">
+          <div class="sidebar-header">
+            <h3>Employer Details</h3>
+            <div class="step-indicator">Step {{ currentStep }}/{{ totalSteps }}</div>
+          </div>
+          
+          <div class="menu-items">
+            <div 
+              *ngFor="let item of menuItems" 
+              class="menu-item" 
+              [ngClass]="{'active': item.selected, 'completed': item.completed}"
+              (click)="selectMenuItem(item.id)"
+            >
+              <div class="item-content">
+                <div class="item-icon">
+                  <i class="material-icons">{{ item.icon }}</i>
+                </div>
+                <span class="item-name">{{ item.name }}</span>
+                <div class="check-icon" *ngIf="item.completed">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="arrow-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+          
+          <div class="sidebar-footer">
+            <div class="help-section">
+              <div class="help-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <span>Need help?</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="main-content">
+          <div class="content-header">
+            <h2>Career fields</h2>
+            <div class="selection-counter">
+              <span>{{ getSelectedCount() }} selected</span>
+            </div>
+          </div>
+          
+          <p class="content-description">
+            Select targeted career fields for recruitment. You can change your choices at any time.
+            These selections will help us match the right candidates with your job opportunities.
+          </p>
+          
+          <div class="location-section">
+            <h3>Location</h3>
+            <div class="location-dropdown">
+              <div class="selected-location" (click)="toggleLocationDropdown()">
+                <span>{{ selectedLocation.name }}</span>
+                <i class="material-icons">{{ showLocationDropdown ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</i>
+              </div>
+              <div class="location-options" *ngIf="showLocationDropdown">
+                <div 
+                  *ngFor="let location of locations" 
+                  class="location-option" 
+                  [ngClass]="{'selected': location.selected}"
+                  (click)="selectLocation(location)"
+                >
+                  <span>{{ location.name }}</span>
+                  <i class="material-icons" *ngIf="location.selected">check</i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="career-fields-grid">
+            <div 
+              *ngFor="let field of careerFields" 
+              class="career-field-item"
+            >
+              <label class="checkbox-container" [ngClass]="{'selected': field.selected}">
+                <div class="field-icon">
+                  <i class="material-icons">{{ field.icon }}</i>
+                </div>
+                <div class="field-info">
+                  <span class="field-name">{{ field.name }}</span>
+                  <span class="field-count">{{ field.count }} openings</span>
+                </div>
+                <input 
+                  type="checkbox" 
+                  [checked]="field.selected"
+                  (change)="toggleCareerField(field)"
+                >
+                <span class="checkmark">
+                  <svg *ngIf="field.selected" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <!-- Removed ripple element to improve performance -->
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <button class="back-button" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back
+      </button>
+      
+      <div class="progress-indicator">
+        <div class="progress-dots">
+          <div class="dot" *ngFor="let item of menuItems; let i = index" 
+               [ngClass]="{'active': item.selected, 'completed': item.completed}"></div>
+        </div>
+        <span class="progress-text">Step {{ currentStep }} of {{ totalSteps }}</span>
+      </div>
+      
+      <button class="next-button" (click)="goNext()">
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>

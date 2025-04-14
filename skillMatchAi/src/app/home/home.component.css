@@ -1,0 +1,4 @@
+/* home.component.css */
+section {
+    scroll-margin-top: 80px; /* Adjust based on your header height */
+  }

@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.ready {
+  width: 100%;
+  height: 55vh;
+  background: linear-gradient(135deg, #0A66C2 0%, #0052a3 50%, #003d7a 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 10px 30px rgba(10, 102, 194, 0.3);
+
+}
+
+.content {
+  width: 90%;
+  max-width: 1000px;
+  height: 100%;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* Text animations and styling */
+.animate-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUpIn 0.8s ease forwards;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.animate-text {
+  font-size: 18px;
+  max-width: 600px;
+  margin-bottom: 36px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUpIn 0.8s ease forwards 0.2s;
+}
+
+/* Button styling and animation */
+.animate-button {
+  background-color: white;
+  color: #0A66C2;
+  border: none;
+  border-radius: 30px;
+  padding: 16px 36px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  animation: buttonPop 0.6s ease forwards 0.4s;
+}
+
+.animate-button:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  background-color: #f8f9fa;
+}
+
+.animate-button .arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.animate-button:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+/* Bubbles styling and animation */
+.bubbles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 8s infinite;
+}
+
+.bubble:nth-child(1) {
+  width: 80px;
+  height: 80px;
+  left: 10%;
+  bottom: -20%;
+  animation-delay: 0s;
+}
+
+.bubble:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  left: 20%;
+  bottom: -20%;
+  animation-delay: 1s;
+}
+
+.bubble:nth-child(3) {
+  width: 40px;
+  height: 40px;
+  left: 35%;
+  bottom: -20%;
+  animation-delay: 2s;
+}
+
+.bubble:nth-child(4) {
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  bottom: -20%;
+  animation-delay: 3s;
+}
+
+.bubble:nth-child(5) {
+  width: 50px;
+  height: 50px;
+  left: 65%;
+  bottom: -20%;
+  animation-delay: 4s;
+}
+
+.bubble:nth-child(6) {
+  width: 70px;
+  height: 70px;
+  left: 80%;
+  bottom: -20%;
+  animation-delay: 5s;
+}
+
+.bubble:nth-child(7) {
+  width: 30px;
+  height: 30px;
+  left: 15%;
+  bottom: -20%;
+  animation-delay: 6s;
+}
+
+.bubble:nth-child(8) {
+  width: 90px;
+  height: 90px;
+  left: 25%;
+  bottom: -20%;
+  animation-delay: 7s;
+}
+
+.bubble:nth-child(9) {
+  width: 45px;
+  height: 45px;
+  left: 40%;
+  bottom: -20%;
+  animation-delay: 8s;
+}
+
+.bubble:nth-child(10) {
+  width: 75px;
+  height: 75px;
+  left: 70%;
+  bottom: -20%;
+  animation-delay: 9s;
+}
+
+.bubble:nth-child(11) {
+  width: 50px;
+  height: 50px;
+  left: 90%;
+  bottom: -20%;
+  animation-delay: 10s;
+}
+
+.bubble:nth-child(12) {
+  width: 65px;
+  height: 65px;
+  left: 5%;
+  bottom: -20%;
+  animation-delay: 11s;
+}
+
+/* Keyframes for animations */
+@keyframes float {
+  0% {
+    transform: translateY(100%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-80vh) scale(1.3);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-120vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeUpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .animate-title {
+    font-size: 32px;
+  }
+  
+  .animate-text {
+    font-size: 16px;
+  }
+  
+  .animate-button {
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ready {
+    height: 60vh;
+  }
+  
+  .animate-title {
+    font-size: 28px;
+  }
+  
+  .animate-text {
+    font-size: 14px;
+  }
+  
+  .animate-button {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}

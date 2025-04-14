@@ -1,0 +1,120 @@
+<!-- skillmatch-portfolio.component.html -->
+<div class="dashboard-section portfolio-section" *ngIf="activeSection === 'portfolio'">
+    <div class="section-header">
+      <h2>Portfolio Projects</h2>
+      <button class="primary-btn add-project-btn">
+        <i class="fas fa-plus"></i> Add Project
+      </button>
+    </div>
+    
+    <div class="portfolio-filter">
+      <div class="filter-pills">
+        <span class="filter-pill active" (click)="filterProjects('all')">All Projects</span>
+        <span class="filter-pill" (click)="filterProjects('web')">Web Development</span>
+        <span class="filter-pill" (click)="filterProjects('mobile')">Mobile Apps</span>
+        <span class="filter-pill" (click)="filterProjects('data')">Data Science</span>
+        <span class="filter-pill" (click)="filterProjects('design')">UI/UX Design</span>
+      </div>
+      <div class="sort-dropdown">
+        <select class="filter-select">
+          <option>Newest First</option>
+          <option>Oldest First</option>
+          <option>Most Viewed</option>
+          <option>Most Liked</option>
+        </select>
+      </div>
+    </div>
+  
+    <div class="dashboard-cards portfolio-cards">
+      <!-- Project 1 -->
+      <div class="dashboard-card portfolio-card animate-in" *ngFor="let project of projects; let i = index" [attr.data-index]="i">
+        <div class="portfolio-image">
+          <img [src]="project.image" [alt]="project.title">
+          <div class="project-overlay">
+            <button class="view-project-btn">View Project</button>
+          </div>
+        </div>
+        <div class="portfolio-content">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-description">{{ project.description }}</p>
+          <div class="project-tech">
+            <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
+          </div>
+          <div class="project-meta">
+            <span class="project-date"><i class="far fa-calendar-alt"></i> {{ project.date }}</span>
+            <span class="project-views"><i class="far fa-eye"></i> {{ project.views }} views</span>
+          </div>
+          <div class="project-links">
+            <a [href]="project.githubUrl" class="project-link" target="_blank">
+              <i class="fab fa-github"></i> Repository
+            </a>
+            <a [href]="project.liveUrl" class="project-link" target="_blank" *ngIf="project.liveUrl">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Add more portfolio cards -->
+      <div class="view-more-container">
+        <button class="view-more-btn">View More Projects</button>
+      </div>
+    </div>
+  
+    <!-- Project Details Modal -->
+    <div class="project-modal" *ngIf="selectedProject">
+      <div class="modal-backdrop" (click)="closeProjectModal()"></div>
+      <div class="modal-content">
+        <button class="close-modal-btn" (click)="closeProjectModal()">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-body">
+          <div class="modal-gallery">
+            <img [src]="selectedProject.image" [alt]="selectedProject.title" class="modal-main-image">
+            <div class="modal-thumbnails">
+              <img *ngFor="let img of selectedProject.gallery" [src]="img" (click)="setMainImage(img)" class="modal-thumbnail">
+            </div>
+          </div>
+          <div class="modal-details">
+            <h2 class="modal-title">{{ selectedProject.title }}</h2>
+            <p class="modal-description">{{ selectedProject.fullDescription }}</p>
+            
+            <div class="modal-section">
+              <h3>Technologies Used</h3>
+              <div class="modal-tech-tags">
+                <span class="tech-tag" *ngFor="let tech of selectedProject.technologies">{{ tech }}</span>
+              </div>
+            </div>
+            
+            <div class="modal-section">
+              <h3>Project Goals</h3>
+              <ul class="modal-list">
+                <li *ngFor="let goal of selectedProject.goals">{{ goal }}</li>
+              </ul>
+            </div>
+            
+            <div class="modal-section">
+              <h3>Key Features</h3>
+              <ul class="modal-list">
+                <li *ngFor="let feature of selectedProject.features">{{ feature }}</li>
+              </ul>
+            </div>
+            
+            <div class="modal-section">
+              <h3>My Role</h3>
+              <p>{{ selectedProject.role }}</p>
+            </div>
+            
+            <div class="modal-actions">
+              <a [href]="selectedProject.githubUrl" class="primary-btn" target="_blank">
+                <i class="fab fa-github"></i> View Repository
+              </a>
+              <a [href]="selectedProject.liveUrl" class="secondary-btn" target="_blank" *ngIf="selectedProject.githubUrl">
+                <i class="fas fa-external-link-alt"></i> Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

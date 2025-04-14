@@ -1,0 +1,709 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Hero Container */
+  .container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(135deg, #2892D7, #1a6ca0);
+    overflow: hidden;
+  }
+  
+  /* Background Wave Effects */
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: white;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  }
+  
+  .wave-2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.3);
+    clip-path: polygon(75% 0, 0% 100%, 100% 100%);
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1400px;
+    height: 80px;
+    margin: auto;
+    padding: 20px 0;
+    color: white;
+    position: relative;
+    z-index: 10;
+  }
+  
+ /* Enhanced SkillMatch Logo Styling */
+/* Fixed SkillMatch Logo Styling - No Text Overlap */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  padding: 12px 18px;
+  transition: all 0.4s ease;
+  overflow: visible; /* Changed from hidden to prevent clipping */
+  cursor: pointer;
+}
+
+/* Background glow effect */
+.logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(52, 152, 219, 0.15) 0%,
+    rgba(52, 152, 219, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  border-radius: 12px;
+}
+
+.logo:hover::before {
+  opacity: 1;
+}
+
+/* Image styling */
+.logo img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 0 5px rgba(52, 152, 219, 0.5));
+  border-radius: 8px;
+  z-index: 2;
+}
+
+/* Animated border for image */
+.logo::after {
+  content: '';
+  position: absolute;
+  top: 29px; /* Centered vertically to the logo image */
+  left: 30px; /* Centered horizontally to the logo image */
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  border: 2px solid rgba(52, 152, 219, 0.3);
+  box-shadow: 0 0 12px rgba(52, 152, 219, 0.2);
+  z-index: 1;
+  transition: all 0.4s ease;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+}
+
+.logo:hover img {
+  transform: scale(1.1) rotate(3deg);
+  filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.6)) brightness(1.1);
+}
+
+.logo:hover::after {
+  border-color: rgba(46, 204, 113, 0.5);
+  transform: scale(1.2) rotate(3deg);
+  box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+}
+
+/* Logo text styling - FIXED to prevent overlap */
+.logo h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  margin: 0;
+  background: linear-gradient(90deg, #fff, #3498db);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  /* Added to ensure text doesn't cause overlap issues */
+  white-space: nowrap;
+}
+
+/* First letter styling */
+.logo h1::first-letter {
+  font-size: 32px;
+}
+
+/* Remove the problematic ::before pseudo-element */
+/* Now styling only with span for the second part */
+
+/* Second part of text - different style */
+.logo h1 span {
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Underline effect */
+.logo h1::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  transition: width 0.4s ease;
+  border-radius: 2px;
+}
+
+.logo:hover h1 {
+  text-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+  transform: translateY(-2px);
+}
+
+.logo:hover h1::after {
+  width: 100%;
+}
+
+/* Subtle shine effect across the logo */
+.logo .shine-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.logo:hover .shine-effect {
+  opacity: 1;
+  animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Pulsing effect for the logo image */
+@keyframes pulse-logo {
+  0% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+  }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .logo {
+    gap: 10px;
+    padding: 8px 12px;
+  }
+  
+  .logo img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .logo::after {
+    top: 26px;
+    left: 27px;
+    width: 42px;
+    height: 42px;
+  }
+  
+  .logo h1 {
+    font-size: 22px;
+  }
+  
+  .logo h1::first-letter {
+    font-size: 24px;
+  }
+}
+  
+  .nav-links {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    width: 500px;
+    height: 50px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .nav-links ul {
+    list-style: none;
+    display: flex;
+    gap: 32px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .nav-links li {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+  }
+  
+  .nav-links li:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: white;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-links li:hover {
+    transform: translateY(-2px);
+  }
+  
+  .nav-links li:hover:after {
+    width: 100%;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .auth-buttons button {
+    padding: 10px 26px;
+    height: 46px;
+    border-radius: 23px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 15px;
+  }
+  
+  .auth-buttons .login {
+    background-color: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+  }
+  
+  .auth-buttons .login:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auth-buttons .signup {
+    background-color: white;
+    color: #2892D7;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .auth-buttons .signup:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Main Hero Section */
+  .main-section {
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto 0;
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .main-heading {
+    color: white;
+    font-size: 52px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-left: 50px;
+    max-width: 700px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 60px;
+    position: relative;
+  }
+  
+  .text-box {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    padding-left: 50px;
+    animation: slideInLeft 1.2s ease-out;
+  }
+  
+  .text-box p {
+    color: white;
+    font-size: 20px;
+    width: 85%;
+    line-height: 1.7;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+  }
+  
+  .cta-buttons button {
+    padding: 14px 32px;
+    border-radius: 28px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .get-started {
+    background-color: #0F1FFF;
+    color: white;
+    box-shadow: 0 6px 20px rgba(15, 31, 255, 0.3);
+  }
+  
+  .get-started:hover {
+    background-color: #0a18d6;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(15, 31, 255, 0.4);
+  }
+  
+  .demo {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid white;
+    backdrop-filter: blur(5px);
+  }
+  
+  .demo:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-box {
+    width: 50%;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .image-box img {
+    width: 480px;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Feature Highlights Section */
+  .feature-highlights {
+    position: relative;
+    z-index: 5;
+    width: 90%;
+    max-width: 1400px;
+    margin: 50px auto 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .feature-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(40, 146, 215, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .feature-icon i {
+    font-size: 30px;
+    color: #2892D7;
+  }
+  
+  .feature-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .feature-description {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* Floating Elements */
+  .floating-element {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  
+  .float-1 {
+    width: 150px;
+    height: 150px;
+    top: 15%;
+    left: 5%;
+    animation: floatSlow 12s linear infinite;
+  }
+  
+  .float-2 {
+    width: 70px;
+    height: 70px;
+    top: 20%;
+    right: 10%;
+    animation: floatSlow 8s linear infinite reverse;
+  }
+  
+  .float-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 30%;
+    left: 15%;
+    animation: floatSlow 10s linear infinite;
+  }
+  
+  /* Error Page Styles */
+ 
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes floatSlow {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate(15px, 15px) rotate(180deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(360deg);
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1200px) {
+    .main-heading {
+      font-size: 44px;
+    }
+  
+    .image-box img {
+      width: 420px;
+      height: 420px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .main-heading {
+      font-size: 40px;
+      margin-left: 20px;
+    }
+  
+    .text-box {
+      padding-left: 20px;
+    }
+  
+    .image-box img {
+      width: 380px;
+      height: 380px;
+    }
+  
+    .feature-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .feature-card {
+      width: 80%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      height: auto;
+      gap: 20px;
+      padding: 20px 0;
+    }
+  
+    .nav-links {
+      width: 100%;
+    }
+  
+    .auth-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .content {
+      flex-direction: column-reverse;
+      gap: 40px;
+    }
+  
+    .text-box, .image-box {
+      width: 100%;
+      padding-left: 0;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .text-box p {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      margin: 0 auto;
+    }
+  
+    .cta-buttons {
+      justify-content: center;
+    }
+  
+    .main-heading {
+      text-align: center;
+      margin-left: 0;
+      font-size: 36px;
+      max-width: 100%;
+    }
+  
+    .image-box img {
+      background-image: url(/bg.jpg);
+      width: 320px;
+      height: 320px;
+    }
+  
+    .feature-card {
+      width: 100%;
+    }
+  }

@@ -1,0 +1,338 @@
+/* Talent Cards Section Styles */
+.talent-cards-section {
+    width: 100%;
+    padding: 100px 0 50px;
+    background-color: #f9fafb;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .talent-cards-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 60px;
+  }
+  
+  /* Card Styling */
+  .talent-card {
+    width: 45%;
+    min-height: 380px;
+    position: relative;
+    z-index: 10;
+    margin-top: 20px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .talent-card:hover {
+    transform: translateY(-15px);
+  }
+  
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s ease;
+  }
+  
+  .talent-card:hover .card-inner {
+    box-shadow: 0 25px 50px rgba(40, 146, 215, 0.2);
+  }
+  
+  /* Card Content */
+  .card-content {
+    width: 60%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+  }
+  
+  .card-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, rgba(40, 146, 215, 0.1), rgba(15, 31, 255, 0.1));
+    color: #2892D7;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(40, 146, 215, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .talent-card:hover .card-badge {
+    background: linear-gradient(135deg, rgba(40, 146, 215, 0.15), rgba(15, 31, 255, 0.15));
+    transform: translateX(5px);
+  }
+  
+  .card-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a3148;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .talent-card:hover .card-content h3 {
+    color: #2892D7;
+    transform: translateX(5px);
+  }
+  
+  .card-content p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #5a7184;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .talent-card:hover .card-content p {
+    transform: translateX(5px);
+  }
+  
+  /* Button Styling */
+  .card-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #2892D7, #0F1FFF);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 10px 20px rgba(40, 146, 215, 0.2);
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .card-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(40, 146, 215, 0.3);
+  }
+  
+  .card-button:hover::after {
+    width: 100%;
+  }
+  
+  .card-button i {
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+  
+  .card-button:hover i {
+    transform: translateX(5px);
+  }
+  
+  /* Card Image */
+  .card-image {
+    width: 40%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .image-container {
+    position: relative;
+    z-index: 3;
+    transition: all 0.5s ease;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+  }
+  
+  .talent-card:hover .image-container {
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  /* Blob Shape Behind Image */
+  .blob-shape {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    background: linear-gradient(135deg, rgba(40, 146, 215, 0.2), rgba(15, 31, 255, 0.2));
+    border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+    animation: blobAnimation 8s linear infinite;
+    z-index: 2;
+  }
+  
+  .talent-card:hover .blob-shape {
+    animation-play-state: running;
+  }
+  
+  .employer-card .blob-shape {
+    background: linear-gradient(135deg, rgba(40, 146, 215, 0.2), rgba(15, 31, 255, 0.2));
+  }
+  
+  .jobseeker-card .blob-shape {
+    background: linear-gradient(135deg, rgba(15, 31, 255, 0.2), rgba(40, 146, 215, 0.2));
+  }
+  
+  /* Card Background Shape */
+  .card-bg-shape {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(40, 146, 215, 0.03), rgba(15, 31, 255, 0.03));
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    z-index: 0;
+    transition: all 0.5s ease;
+  }
+  
+  .talent-card:hover .card-bg-shape {
+    width: 300px;
+  }
+  
+  /* Card Type-Specific Styling */
+  /* .employer-card .card-inner {
+    border-top: 4px solid #2892D7;
+  } */
+  
+  /* .jobseeker-card .card-inner {
+    border-top: 4px solid #0F1FFF;
+  }
+   */
+  /* Animations */
+  @keyframes blobAnimation {
+    0% {
+      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+    }
+    25% {
+      border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+    }
+    50% {
+      border-radius: 50% 50% 60% 40% / 40% 50% 50% 60%;
+    }
+    75% {
+      border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%;
+    }
+    100% {
+      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+    }
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 1200px) {
+    .talent-cards-container {
+      padding-top: 40px;
+    }
+    
+    .card-content {
+      padding: 30px;
+    }
+    
+    .card-content h3 {
+      font-size: 22px;
+    }
+    
+    .card-content p {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .talent-cards-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+    
+    .talent-card {
+      width: 80%;
+      margin-top: 0;
+    }
+    
+    .card-content {
+      width: 55%;
+    }
+    
+    .card-image {
+      width: 45%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .card-inner {
+      flex-direction: column-reverse;
+    }
+    
+    .card-content, .card-image {
+      width: 100%;
+    }
+    
+    .card-image {
+      height: 200px;
+      padding: 20px 0;
+    }
+    
+    .image-container {
+      width: 140px;
+      height: 140px;
+    }
+    
+    .talent-card {
+      width: 100%;
+      min-height: auto;
+    }
+    
+    .blob-shape {
+      width: 180px;
+      height: 180px;
+    }
+    
+    .card-content {
+      padding: 30px 25px;
+    }
+    
+    .card-button {
+      margin: 0 auto;
+    }
+    
+    .card-content p, .card-content h3 {
+      text-align: center;
+    }
+    
+    .card-badge {
+      margin: 0 auto 15px;
+    }
+  }

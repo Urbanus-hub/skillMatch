@@ -1,0 +1,92 @@
+<!-- login.component.html -->
+<div class="login-container">
+    <div class="login-wrapper">
+      <div class="login-card">
+        <div class="logo-container">
+          <div class="profile-icon">
+            <i class="fa fa-user"></i>
+          </div>
+        </div>
+        
+        <h2 class="welcome-text">Welcome Back</h2>
+        <p class="sign-in-text">sign in to access your SkillMatch account</p>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-container">
+              <input 
+                id="email" 
+                type="email" 
+                formControlName="email" 
+                placeholder="example@gmail.com"
+              >
+              <i class="email-icon fa fa-envelope"></i>
+            </div>
+            <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+              Please enter a valid email
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-container">
+              <input 
+                id="password" 
+                [type]="hidePassword ? 'password' : 'text'" 
+                formControlName="password" 
+                placeholder="••••••••"
+              >
+              <i 
+                class="password-icon" 
+                [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                (click)="hidePassword = !hidePassword"
+              ></i>
+            </div>
+            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+              Password is required
+            </div>
+          </div>
+          
+          <div class="form-options">
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe" formControlName="rememberMe">
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="javascript:void(0)" class="forgot-password" (click)="forgotPassword()">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="sign-in-btn">Sign In</button>
+        </form>
+        
+        <div class="divider">
+          <span>OR</span>
+        </div>
+        
+        <div class="social-login">
+          <button class="google-btn" (click)="signInWithGoogle()">
+            <img src="assets/google-icon.png" alt="Google">
+            Google
+          </button>
+          <button class="facebook-btn" (click)="signInWithFacebook()">
+            <img src="assets/facebook-icon.png" alt="Facebook">
+            Facebook
+          </button>
+        </div>
+        
+        <div class="signup-link">
+          Don't have an account? <a routerLink="/auth/register" (click)="goToSignUp()">sign up</a>
+        </div>
+        
+        <div class="footer-links">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Help</a>
+        </div>
+      </div>
+      
+      <div class="illustration">
+        <img src="power.png" alt="People waiting illustration">
+      </div>
+    </div>
+  </div>

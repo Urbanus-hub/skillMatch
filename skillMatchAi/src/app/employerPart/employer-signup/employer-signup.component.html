@@ -1,0 +1,91 @@
+<!-- skillmatch-signup.component.html -->
+<div class="skillmatch-container">
+    <div class="header">
+      <div class="logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 0C6.268 0 0 6.268 0 14C0 21.732 6.268 28 14 28C21.732 28 28 21.732 28 14C28 6.268 21.732 0 14 0ZM14 4.2C16.961 4.2 19.6 5.6 21.35 7.7H6.65C8.4 5.6 11.039 4.2 14 4.2ZM4.2 14C4.2 11.039 5.6 8.4 7.7 6.65V21.35C5.6 19.6 4.2 16.961 4.2 14ZM14 23.8C11.039 23.8 8.4 22.4 6.65 20.3H21.35C19.6 22.4 16.961 23.8 14 23.8ZM20.3 21.35V6.65C22.4 8.4 23.8 11.039 23.8 14C23.8 16.961 22.4 19.6 20.3 21.35Z" fill="white"/>
+        </svg>
+        <span class="logo-text">SkillMatch</span>
+      </div>
+    </div>
+    
+    <div class="content-container">
+      <div class="wave-shape"></div>
+      
+      <div class="signup-section">
+        <div class="signup-card">
+          <div class="signup-form">
+            <div class="form-group">
+              <input type="text" id="fullName" placeholder=" ">
+              <label for="fullName">first and last name</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="email" id="companyEmail" placeholder=" ">
+              <label for="companyEmail">Company email</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="password" id="password" placeholder=" ">
+              <label for="password">Password</label>
+            </div>
+            
+            <div class="form-group">
+              <input type="password" id="confirmPassword" placeholder=" ">
+              <label for="confirmPassword">Confirm password</label>
+            </div>
+            
+            <div class="form-group checkbox-group">
+              <input type="checkbox" id="termsCheckbox">
+              <label for="termsCheckbox">I agree to the terms and conditions</label>
+            </div>
+            
+            <button class="get-started-btn">Get started</button>
+          </div>
+        </div>
+        
+        <div class="tagline-section">
+          <h2>Find the right fit and top-notch talents for the open roles.</h2>
+          
+          <div class="illustration">
+            <!-- SVG illustration included directly -->
+            <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="230" cy="150" r="120" fill="#EBF3FA" />
+              <path d="M180 190C180 190 213 160 246 190" stroke="#E1EEFF" stroke-width="3" />
+              <rect x="170" y="100" width="120" height="90" rx="5" fill="white" stroke="#DBDBDB" />
+              <rect x="180" y="115" width="40" height="40" rx="3" fill="#1A90E0" opacity="0.1" />
+              <circle cx="200" cy="135" r="15" fill="#1A90E0" />
+              <rect x="230" y="115" width="50" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="230" y="130" width="40" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="230" y="145" width="30" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="230" y="220" width="80" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="230" y="235" width="60" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="230" y="250" width="30" height="6" rx="3" fill="#DBDBDB" />
+              <rect x="180" y="180" width="30" height="30" rx="15" fill="#1A90E0" />
+              <rect x="220" y="180" width="30" height="30" rx="15" fill="#1A90E0" opacity="0.1" />
+              <rect x="260" y="180" width="30" height="30" rx="15" fill="#1A90E0" opacity="0.1" />
+              <g transform="translate(260, 100)">
+                <path d="M50 140C77.6142 140 100 117.614 100 90C100 62.3858 77.6142 40 50 40C22.3858 40 0 62.3858 0 90C0 117.614 22.3858 140 50 140Z" fill="#1A90E0" fill-opacity="0.05"/>
+                <path d="M68.5 70.5L38.5 70.5C34.0817 70.5 30.5 74.0817 30.5 78.5L30.5 108.5C30.5 112.918 34.0817 116.5 38.5 116.5L68.5 116.5C72.9183 116.5 76.5 112.918 76.5 108.5L76.5 78.5C76.5 74.0817 72.9183 70.5 68.5 70.5Z" stroke="#1A90E0" stroke-width="2"/>
+                <circle cx="53.5" cy="85.5" r="5.5" stroke="#1A90E0" stroke-width="2"/>
+                <path d="M44.5 105.5C44.5 100.529 48.529 96.5 53.5 96.5C58.471 96.5 62.5 100.529 62.5 105.5" stroke="#1A90E0" stroke-width="2"/>
+                <path d="M68.5 71L38.5 71C34.3579 71 31 74.3579 31 78.5V79H76V78.5C76 74.3579 72.6421 71 68.5 71Z" fill="#1A90E0"/>
+              </g>
+              <g transform="translate(280, 70)">
+                <rect x="15" y="90" width="80" height="90" rx="8" fill="#1A90E0"/>
+                <rect x="25" y="105" width="60" height="60" rx="4" fill="white"/>
+                <path d="M54.5 125.5C54.5 132.127 49.127 137.5 42.5 137.5C35.873 137.5 30.5 132.127 30.5 125.5C30.5 118.873 35.873 113.5 42.5 113.5C49.127 113.5 54.5 118.873 54.5 125.5Z" stroke="#1A90E0" stroke-width="3"/>
+                <path d="M60 138L50 132" stroke="#1A90E0" stroke-width="3" stroke-linecap="round"/>
+                <rect x="35" y="170" width="40" height="4" rx="2" fill="white"/>
+              </g>
+              <path d="M301 190C301 216.51 279.51 238 253 238C226.49 238 205 216.51 205 190C205 163.49 226.49 142 253 142C279.51 142 301 163.49 301 190Z" fill="#E6F0FF"/>
+              <path d="M260 160C260 168.284 253.284 175 245 175C236.716 175 230 168.284 230 160C230 151.716 236.716 145 245 145C253.284 145 260 151.716 260 160Z" fill="#1A90E0"/>
+              <path d="M335 195C335 200.523 330.523 205 325 205C319.477 205 315 200.523 315 195C315 189.477 319.477 185 325 185C330.523 185 335 189.477 335 195Z" fill="#1A90E0" fill-opacity="0.2"/>
+              <path d="M295 220C295 225.523 290.523 230 285 230C279.477 230 275 225.523 275 220C275 214.477 279.477 210 285 210C290.523 210 295 214.477 295 220Z" fill="#1A90E0" fill-opacity="0.1"/>
+              <path d="M225 215C225 220.523 220.523 225 215 225C209.477 225 205 220.523 205 215C205 209.477 209.477 205 215 205C220.523 205 225 209.477 225 215Z" fill="#1A90E0" fill-opacity="0.3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

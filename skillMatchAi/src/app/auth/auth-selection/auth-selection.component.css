@@ -1,0 +1,116 @@
+/* auth-selection.component.css */
+.auth-selection-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/images/auth-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+  }
+  
+  .auth-selection-content {
+    max-width: 900px;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+  
+  .user-types {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .user-type-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    width: 230px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  
+  .user-type-card:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #4c6ef5;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .icon-container {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(76, 110, 245, 0.2);
+    border-radius: 50%;
+  }
+  
+  .icon-container svg {
+    width: 30px;
+    height: 30px;
+    stroke: #4c6ef5;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+  
+  .back-link {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  
+  .back-link a {
+    color: #4c6ef5;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .back-link a:hover {
+    color: #6c8dff;
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .user-types {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .user-type-card {
+      width: 100%;
+      max-width: 300px;
+    }
+  }

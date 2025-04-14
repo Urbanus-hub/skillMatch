@@ -1,0 +1,60 @@
+<!-- Homepage -->
+<div class="container">
+    <!-- Animated background elements -->
+    <div class="floating-element float-1"></div>
+    <div class="floating-element float-2"></div>
+    <div class="floating-element float-3"></div>
+    
+    <!-- Background waves -->
+    <div class="wave"></div>
+    <div class="wave-2"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="logoImage.png" alt="SkillMatch Logo">
+        <h1>Skill<span>Match</span></h1>
+        <div class="shine-effect"></div>
+      </div>
+      
+      <!-- Navigation Links -->
+      <div class="nav-links">
+        <ul>
+          <li> <a [routerLink]="[]" [fragment]="'home'"> Home</a></li>
+          <li> <a [routerLink]="[]" [fragment]="'works'"> How it works</a></li>
+          <li> <a [routerLink]="[]" [fragment]="'features'">Features</a></li>
+          <li><a [routerLink]="[]" [fragment]="'testimonials'">Testimonials</a></li>
+        </ul>
+      </div>
+      
+      <!-- Buttons -->
+      <div class="auth-buttons">
+        <button class="login"><a routerLink="/auth/login">Login</a></button>
+        <button class="signup"><a routerLink="/auth-selection">Sign Up</a></button>
+      </div>
+    </nav>
+    
+    <!-- Main Section -->
+    <section class="main-section">
+      <h1 class="main-heading">Find The Right Job. Hire <br />The Right Talent.</h1>
+      
+      <div class="content">
+        <div class="text-box">
+          <p>
+            Supercharge your talent acquisition by harnessing cutting-edge AI
+            solutions to build talent pools and create an executive talent pool
+            of top-tier candidates
+          </p>
+          <div class="cta-buttons">
+            <button class="get-started">Get Started</button>
+            <button class="demo">Check Demo</button>
+          </div>
+        </div>
+        <div class="image-box">
+          <img src="/happy.jpg" alt="Hero image" />
+        </div>
+      </div>
+    </section>
+  </div>
+  

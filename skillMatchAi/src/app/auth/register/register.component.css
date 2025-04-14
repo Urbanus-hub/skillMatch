@@ -1,0 +1,301 @@
+/* register.component.css */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.register-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.logo-section {
+  width: 100%;
+  height: 220px;
+  background-color: #1e88e5;
+  position: relative;
+}
+
+.logo {
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 30px;
+  width: auto;
+  margin-right: 10px;
+}
+
+.logo span {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.wave-background {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #1e88e5;
+  border-radius: 0 0 100% 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+  margin-top: -50px;
+}
+
+.illustration {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+  position: relative;
+}
+
+.clock-icon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 70px;
+  z-index: 2;
+}
+
+.clock-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.people-img {
+  max-width: 100%;
+  margin-top: 40px;
+}
+
+.register-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+}
+
+.google-sign-in {
+  margin-bottom: 20px;
+}
+
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.google-btn:hover {
+  background-color: #f8f8f8;
+}
+
+.google-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before, 
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 30px);
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.divider span {
+  background-color: white;
+  padding: 0 12px;
+  color: #9e9e9e;
+  font-size: 0.8rem;
+  position: relative;
+  z-index: 1;
+}
+
+.create-account-text {
+  text-align: center;
+  margin: 0 0 20px 0;
+  color: #333333;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.name-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.name-row .form-group {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333333;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container input {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.input-container input:focus {
+  outline: none;
+  border-color: #1e88e5;
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+
+.user-icon,
+.password-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9e9e9e;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 0.75rem;
+  margin-top: 3px;
+}
+
+.register-btn {
+  width: 100%;
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 5px;
+}
+
+.register-btn:hover {
+  background-color: #1976d2;
+}
+
+.register-btn:active {
+  background-color: #1565c0;
+}
+
+.signin-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: #616161;
+}
+
+.signin-link a {
+  color: #1e88e5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signin-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .content-wrapper {
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+  }
+  
+  .illustration {
+    margin-bottom: 30px;
+    max-width: 400px;
+  }
+  
+  .register-card {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 600px) {
+  .name-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .logo-section {
+    height: 180px;
+  }
+  
+  .register-card {
+    padding: 20px 16px;
+  }
+}

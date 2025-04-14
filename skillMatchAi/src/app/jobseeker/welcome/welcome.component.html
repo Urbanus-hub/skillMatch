@@ -1,0 +1,63 @@
+<!-- skillmatch-onboarding.component.html -->
+<div class="onboarding-container">
+    <div class="header-area">
+      <div class="logo">
+        <span class="icon">&#9734;</span> skillMatch
+      </div>
+      <div class="wave-container">
+        <h1 class="welcome-text">Welcome, {{ username }}</h1>
+        <h2 class="prompt-text">Let's add you to SkillMatch pool!</h2>
+        <div class="wave"></div>
+      </div>
+    </div>
+  
+    <div class="content-area">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="avatar">
+            <div class="initials">{{ username.charAt(0) }}</div>
+          </div>
+          <h3 class="username">{{ username }}</h3>
+          <div class="user-status">New user</div>
+        </div>
+  
+        <div class="profile-completion">
+          <div class="completion-label">Profile completion</div>
+          <div class="progress-bar">
+            <div class="progress"></div>
+          </div>
+        </div>
+  
+        <div class="profile-steps">
+          <div 
+            *ngFor="let step of profileSteps" 
+            class="step" 
+            [ngClass]="{'active': step.completed}">
+            {{ step.name }}
+          </div>
+        </div>
+      </div>
+  
+      <div class="status-card">
+        <h3 class="status-title">Details Added Successfully</h3>
+        
+        <div class="processing-section">
+          <div class="processing-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <circle cx="12" cy="12" r="10" 
+                fill="none" 
+                stroke="#3498db" 
+                stroke-width="2" 
+                stroke-dasharray="30 60">
+              </circle>
+            </svg>
+          </div>
+          <span class="processing-text">Processing data</span>
+        </div>
+        
+        <div class="redirect-message">
+          You will be directed to the main page shortly...
+        </div>
+      </div>
+    </div>
+  </div>

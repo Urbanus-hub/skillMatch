@@ -1,0 +1,76 @@
+<!-- contact-form.component.html -->
+<div class="main-container">
+    <header class="header">
+      <div class="logo">
+        <h1>SkillMatch</h1>
+      </div>
+      <div class="profile-icon">
+        <div class="avatar"></div>
+      </div>
+    </header>
+  
+    <div class="content-container">
+      <div class="sidebar">
+        <h3 class="sidebar-title">Employer Details:</h3>
+        
+        <div class="sidebar-menu">
+          <div 
+            class="menu-item" 
+            [class.active]="selectedOption === 'contacts'"
+            (click)="onOptionSelect('contacts')"
+          >
+            <span>Contacts</span>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div 
+            class="menu-item" 
+            [class.active]="selectedOption === 'career'"
+            (click)="onOptionSelect('career')"
+          >
+            <span>Career fields</span>
+            <i class="arrow-icon">›</i>
+          </div>
+          
+          <div 
+            class="menu-item" 
+            [class.active]="selectedOption === 'enterprise'"
+            (click)="onOptionSelect('enterprise')"
+          >
+            <span>Enterprise details</span>
+            <i class="arrow-icon">›</i>
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-container">
+        <h2 class="form-title">Contacts</h2>
+        
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input 
+              type="text" 
+              id="location" 
+              formControlName="location"
+              class="form-control"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="telephone">Telephone</label>
+            <input 
+              type="tel" 
+              id="telephone" 
+              formControlName="telephone"
+              class="form-control"
+            >
+          </div>
+        </form>
+        
+        <div class="actions">
+          <button class="next-button">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
