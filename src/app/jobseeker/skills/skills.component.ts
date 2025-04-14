@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {RouterLink,RouterModule} from '@angular/router';
+
+
 
 
 
@@ -10,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   selector: 'app-skills',
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink,RouterModule],
   standalone: true
 })
 export class SkillsComponent implements OnInit {

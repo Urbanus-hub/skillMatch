@@ -102,8 +102,9 @@
           </form>
         </div>
         <div class="form-actions">
-          <button class="btn-skip" (click)="skipForNow()">Skip for now</button>
-          <button class="btn-continue" (click)="continue()">Continue</button>
+          <button class="btn-skip" (click)="skipForNow()"> <a [routerLink]="['/seekerDashboard']">Skip for now</a>
+            </button>
+          <button class="btn-continue" (click)="continue()"> <a [routerLink]="['/skills']" routerLinkActive="router-link-active" >Continue</a> </button>
         </div>
       </div>
   

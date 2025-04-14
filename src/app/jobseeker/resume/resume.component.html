@@ -63,7 +63,7 @@
       <!-- Navigation buttons -->
       <div class="navigation-buttons">
         <button class="back-btn" (click)="goBack()">Back</button>
-        <button class="finish-btn" [disabled]="!fileName" (click)="finish()">Finish</button>
+        <button class="finish-btn" [disabled]="!fileName" (click)="finish()"><a [routerLink]="['/seekerDashboard']" routerLinkActive="router-link-active" > Finish</a></button>
       </div>
     </div>
   </div>

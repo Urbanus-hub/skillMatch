@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Pipe } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import {RouterLink,RouterModule} from '@angular/router';
+
 
 
 
@@ -10,7 +12,7 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css'],
- imports: [CommonModule, FormsModule, ReactiveFormsModule],
+ imports: [CommonModule, FormsModule, ReactiveFormsModule,RouterLink,RouterModule],
   standalone: true
 })
 export class ResumeComponent implements OnInit {
