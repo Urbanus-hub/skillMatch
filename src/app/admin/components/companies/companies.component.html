@@ -1,0 +1,38 @@
+<div class="companies-container">
+    <div class="page-header">
+      <h1>Companies</h1>
+      <button class="add-company-btn">Add Company</button>
+    </div>
+
+    <div class="companies-table-container">
+      <table class="companies-table">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Industry</th>
+            <th>Location</th>
+            <th>Employees</th>
+            <th>Open Positions <i class="fa fa-info-circle"></i></th>
+            <th>Total Hires</th>
+            <th>Avg. Time to Hire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let company of companies">
+            <td>
+              <div class="company-info">
+                <div class="company-logo">{{ company.logo }}</div>
+                <div class="company-name">{{ company.name }}</div>
+              </div>
+            </td>
+            <td>{{ company.industry }}</td>
+            <td>{{ company.location }}</td>
+            <td>{{ company.employees }}</td>
+            <td class="open-positions">{{ company.openPositions }}</td>
+            <td>{{ company.totalHires }}</td>
+            <td>{{ company.avgTimeToHire }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

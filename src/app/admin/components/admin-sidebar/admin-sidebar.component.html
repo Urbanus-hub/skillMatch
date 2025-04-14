@@ -1,0 +1,34 @@
+<div class="sidebar" [ngClass]="{'mobile-sidebar': isMobile, 'sidebar-open': isMenuOpen, 'sidebar-closed': !isMenuOpen}">
+    <div class="logo-container">
+      <span class="icon">
+        <i class="fa fa-dumbbell fa-lg"></i>
+      </span>
+      <h1 class="logo-text">SkillMatch</h1>
+      <button *ngIf="isMobile" class="menu-toggle" (click)="onToggleMenu()">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    <div class="menu-items">
+      <div 
+        *ngFor="let item of navItems" 
+        class="menu-item" 
+        [ngClass]="{'active': isActive(item.path)}"
+        (click)="navigateTo(item.path)"
+      >
+        <i class="fa {{ item.icon }}"></i>
+        <span>{{ item.label }}</span>
+      </div>
+    </div>
+    
+    <div class="user-profile" *ngIf="isMenuOpen">
+      <div class="avatar">
+        <i class="fa fa-user"></i>
+      </div>
+      <div class="user-info" *ngIf="isMenuOpen">
+        <p class="user-name">Admin User</p>
+        <button class="logout-btn" (click)="logout()">
+          <i class="fa fa-sign-out"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>

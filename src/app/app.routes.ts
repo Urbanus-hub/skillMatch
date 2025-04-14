@@ -15,7 +15,13 @@ import { SkillmatchSignupComponent } from './employerPart/employer-signup/employ
 import { ContactFormComponent } from './employerPart/contactform/contactform.component';
  import { CareerFieldsComponent } from './employerPart/career-fields/career-fields.component'; // Ensure the file exists or correct the path
 import  {EnterpriseDetailsComponent} from './employerPart/enterprise-details/enterprise-details.component';
-
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { UsersComponent } from './admin/components/users/users.component';
+import { JobsComponent } from './admin/components/jobs/jobs.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { AdminAnalyticsComponent } from './admin/components/admin-analytics/admin-analytics.component';
+import { CompaniesComponent } from './admin/components/companies/companies.component';
+import { TalentBoardComponent } from './employerPart/talent-board/talent-board.component';
 
 
 
@@ -55,7 +61,20 @@ export const routes: Routes = [
   {path:'contactForm',component: ContactFormComponent},
   {path:'careerFields',component: CareerFieldsComponent},
   {path:'enterpriseDetails',component: EnterpriseDetailsComponent},
-  
+  {path:'talentBoard',component:TalentBoardComponent},
+  {
+    path: 'admin',
+    component: AdminHomeComponent,
+    children: [
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'jobs', component: JobsComponent },
+      {path: 'analytics', component:AdminAnalyticsComponent},
+      {path: 'companies' , component:CompaniesComponent},
+      
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+    ]
+  },                                                                                           
   
 
   

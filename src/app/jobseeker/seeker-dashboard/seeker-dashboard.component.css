@@ -203,6 +203,7 @@ body {
   background-color: #eef0ff;
   color: #2892D7;
   font-weight: 500;
+  border-right: 3px solid #2892D7;
 }
 
 .nav-item.active i {

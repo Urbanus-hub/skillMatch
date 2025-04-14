@@ -126,7 +126,7 @@
             <span class="back-icon">‹</span> Back
           </button>
           <button class="next-button" [disabled]="!enterpriseForm.valid" (click)="onDone()">
-            All done
+           <a [routerLink]="['/talentBoard']" routerLinkActive="router-link-active" > All done </a>
           </button>
         </div>
       </div>

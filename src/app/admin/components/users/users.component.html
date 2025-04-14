@@ -1,0 +1,445 @@
+<!-- users.component.html -->
+<div class="dashboard-container">
+  <!-- Main Header -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <h1 class="dashboard-title">Users Dashboard</h1>
+      <p class="dashboard-subtitle">Manage and monitor your platform statistics</p>
+    </div>
+    <div class="header-actions">
+      <div class="search-container">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" placeholder="Search users..." class="search-input">
+      </div>
+      <div class="notification-btn">
+        <i class="fa fa-bell"></i>
+        <span class="notification-badge">3</span>
+        <div class="notification-tooltip">3 unread notifications</div>
+      </div>
+      <div class="user-profile">
+        <div class="user-avatar">
+          <img src="/api/placeholder/80/80" alt="User avatar">
+        </div>
+        <div class="user-info">
+          <span class="user-name">Admin User</span>
+          <span class="user-role">Administrator</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Summary Stats Cards -->
+  <div class="stat-cards">
+    <div class="stat-card">
+      <div class="stat-icon users-icon">
+        <i class="fa fa-users"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Total Users</h3>
+        <p class="stat-value">2,489</p>
+        <div class="stat-info">
+          <div class="stat-trend positive">
+            <i class="fa fa-arrow-up"></i>
+            <span>12.5%</span>
+          </div>
+          <span class="stat-period">vs last month</span>
+        </div>
+      </div>
+      <div class="stat-chart mini">
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon skills-icon">
+        <i class="fa fa-graduation-cap"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Active Skills</h3>
+        <p class="stat-value">342</p>
+        <div class="stat-info">
+          <div class="stat-trend positive">
+            <i class="fa fa-arrow-up"></i>
+            <span>8.3%</span>
+          </div>
+          <span class="stat-period">vs last month</span>
+        </div>
+      </div>
+      <div class="stat-chart mini">
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon jobs-icon">
+        <i class="fa fa-briefcase"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Open Jobs</h3>
+        <p class="stat-value">156</p>
+        <div class="stat-info">
+          <div class="stat-trend negative">
+            <i class="fa fa-arrow-down"></i>
+            <span>3.7%</span>
+          </div>
+          <span class="stat-period">vs last month</span>
+        </div>
+      </div>
+      <div class="stat-chart mini">
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon companies-icon">
+        <i class="fa fa-building"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-title">Companies</h3>
+        <p class="stat-value">89</p>
+        <div class="stat-info">
+          <div class="stat-trend positive">
+            <i class="fa fa-arrow-up"></i>
+            <span>5.2%</span>
+          </div>
+          <span class="stat-period">vs last month</span>
+        </div>
+      </div>
+      <div class="stat-chart mini">
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+        <div class="mini-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Panels -->
+  <div class="content-panels">
+    <!-- Recent Activity Panel -->
+    <div class="panel activity-panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>Recent Activity</h2>
+          <span class="panel-subtitle">Latest updates from users</span>
+        </div>
+        <div class="panel-actions">
+          <button class="filter-btn">
+            <i class="fa fa-filter"></i>
+            <span>Filter</span>
+          </button>
+          <button class="view-all-btn">View All</button>
+        </div>
+      </div>
+      
+      <div class="activity-list">
+        <div class="activity-item" *ngFor="let item of recentActivities" [ngClass]="item.type">
+          <div class="activity-icon" [ngClass]="item.type">
+            <i class="fa" [ngClass]="item.icon"></i>
+          </div>
+          <div class="activity-details">
+            <p class="activity-text">{{ item.action }}</p>
+            <span class="activity-time">{{ item.time }}</span>
+          </div>
+          <div class="activity-action">
+            <button class="action-btn">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Additional items for display -->
+        <div class="activity-item user">
+          <div class="activity-icon user">
+            <i class="fa fa-user"></i>
+          </div>
+          <div class="activity-details">
+            <p class="activity-text">John Smith updated his profile</p>
+            <span class="activity-time">15 minutes ago</span>
+          </div>
+          <div class="activity-action">
+            <button class="action-btn">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="activity-item job">
+          <div class="activity-icon job">
+            <i class="fa fa-briefcase"></i>
+          </div>
+          <div class="activity-details">
+            <p class="activity-text">New job posted: Senior Angular Developer</p>
+            <span class="activity-time">2 hours ago</span>
+          </div>
+          <div class="activity-action">
+            <button class="action-btn">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="activity-item skill">
+          <div class="activity-icon skill">
+            <i class="fa fa-clipboard-list"></i>
+          </div>
+          <div class="activity-details">
+            <p class="activity-text">Emma Johnson added React.js skill</p>
+            <span class="activity-time">5 hours ago</span>
+          </div>
+          <div class="activity-action">
+            <button class="action-btn">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="activity-item user">
+          <div class="activity-icon user">
+            <i class="fa fa-user-plus"></i>
+          </div>
+          <div class="activity-details">
+            <p class="activity-text">Michael Williams joined the platform</p>
+            <span class="activity-time">1 day ago</span>
+          </div>
+          <div class="activity-action">
+            <button class="action-btn">
+              <i class="fa fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Growth Panel -->
+    <div class="panel growth-panel">
+      <div class="panel-header">
+        <div class="panel-header-left">
+          <h2>User Growth</h2>
+          <span class="panel-subtitle">New user registrations over time</span>
+        </div>
+        <div class="panel-actions">
+          <div class="chart-controls">
+            <button class="chart-btn active">Monthly</button>
+            <button class="chart-btn">Weekly</button>
+            <button class="chart-btn">Daily</button>
+          </div>
+          <button class="export-btn">
+            <i class="fa fa-download"></i>
+            <span>Export</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-color primary"></div>
+            <span class="legend-label">New Users</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color secondary"></div>
+            <span class="legend-label">Active Users</span>
+          </div>
+        </div>
+        
+        <div class="chart">
+          <div class="chart-y-axis">
+            <div class="y-axis-label">400</div>
+            <div class="y-axis-label">300</div>
+            <div class="y-axis-label">200</div>
+            <div class="y-axis-label">100</div>
+            <div class="y-axis-label">0</div>
+          </div>
+          
+          <div class="chart-grid">
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+            <div class="grid-line"></div>
+          </div>
+          
+          <div class="chart-bars">
+            <div *ngFor="let month of userGrowthData" class="chart-bar">
+              <div class="bar-tooltip">{{ month.value }} users</div>
+              <div class="bar-wrapper">
+                <div class="bar" [style.height]="(month.value / maxValue * 100) + '%'"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">{{ month.month }}</div>
+            </div>
+            <!-- Additional static bars for display -->
+            <div class="chart-bar">
+              <div class="bar-tooltip">120 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 37.5%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">Jan</div>
+            </div>
+            <div class="chart-bar">
+              <div class="bar-tooltip">180 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 56.25%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">Feb</div>
+            </div>
+            <div class="chart-bar">
+              <div class="bar-tooltip">160 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 50%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">Mar</div>
+            </div>
+            <div class="chart-bar">
+              <div class="bar-tooltip">220 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 68.75%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">Apr</div>
+            </div>
+            <div class="chart-bar active">
+              <div class="bar-tooltip">280 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 87.5%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">May</div>
+            </div>
+            <div class="chart-bar">
+              <div class="bar-tooltip">320 users</div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 100%"></div>
+                <div class="bar-overlay"></div>
+              </div>
+              <div class="month-label">Jun</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bottom Section -->
+  <div class="bottom-section">
+    <!-- User Demographics -->
+    <div class="panel demographics-panel">
+      <div class="panel-header">
+        <h2>User Demographics</h2>
+        <button class="view-details-btn">View Details</button>
+      </div>
+      <div class="demographics-content">
+        <div class="demographics-item">
+          <div class="demographics-info">
+            <h4>Location</h4>
+            <div class="demographics-stat">
+              <span class="demographics-value">65%</span>
+              <span class="demographics-label">US & Canada</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 65%"></div>
+          </div>
+        </div>
+        <div class="demographics-item">
+          <div class="demographics-info">
+            <h4>Age Group</h4>
+            <div class="demographics-stat">
+              <span class="demographics-value">42%</span>
+              <span class="demographics-label">25-34 years</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 42%"></div>
+          </div>
+        </div>
+        <div class="demographics-item">
+          <div class="demographics-info">
+            <h4>Industry</h4>
+            <div class="demographics-stat">
+              <span class="demographics-value">38%</span>
+              <span class="demographics-label">Technology</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress" style="width: 38%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Recent Users -->
+    <div class="panel users-panel">
+      <div class="panel-header">
+        <h2>Recent Users</h2>
+        <button class="view-all-btn">View All Users</button>
+      </div>
+      <div class="recent-users">
+        <div class="user-row">
+          <div class="user-details">
+            <div class="user-avatar small">
+              <img src="/api/placeholder/45/45" alt="User">
+            </div>
+            <div class="user-info">
+              <h4>Emma Johnson</h4>
+              <span>UI/UX Designer</span>
+            </div>
+          </div>
+          <div class="user-status active">Active</div>
+        </div>
+        <div class="user-row">
+          <div class="user-details">
+            <div class="user-avatar small">
+              <img src="/api/placeholder/45/45" alt="User">
+            </div>
+            <div class="user-info">
+              <h4>John Smith</h4>
+              <span>Full Stack Developer</span>
+            </div>
+          </div>
+          <div class="user-status active">Active</div>
+        </div>
+        <div class="user-row">
+          <div class="user-details">
+            <div class="user-avatar small">
+              <img src="/api/placeholder/45/45" alt="User">
+            </div>
+            <div class="user-info">
+              <h4>Sarah Williams</h4>
+              <span>Product Manager</span>
+            </div>
+          </div>
+          <div class="user-status inactive">Inactive</div>
+        </div>
+        <div class="user-row">
+          <div class="user-details">
+            <div class="user-avatar small">
+              <img src="/api/placeholder/45/45" alt="User">
+            </div>
+            <div class="user-info">
+              <h4>Michael Brown</h4>
+              <span>Frontend Developer</span>
+            </div>
+          </div>
+          <div class="user-status active">Active</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

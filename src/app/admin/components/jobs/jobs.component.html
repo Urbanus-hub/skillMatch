@@ -1,0 +1,225 @@
+<div class="job-approval-container">
+  <div class="page-header">
+    <div>
+      <h1>Job Approval Queue</h1>
+      <p class="page-subtitle">Review and manage job postings submitted by companies for approval</p>
+    </div>
+    <div class="status-badges">
+      <span class="badge pending">{{ pendingCount }} pending</span>
+      <span class="badge approved">{{ approvedCount }} approved</span>
+      <span class="badge rejected">{{ rejectedCount }} rejected</span>
+    </div>
+  </div>
+  
+  <div class="content-container">
+    <!-- Filter Panel -->
+    <div class="filter-panel">
+      <h3>Filters</h3>
+      
+      <!-- Status Filters -->
+      <div class="filter-category">
+        <h4 class="filter-category-title">Status</h4>
+        <div class="filter-options">
+          <div 
+            *ngFor="let status of jobStatusCounts"
+            class="filter-option" 
+            [class.active]="status.active"
+            (click)="setActiveFilter(status.status)"
+          >
+            <span class="filter-text">
+              <i class="filter-icon fa" [ngClass]="getStatusIcon(status.status)"></i>
+              {{ status.status }}
+            </span>
+            <span class="filter-count">{{ status.count }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Category Filters -->
+      <div class="filter-category">
+        <h4 class="filter-category-title">Category</h4>
+        <div class="filter-options">
+          <div 
+            *ngFor="let category of jobCategories"
+            class="filter-option" 
+            [class.active]="category.active"
+            (click)="setActiveCategory(category.name)"
+          >
+            <span class="filter-text">{{ category.name }}</span>
+            <span class="filter-count">{{ category.count }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Experience Level Filters -->
+      <div class="filter-category">
+        <h4 class="filter-category-title">Experience</h4>
+        <div class="filter-options">
+          <div 
+            *ngFor="let level of experienceLevels"
+            class="filter-option" 
+            [class.active]="level.active"
+            (click)="setActiveExperience(level.name)"
+          >
+            <span class="filter-text">{{ level.name }}</span>
+            <span class="filter-count">{{ level.count }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="filter-actions">
+        <button class="filter-clear" (click)="clearAllFilters()">Clear all filters</button>
+      </div>
+    </div>
+    
+    <!-- Job List -->
+    <div class="job-list">
+      <div class="job-list-header">
+        <h3 class="job-list-title">{{ filteredJobs.length }} Jobs</h3>
+        <div class="job-list-actions">
+          <button class="action-button secondary">
+            <i class="fa fa-download"></i> Export
+          </button>
+          <button class="action-button primary">
+            <i class="fa fa-plus"></i> Add Job
+          </button>
+        </div>
+      </div>
+      
+      <div class="search-sort-container">
+        <div class="search-container">
+          <i class="fa fa-search search-icon"></i>
+          <input 
+            type="text" 
+            placeholder="Search by job title, company or keywords..." 
+            class="search-input"
+            [(ngModel)]="searchQuery"
+            (input)="searchJobs()"
+          >
+        </div>
+        
+        <div class="sort-dropdown">
+          <button class="sort-button" [class.active]="showSortMenu" (click)="toggleSortMenu()">
+            <span>Sort by: {{ currentSort }}</span>
+            <i class="fa fa-chevron-down"></i>
+          </button>
+          <div class="sort-menu" [ngClass]="{'show': showSortMenu}">
+            <div 
+              class="sort-option" 
+              [class.active]="currentSort === 'Date (Newest)'"
+              (click)="setSort('Date (Newest)')"
+            >
+              Date (Newest)
+            </div>
+            <div 
+              class="sort-option" 
+              [class.active]="currentSort === 'Date (Oldest)'"
+              (click)="setSort('Date (Oldest)')"
+            >
+              Date (Oldest)
+            </div>
+            <div 
+              class="sort-option" 
+              [class.active]="currentSort === 'Company (A-Z)'"
+              (click)="setSort('Company (A-Z)')"
+            >
+              Company (A-Z)
+            </div>
+            <div 
+              class="sort-option" 
+              [class.active]="currentSort === 'Job Title (A-Z)'"
+              (click)="setSort('Job Title (A-Z)')"
+            >
+              Job Title (A-Z)
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Job Cards -->
+      <div class="job-cards" *ngIf="!isLoading && filteredJobs.length > 0">
+        <div class="job-card" *ngFor="let job of filteredJobs">
+          <div class="job-card-header">
+            <div>
+              <h3 class="job-title">{{ job.title }}</h3>
+              <p class="job-company">{{ job.company }}</p>
+            </div>
+            <span class="job-status" [ngClass]="job.status.toLowerCase()">
+              <i class="fa" [ngClass]="getStatusIcon(job.status)"></i>
+              {{ job.status }}
+            </span>
+          </div>
+          
+          <div class="job-details">
+            <div class="job-detail">
+              <span class="detail-label">Location</span>
+              <span class="detail-value">{{ job.location }}</span>
+            </div>
+            <div class="job-detail">
+              <span class="detail-label">Job Type</span>
+              <span class="detail-value">{{ job.type }}</span>
+            </div>
+            <div class="job-detail">
+              <span class="detail-label">Category</span>
+              <span class="detail-value">{{ job.category }}</span>
+            </div>
+            <div class="job-detail">
+              <span class="detail-label">Posted</span>
+              <span class="detail-value">{{ job.datePosted | date }}</span>
+            </div>
+          </div>
+          
+          <p class="job-description">{{ job.description }}</p>
+          
+          <div class="job-actions">
+            <button class="job-button approve" *ngIf="job.status === 'Pending'">
+              <i class="fa fa-check"></i> Approve
+            </button>
+            <button class="job-button reject" *ngIf="job.status === 'Pending'">
+              <i class="fa fa-times"></i> Reject
+            </button>
+            <button class="job-button view">
+              <i class="fa fa-eye"></i> View Details
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Loading State -->
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="loading-spinner"></div>
+      </div>
+      
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!isLoading && filteredJobs.length === 0">
+        <i class="empty-state-icon fa fa-briefcase"></i>
+        <h3 class="empty-state-text">No jobs found</h3>
+        <p class="empty-state-subtext">Try adjusting your filters or search criteria to find what you're looking for.</p>
+        <button class="empty-state-button" (click)="clearAllFilters()">Clear all filters</button>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination" *ngIf="!isLoading && filteredJobs.length > 0">
+        <div class="page-info">
+          Showing {{ paginationStart }} - {{ paginationEnd }} of {{ totalJobs }} jobs
+        </div>
+        <div class="page-numbers">
+          <div class="page-arrow" [class.disabled]="currentPage === 1" (click)="previousPage()">
+            <i class="fa fa-chevron-left"></i>
+          </div>
+          <div 
+            *ngFor="let page of pageNumbers"
+            class="page-number" 
+            [class.active]="page === currentPage"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </div>
+          <div class="page-arrow" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
+            <i class="fa fa-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

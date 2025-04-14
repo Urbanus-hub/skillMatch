@@ -1,0 +1,150 @@
+<!-- analytics-dashboard.component.html -->
+<div class="analytics-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Analytics Dashboard</h1>
+      <p class="subtitle">Job market insights and hiring trends</p>
+    </div>
+    <div class="header-actions">
+      <div class="date-selector">
+        <span class="date-text">April 14, 2025</span>
+        <i class="material-icons">calendar_today</i>
+      </div>
+      <button class="btn-export">
+        <i class="material-icons">file_download</i>
+        Export Data
+      </button>
+    </div>
+  </div>
+  
+  <div class="stats-container">
+    <div class="stat-card" *ngFor="let stat of statCards">
+      <div class="stat-icon" [style.background-color]="stat.color + '20'">
+        <i class="material-icons" [style.color]="stat.color">{{stat.icon}}</i>
+      </div>
+      <div class="stat-content">
+        <div class="stat-title">{{stat.title}}</div>
+        <div class="stat-value">{{stat.value}}</div>
+        <div class="stat-trend" [ngClass]="{'positive': (stat.trend ?? '').includes('+'), 'negative': (stat.trend ?? '').includes('-')}">
+          <i class="material-icons">{{(stat.trend ?? '').includes('+') ? 'trending_up' : 'trending_down'}}</i>
+          <span>{{stat.trend}} this month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content-sections">
+    <div class="section jobs-growth">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Jobs Growth</h2>
+          <span class="section-subtitle">New job postings over time</span>
+        </div>
+        <div class="time-filter">
+          <span [ngClass]="{'active': activeTimeFilter === 'Week'}" (click)="setTimeFilter('Week')">Week</span>
+          <span [ngClass]="{'active': activeTimeFilter === 'Month'}" (click)="setTimeFilter('Month')">Month</span>
+          <span [ngClass]="{'active': activeTimeFilter === 'Year'}" (click)="setTimeFilter('Year')">Year</span>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart">
+          <div class="chart-grid">
+            <div class="grid-line" *ngFor="let i of [0,1,2,3,4]">
+              <span class="grid-value">{{maxChartValue * (4-i) / 4}}</span>
+            </div>
+          </div>
+          <div class="chart-bars">
+            <div *ngFor="let point of jobsGrowthData" class="chart-bar">
+              <div class="bar" [style.height]="(point.value / maxChartValue * 100) + '%'">
+                <span class="tooltip">{{point.value}} jobs</span>
+              </div>
+              <div class="bar-label">{{point.label}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section skills-demand">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Top Skills in Demand</h2>
+          <span class="section-subtitle">Most requested skills in job listings</span>
+        </div>
+        <div class="section-action">
+          <button class="btn-view-all">View All</button>
+        </div>
+      </div>
+      
+      <div class="skills-list">
+        <div *ngFor="let skill of topSkills" class="skill-item">
+          <div class="skill-info">
+            <div class="skill-name">{{skill.name}}</div>
+            <div class="skill-count">{{skill.count}}</div>
+          </div>
+          <div class="skill-bar-container">
+            <div class="skill-bar" [style.width]="skill.percentage + '%'" [style.background-color]="skill.color"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section locations">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Top Locations</h2>
+          <span class="section-subtitle">Cities with highest job availability</span>
+        </div>
+      </div>
+      
+      <div class="locations-list">
+        <div *ngFor="let location of topLocations" class="location-item">
+          <div class="location-info">
+            <div class="location-icon">
+              <i class="material-icons">location_on</i>
+            </div>
+            <div class="location-name">{{location.name}}</div>
+          </div>
+          <div class="location-stats">
+            <div class="location-count">{{location.count}}</div>
+            <div class="location-bar-container">
+              <div class="location-bar" [style.width]="location.percentage + '%'"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="section recent-activity">
+      <div class="section-header">
+        <div class="section-title">
+          <h2>Recent Activity</h2>
+          <span class="section-subtitle">Latest updates in your network</span>
+        </div>
+        <div class="section-action">
+          <button class="btn-refresh">
+            <i class="material-icons">refresh</i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="activity-list">
+        <div *ngFor="let activity of recentActivities" class="activity-item" [ngClass]="activity.type">
+          <div class="activity-icon">
+            <i class="material-icons">
+              {{activity.type === 'job-post' ? 'work' : 
+                activity.type === 'application' ? 'description' : 
+                activity.type === 'interview' ? 'people' : 'check_circle'}}
+            </i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-title">{{activity.title}}</div>
+            <div class="activity-subtitle">{{activity.company}}</div>
+            <div class="activity-time">{{activity.time}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="matches-container">
+    <div class="section-header">
+      <h2>Recent Matches</h2>
+      <a href="#" class="view-all">View All</a>
+    </div>
+    
+    <div class="match-item" *ngFor="let match of recentMatches">
+      <div class="match-info">
+        <div class="user-avatar">
+          <span>{{match.initials}}</span>
+        </div>
+        <div class="user-details">
+          <div class="user-name">{{match.name}}</div>
+          <div class="user-position">{{match.company}} • {{match.position}}</div>
+        </div>
+      </div>
+      <div class="match-score">
+        <div class="score-value">{{match.score}}%</div>
+        <div class="score-bar">
+          <div class="score-progress" [style.width]="match.score + '%'"></div>
+        </div>
+      </div>
+    </div>
+  </div>

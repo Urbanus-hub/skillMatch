@@ -1,0 +1,16 @@
+<div class="skills-container shadow-md">
+    <div class="section-header">
+      <h2>Top Skills in Demand</h2>
+      <a href="#" class="view-all">View All</a>
+    </div>
+    
+    <div class="skill-item" *ngFor="let skill of topSkills">
+      <div class="skill-info">
+        <div class="skill-name">{{skill.name}}</div>
+        <div class="skill-bar">
+          <div class="skill-progress" [style.width]="(skill.users / 400) * 100 + '%'"></div>
+        </div>
+      </div>
+      <div class="skill-users">{{skill.users}} users</div>
+    </div>
+  </div>

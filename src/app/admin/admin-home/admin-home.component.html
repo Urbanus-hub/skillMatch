@@ -1,0 +1,6 @@
+<div class="app-container">
+    <app-admin-sidebar [isMobile]="isMobile" [isMenuOpen]="isMenuOpen" (toggleMenu)="toggleMenu()" />
+    <div class="content-area" [ngClass]="{'content-shifted': isMenuOpen && isMobile}">
+        <router-outlet></router-outlet>
+    </div>
+  </div>

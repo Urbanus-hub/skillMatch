@@ -1,0 +1,13 @@
+<div class="stat-card">
+    <div class="stat-title">{{title}}</div>
+    <div class="stat-value">{{value}}</div>
+    <div class="stat-change" [ngClass]="{'increase': changeType === 'increase', 'decrease': changeType === 'decrease'}">
+      <svg *ngIf="changeType === 'increase'" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 14l5-5 5 5z"/>
+      </svg>
+      <svg *ngIf="changeType === 'decrease'" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 10l5 5 5-5z"/>
+      </svg>
+      {{change}}% this month
+    </div>
+  </div>

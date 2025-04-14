@@ -27,7 +27,7 @@ export class AuthSelectionComponent {
         this.router.navigate(['/employerSignup']);
         break;
       case 'admin':
-        this.router.navigate(['/auth/admin-register']);
+        this.router.navigate(['/admin/dashboard']);
         break;
       default:
         this.router.navigate(['/auth/register'], { queryParams: { type: userType } });

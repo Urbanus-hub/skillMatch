@@ -1,0 +1,22 @@
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .content-area {
+    flex: 1;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease;
+  }
+  
+  @media (max-width: 768px) {
+    .content-area {
+      margin-left: 0;
+      width: 100%;
+    }
+    
+    .content-shifted {
+      margin-left: 280px;
+    }
+  }
