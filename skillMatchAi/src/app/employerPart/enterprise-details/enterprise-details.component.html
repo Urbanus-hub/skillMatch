@@ -2,7 +2,7 @@
 <div class="main-container">
     <header class="header">
       <div class="logo">
-        <span class="logo-icon"><img src="logoImage.png" alt=""></span>
+        <img src="logoImage.png" alt="">
         <h1>SkillMatch</h1>
       </div>
       <div class="profile-icon">
@@ -45,21 +45,9 @@
             <i class="arrow-icon">›</i>
           </div>
           
-          <div class="menu-item">
-            <div class="menu-item-content">
-              <div class="step-number">4</div>
-              <span>Job listings</span>
-            </div>
-            <i class="arrow-icon">›</i>
-          </div>
           
-          <div class="menu-item">
-            <div class="menu-item-content">
-              <div class="step-number">5</div>
-              <span>Review & submit</span>
-            </div>
-            <i class="arrow-icon">›</i>
-          </div>
+          
+          
         </div>
       </div>
   
@@ -75,7 +63,6 @@
                 id="industry" 
                 formControlName="industry" 
                 class="form-control"
-                [ngClass]="{'invalid': enterpriseForm.get('industry').touched && enterpriseForm.get('industry').invalid}"
               >
             </div>
   
@@ -98,7 +85,6 @@
                 id="companySize" 
                 formControlName="companySize" 
                 class="form-control"
-                [ngClass]="{'invalid': enterpriseForm.get('companySize').touched && enterpriseForm.get('companySize').invalid}"
               >
             </div>
   
@@ -120,9 +106,7 @@
                 type="text" 
                 id="jobTitle" 
                 formControlName="jobTitle" 
-                class="form-control"
-                [ngClass]="{'invalid': enterpriseForm.get('jobTitle').touched && enterpriseForm.get('jobTitle').invalid}"
-              >
+                class="form-control">
             </div>
   
             <div class="form-group">

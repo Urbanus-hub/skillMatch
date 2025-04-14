@@ -27,12 +27,14 @@
 
 .logo {
   display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
-.logo-icon {
-  font-size: 24px;
-  margin-right: 10px;
+.logo img {
+ width: 30px;
+height: 30px;
+  
 }
 
 .logo h1 {

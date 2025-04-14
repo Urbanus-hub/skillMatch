@@ -1,7 +1,9 @@
 // skill-match.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {RouterModule,RouterLink}from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { from } from 'rxjs';
 
 interface CareerField {
   id: number;
@@ -15,7 +17,7 @@ interface CareerField {
   selector: 'app-skill-match',
   templateUrl: './career-fields.component.html',
   styleUrls: ['./career-fields.component.css'],
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule,RouterModule,RouterLink],
   standalone: true,
   providers: []
 })

@@ -1,11 +1,14 @@
 // skillmatch-signup.component.ts
 import { Component, OnInit } from '@angular/core';
+import { RouterModule,RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-skillmatch-signup',
   templateUrl: './employer-signup.component.html',
-  styleUrls: ['./employer-signup.component.css']
+  styleUrls: ['./employer-signup.component.css'],
+  imports: [RouterModule,RouterLink],
+  standalone: true
 })
 export class SkillmatchSignupComponent implements OnInit {
   signupForm!: FormGroup;

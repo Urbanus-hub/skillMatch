@@ -15,10 +15,22 @@ export class AuthSelectionComponent {
   constructor(private router: Router) {}
   
   navigateToAuth(userType: string) {
-    // Store the user type in local storage or state management
+    // Store the user type in local storage
     localStorage.setItem('userType', userType);
     
-    // Navigate to the login page with the user type as a parameter
-    this.router.navigate(['/auth/register'], { queryParams: { type: userType } });
+    // Navigate to different routes based on user type
+    switch(userType) {
+      case 'jobseeker':
+        this.router.navigate(['/auth/register']);
+        break;
+      case 'employer':
+        this.router.navigate(['/employerSignup']);
+        break;
+      case 'admin':
+        this.router.navigate(['/auth/admin-register']);
+        break;
+      default:
+        this.router.navigate(['/auth/register'], { queryParams: { type: userType } });
+    }
   }
 }

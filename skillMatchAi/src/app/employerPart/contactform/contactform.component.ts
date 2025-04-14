@@ -1,5 +1,7 @@
 // contact-form.component.ts
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 
 
@@ -7,7 +9,7 @@ import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular
   selector: 'app-contact-form',
   templateUrl: './contactform.component.html',
   styleUrls: ['./contactform.component.css'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink, RouterModule],
   standalone: true
 })
 export class ContactFormComponent {
