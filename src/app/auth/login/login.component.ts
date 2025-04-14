@@ -1,15 +1,15 @@
 // login.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  imports: [ReactiveFormsModule, CommonModule],
-  standalone: true
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterModule, CommonModule]
 })
 export class LoginComponent {
   loginForm: FormGroup;
