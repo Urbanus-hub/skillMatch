@@ -8,7 +8,7 @@ inputs:
   bucket-region:
     description: 'The region where the bucket is in'
     required: false
-    default: 'eu-north-1'
+    default: 'us-east-1'
   
   dist-folder:
     description: 'The folder containing deployable files'

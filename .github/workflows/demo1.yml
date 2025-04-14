@@ -51,11 +51,7 @@ jobs:
             ls -la
             echo "Dist directory:"
             ls -la ./dist
-        
-        - name: Rename index file
-          run: |
-            cd ./dist/skills-match/browser
-            cp index.csr.html index.html
+      
         
         - name: Deploy
           id: deploy
@@ -65,8 +61,8 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}} 
           with:
             bucket: skillsmatchai 
-            dist-folder: ./dist/skills-match/browser
-            bucket-region: eu-north-1
+            dist-folder: ./dist/skills-match-ai/browser
+            bucket-region: us-east-1
 
         - name: Output URL
           run: echo "Live URL:${{steps.deploy.outputs.website-url}}"

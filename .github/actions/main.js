@@ -19,8 +19,8 @@ exec.exec(`aws s3 sync ${distFolder} ${s3URI} --region ${bucketRegion}`)
 
 
 //Get URl
-const websiteUrl= `http://${bucket}.s3-website.${bucketRegion}.amazonaws.com`
-// http://skillsmatchai.s3-website.eu-north-1.amazonaws.com/
+const websiteUrl= `http://${bucket}.s3-website-${bucketRegion}.amazonaws.com`
+// http://skillmatch-frontend.s3-website-us-east-1.amazonaws.com/
 core.setOutput('website-url',websiteUrl)
 
 }
