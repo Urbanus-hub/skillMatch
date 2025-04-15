@@ -1,5 +1,6 @@
 import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+
 interface ActivityItem {
   type: 'user' | 'job' | 'skill';
   action: string;

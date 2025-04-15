@@ -8,11 +8,11 @@
     </div>
     <div class="header-actions">
       <div class="search-container">
-        <i class="fa fa-search search-icon"></i>
+        <i class="fas fa-search search-icon"></i>
         <input type="text" placeholder="Search users..." class="search-input">
       </div>
       <div class="notification-btn">
-        <i class="fa fa-bell"></i>
+        <i class="fas fa-bell"></i>
         <span class="notification-badge">3</span>
         <div class="notification-tooltip">3 unread notifications</div>
       </div>
@@ -32,14 +32,14 @@
   <div class="stat-cards">
     <div class="stat-card">
       <div class="stat-icon users-icon">
-        <i class="fa fa-users"></i>
+        <i class="fas fa-users"></i>
       </div>
       <div class="stat-content">
         <h3 class="stat-title">Total Users</h3>
         <p class="stat-value">2,489</p>
         <div class="stat-info">
           <div class="stat-trend positive">
-            <i class="fa fa-arrow-up"></i>
+            <i class="fas fa-arrow-up"></i>
             <span>12.5%</span>
           </div>
           <span class="stat-period">vs last month</span>
@@ -56,14 +56,14 @@
     
     <div class="stat-card">
       <div class="stat-icon skills-icon">
-        <i class="fa fa-graduation-cap"></i>
+        <i class="fas fa-graduation-cap"></i>
       </div>
       <div class="stat-content">
         <h3 class="stat-title">Active Skills</h3>
         <p class="stat-value">342</p>
         <div class="stat-info">
           <div class="stat-trend positive">
-            <i class="fa fa-arrow-up"></i>
+            <i class="fas fa-arrow-up"></i>
             <span>8.3%</span>
           </div>
           <span class="stat-period">vs last month</span>
@@ -80,14 +80,14 @@
     
     <div class="stat-card">
       <div class="stat-icon jobs-icon">
-        <i class="fa fa-briefcase"></i>
+        <i class="fas fa-briefcase"></i>
       </div>
       <div class="stat-content">
         <h3 class="stat-title">Open Jobs</h3>
         <p class="stat-value">156</p>
         <div class="stat-info">
           <div class="stat-trend negative">
-            <i class="fa fa-arrow-down"></i>
+            <i class="fas fa-arrow-down"></i>
             <span>3.7%</span>
           </div>
           <span class="stat-period">vs last month</span>
@@ -104,14 +104,14 @@
     
     <div class="stat-card">
       <div class="stat-icon companies-icon">
-        <i class="fa fa-building"></i>
+        <i class="fas fa-building"></i>
       </div>
       <div class="stat-content">
         <h3 class="stat-title">Companies</h3>
         <p class="stat-value">89</p>
         <div class="stat-info">
           <div class="stat-trend positive">
-            <i class="fa fa-arrow-up"></i>
+            <i class="fas fa-arrow-up"></i>
             <span>5.2%</span>
           </div>
           <span class="stat-period">vs last month</span>
@@ -138,7 +138,7 @@
         </div>
         <div class="panel-actions">
           <button class="filter-btn">
-            <i class="fa fa-filter"></i>
+            <i class="fas fa-filter"></i>
             <span>Filter</span>
           </button>
           <button class="view-all-btn">View All</button>
@@ -148,7 +148,7 @@
       <div class="activity-list">
         <div class="activity-item" *ngFor="let item of recentActivities" [ngClass]="item.type">
           <div class="activity-icon" [ngClass]="item.type">
-            <i class="fa" [ngClass]="item.icon"></i>
+            <i class="fas" [ngClass]="item.icon"></i>
           </div>
           <div class="activity-details">
             <p class="activity-text">{{ item.action }}</p>
@@ -156,7 +156,7 @@
           </div>
           <div class="activity-action">
             <button class="action-btn">
-              <i class="fa fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
         </div>
@@ -164,7 +164,7 @@
         <!-- Additional items for display -->
         <div class="activity-item user">
           <div class="activity-icon user">
-            <i class="fa fa-user"></i>
+            <i class="fas fa-user"></i>
           </div>
           <div class="activity-details">
             <p class="activity-text">John Smith updated his profile</p>
@@ -172,14 +172,14 @@
           </div>
           <div class="activity-action">
             <button class="action-btn">
-              <i class="fa fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
         </div>
         
         <div class="activity-item job">
           <div class="activity-icon job">
-            <i class="fa fa-briefcase"></i>
+            <i class="fas fa-briefcase"></i>
           </div>
           <div class="activity-details">
             <p class="activity-text">New job posted: Senior Angular Developer</p>
@@ -187,14 +187,14 @@
           </div>
           <div class="activity-action">
             <button class="action-btn">
-              <i class="fa fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
         </div>
         
         <div class="activity-item skill">
           <div class="activity-icon skill">
-            <i class="fa fa-clipboard-list"></i>
+            <i class="fas fa-clipboard-list"></i>
           </div>
           <div class="activity-details">
             <p class="activity-text">Emma Johnson added React.js skill</p>
@@ -202,14 +202,14 @@
           </div>
           <div class="activity-action">
             <button class="action-btn">
-              <i class="fa fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
         </div>
         
         <div class="activity-item user">
           <div class="activity-icon user">
-            <i class="fa fa-user-plus"></i>
+            <i class="fas fa-user-plus"></i>
           </div>
           <div class="activity-details">
             <p class="activity-text">Michael Williams joined the platform</p>
@@ -217,7 +217,7 @@
           </div>
           <div class="activity-action">
             <button class="action-btn">
-              <i class="fa fa-ellipsis-v"></i>
+              <i class="fas fa-ellipsis-v"></i>
             </button>
           </div>
         </div>
@@ -238,7 +238,7 @@
             <button class="chart-btn">Daily</button>
           </div>
           <button class="export-btn">
-            <i class="fa fa-download"></i>
+            <i class="fas fa-download"></i>
             <span>Export</span>
           </button>
         </div>

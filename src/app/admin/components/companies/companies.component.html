@@ -1,38 +1,210 @@
-<div class="companies-container">
-    <div class="page-header">
+<!-- companies.component.html -->
+<div class="dashboard-container">
+  <div class="page-header">
+    <div class="header-left">
       <h1>Companies</h1>
-      <button class="add-company-btn">Add Company</button>
+      <p class="subtitle">Manage and track your client companies</p>
     </div>
-
-    <div class="companies-table-container">
-      <table class="companies-table">
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Industry</th>
-            <th>Location</th>
-            <th>Employees</th>
-            <th>Open Positions <i class="fa fa-info-circle"></i></th>
-            <th>Total Hires</th>
-            <th>Avg. Time to Hire</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let company of companies">
-            <td>
-              <div class="company-info">
-                <div class="company-logo">{{ company.logo }}</div>
-                <div class="company-name">{{ company.name }}</div>
-              </div>
-            </td>
-            <td>{{ company.industry }}</td>
-            <td>{{ company.location }}</td>
-            <td>{{ company.employees }}</td>
-            <td class="open-positions">{{ company.openPositions }}</td>
-            <td>{{ company.totalHires }}</td>
-            <td>{{ company.avgTimeToHire }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="header-actions">
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Search companies..." [(ngModel)]="searchTerm" (input)="filterCompanies()">
+      </div>
+      <button class="add-company-btn">
+        <i class="fas fa-plus-circle"></i>
+        Add Company
+      </button>
     </div>
   </div>
+
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <div class="stat-value">{{totalCompanies}}</div>
+      <div class="stat-label">Total Companies</div>
+      <div class="stat-change positive">+12% <i class="fas fa-arrow-up"></i></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{totalOpenPositions}}</div>
+      <div class="stat-label">Open Positions</div>
+      <div class="stat-change positive">+8% <i class="fas fa-arrow-up"></i></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{avgTimeToHire}}d</div>
+      <div class="stat-label">Avg. Time to Hire</div>
+      <div class="stat-change negative">+2d <i class="fas fa-arrow-up"></i></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">{{totalHires}}</div>
+      <div class="stat-label">Total Hires (YTD)</div>
+      <div class="stat-change positive">+23% <i class="fas fa-arrow-up"></i></div>
+    </div>
+  </div>
+
+  <div class="filters-row">
+    <div class="filter-group">
+      <label>Industry</label>
+      <select [(ngModel)]="industryFilter" (change)="filterCompanies()">
+        <option value="">All Industries</option>
+        <option *ngFor="let industry of industries" [value]="industry">{{industry}}</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Location</label>
+      <select [(ngModel)]="locationFilter" (change)="filterCompanies()">
+        <option value="">All Locations</option>
+        <option *ngFor="let location of locations" [value]="location">{{location}}</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Size</label>
+      <select [(ngModel)]="sizeFilter" (change)="filterCompanies()">
+        <option value="">All Sizes</option>
+        <option value="small">Small (1-100)</option>
+        <option value="medium">Medium (101-1000)</option>
+        <option value="large">Large (1000+)</option>
+      </select>
+    </div>
+    <button class="clear-filters-btn" (click)="clearFilters()" [disabled]="!isFiltered">
+      <i class="fas fa-times-circle"></i> Clear Filters
+    </button>
+  </div>
+
+  <div class="companies-table-container">
+    <table class="companies-table">
+      <thead>
+        <tr>
+          <th (click)="sortBy('name')" [class.active-sort]="sortColumn === 'name'">
+            Company
+            <i class="fas" [ngClass]="getSortIcon('name')"></i>
+          </th>
+          <th (click)="sortBy('industry')" [class.active-sort]="sortColumn === 'industry'">
+            Industry
+            <i class="fas" [ngClass]="getSortIcon('industry')"></i>
+          </th>
+          <th (click)="sortBy('location')" [class.active-sort]="sortColumn === 'location'">
+            Location
+            <i class="fas" [ngClass]="getSortIcon('location')"></i>
+          </th>
+          <th (click)="sortBy('employees')" [class.active-sort]="sortColumn === 'employees'">
+            Employees
+            <i class="fas" [ngClass]="getSortIcon('employees')"></i>
+          </th>
+          <th (click)="sortBy('openPositions')" [class.active-sort]="sortColumn === 'openPositions'">
+            Open Positions
+            <i class="fas fa-info-circle tooltip-icon" title="Currently active job listings"></i>
+            <i class="fas" [ngClass]="getSortIcon('openPositions')"></i>
+          </th>
+          <th (click)="sortBy('totalHires')" [class.active-sort]="sortColumn === 'totalHires'">
+            Total Hires
+            <i class="fas" [ngClass]="getSortIcon('totalHires')"></i>
+          </th>
+          <th (click)="sortBy('avgTimeToHire')" [class.active-sort]="sortColumn === 'avgTimeToHire'">
+            Avg. Time to Hire
+            <i class="fas" [ngClass]="getSortIcon('avgTimeToHire')"></i>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies" [class.highlighted-row]="company.priority">
+          <td>
+            <div class="company-info">
+              <div class="company-logo" [ngStyle]="{'background-color': company.brandColor || '#f5f5f5'}">
+                <span>{{company.name.substring(0, 2).toUpperCase()}}</span>
+              </div>
+              <div class="company-details">
+                <div class="company-name">{{company.name}}</div>
+                <div class="company-established" *ngIf="company.established">Est. {{company.established}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="industry-badge" [ngStyle]="{'background-color': getIndustryColor(company.industry)}">
+              {{company.industry}}
+            </span>
+          </td>
+          <td>
+            <div class="location-info">
+              <i class="fas fa-map-marker-alt location-icon"></i>
+              {{company.location}}
+            </div>
+          </td>
+          <td>
+            <div class="employee-info">
+              {{company.employees}}
+              <span class="employee-trend" *ngIf="company.growth !== undefined" 
+                    [ngClass]="{'positive': company.growth > 0, 'negative': company.growth < 0}">
+                {{company.growth > 0 ? '+' : ''}}{{company.growth}}%
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="positions-container">
+              <span class="positions-count">{{company.openPositions}}</span>
+              <div class="positions-progress">
+                <div class="positions-bar" [style.width.%]="getPositionsPercentage(company.openPositions)"></div>
+              </div>
+            </div>
+          </td>
+          <td>{{company.totalHires}}</td>
+          <td>
+            <div class="time-to-hire" [ngClass]="getTimeToHireClass(company.avgTimeToHire)">
+              {{company.avgTimeToHire}}
+            </div>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button class="action-btn view-btn" title="View Company Details">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="action-btn edit-btn" title="Edit Company">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="action-btn more-btn" title="More Options">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="pagination-controls" *ngIf="filteredCompanies.length > 0">
+    <div class="pagination-info">
+      Showing {{startItem}}-{{endItem}} of {{totalItems}} companies
+    </div>
+    <div class="pagination-buttons">
+      <button [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="page-numbers">
+        <button *ngFor="let page of pageNumbers" 
+                [class.active]="page === currentPage"
+                [disabled]="page === 0"
+                (click)="page !== 0 && goToPage(page)">
+          {{page !== 0 ? page : '...'}}
+        </button>
+      </div>
+      <button [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="items-per-page">
+      <label>Items per page:</label>
+      <select [(ngModel)]="itemsPerPage" (change)="updatePagination(); filterCompanies()">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="25">25</option>
+        <option [value]="50">50</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="no-results" *ngIf="filteredCompanies.length === 0">
+    <i class="fas fa-search"></i>
+    <h3>No companies found</h3>
+    <p>Try adjusting your search or filters to find what you're looking for.</p>
+    <button class="reset-search-btn" (click)="clearFilters()">Reset All Filters</button>
+  </div>
+</div>

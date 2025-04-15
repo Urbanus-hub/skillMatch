@@ -1,6 +1,5 @@
-/* users.component.css */
+/* users.component.css - Blackish Theme */
 /* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Base styles */
 * {
@@ -11,10 +10,11 @@
 }
 
 body {
-  background-color: #f5f7fa;
-  color: #1a1a2e;
+  background-color: #121212;
+  color: #e0e0e0;
   font-size: 14px;
   line-height: 1.5;
+  font-family: 'Poppins',sans-serif !important;
 }
 
 button {
@@ -31,7 +31,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  background-color: #f5f7fa;
+  background-color: #121212;
 }
 
 /* Enhanced Header */
@@ -49,7 +49,7 @@ button {
 }
 
 .dashboard-title {
-  color: #1a1a2e;
+  color: #ffffff;
   font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -69,7 +69,7 @@ button {
 }
 
 .dashboard-subtitle {
-  color: #4a4a68;
+  color: #a0a0a0;
   font-size: 14px;
   font-weight: 400;
   margin-top: 8px;
@@ -90,19 +90,19 @@ button {
 .search-input {
   width: 100%;
   padding: 12px 16px 12px 38px;
-  background-color: #ffffff;
-  border: 1px solid transparent;
+  background-color: #1e1e1e;
+  border: 1px solid #333333;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   font-size: 14px;
-  color: #1a1a2e;
+  color: #e0e0e0;
   transition: all 0.3s ease;
 }
 
 .search-input:focus {
   outline: none;
   border-color: #4361ee;
-  box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+  box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
 }
 
 .search-icon {
@@ -110,7 +110,7 @@ button {
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #9e9ea7;
+  color: #a0a0a0;
   font-size: 14px;
 }
 
@@ -120,23 +120,23 @@ button {
   height: 44px;
   width: 44px;
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .notification-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background-color: #f0f4ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #292929;
 }
 
 .notification-btn i {
-  color: #4a4a68;
+  color: #a0a0a0;
   font-size: 16px;
 }
 
@@ -154,19 +154,19 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid white;
+  border: 2px solid #1e1e1e;
 }
 
 .notification-tooltip {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   padding: 8px 12px;
   border-radius: 8px;
   font-size: 12px;
-  color: #4a4a68;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  color: #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
@@ -190,7 +190,7 @@ button {
 }
 
 .user-profile:hover {
-  background-color: #f0f4ff;
+  background-color: #292929;
 }
 
 .user-avatar {
@@ -198,7 +198,7 @@ button {
   height: 44px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -221,12 +221,12 @@ button {
 
 .user-name {
   font-weight: 600;
-  color: #1a1a2e;
+  color: #ffffff;
   font-size: 14px;
 }
 
 .user-role {
-  color: #9e9ea7;
+  color: #a0a0a0;
   font-size: 12px;
 }
 
@@ -238,10 +238,10 @@ button {
 }
 
 .stat-card {
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   position: relative;
   overflow: hidden;
@@ -250,7 +250,7 @@ button {
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* Custom gradient borders for each stat card */
@@ -293,22 +293,22 @@ button {
 }
 
 .users-icon {
-  background-color: rgba(67, 97, 238, 0.12);
+  background-color: rgba(67, 97, 238, 0.15);
   color: #4361ee;
 }
 
 .skills-icon {
-  background-color: rgba(60, 179, 113, 0.12);
+  background-color: rgba(60, 179, 113, 0.15);
   color: #3cb371;
 }
 
 .jobs-icon {
-  background-color: rgba(255, 159, 28, 0.12);
+  background-color: rgba(255, 159, 28, 0.15);
   color: #ff9f1c;
 }
 
 .companies-icon {
-  background-color: rgba(76, 201, 240, 0.12);
+  background-color: rgba(76, 201, 240, 0.15);
   color: #4cc9f0;
 }
 
@@ -322,7 +322,7 @@ button {
 
 .stat-title {
   font-size: 14px;
-  color: #4a4a68;
+  color: #a0a0a0;
   margin-bottom: 6px;
   font-weight: 500;
 }
@@ -330,7 +330,7 @@ button {
 .stat-value {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #ffffff;
   margin-bottom: 6px;
   letter-spacing: -0.5px;
 }
@@ -353,12 +353,12 @@ button {
 
 .stat-trend.positive {
   color: #3cb371;
-  background-color: rgba(60, 179, 113, 0.08);
+  background-color: rgba(60, 179, 113, 0.15);
 }
 
 .stat-trend.negative {
   color: #e63946;
-  background-color: rgba(230, 57, 70, 0.08);
+  background-color: rgba(230, 57, 70, 0.15);
 }
 
 .stat-trend i {
@@ -368,7 +368,7 @@ button {
 
 .stat-period {
   font-size: 12px;
-  color: #9e9ea7;
+  color: #808080;
 }
 
 /* Mini chart for stat cards */
@@ -384,12 +384,12 @@ button {
 
 .mini-bar {
   width: 4px;
-  background-color: rgba(67, 97, 238, 0.2);
+  background-color: rgba(67, 97, 238, 0.3);
   border-radius: 2px;
 }
 
 .stat-card:nth-child(1) .mini-bar {
-  background-color: rgba(67, 97, 238, 0.2);
+  background-color: rgba(67, 97, 238, 0.3);
 }
 
 .stat-card:nth-child(1) .mini-bar:nth-child(1) { height: 15px; }
@@ -399,7 +399,7 @@ button {
 .stat-card:nth-child(1) .mini-bar:nth-child(5) { height: 30px; background-color: #4361ee; }
 
 .stat-card:nth-child(2) .mini-bar {
-  background-color: rgba(60, 179, 113, 0.2);
+  background-color: rgba(60, 179, 113, 0.3);
 }
 
 .stat-card:nth-child(2) .mini-bar:nth-child(1) { height: 10px; }
@@ -409,7 +409,7 @@ button {
 .stat-card:nth-child(2) .mini-bar:nth-child(5) { height: 30px; background-color: #3cb371; }
 
 .stat-card:nth-child(3) .mini-bar {
-  background-color: rgba(255, 159, 28, 0.2);
+  background-color: rgba(255, 159, 28, 0.3);
 }
 
 .stat-card:nth-child(3) .mini-bar:nth-child(1) { height: 22px; }
@@ -419,7 +419,7 @@ button {
 .stat-card:nth-child(3) .mini-bar:nth-child(5) { height: 16px; background-color: #ff9f1c; }
 
 .stat-card:nth-child(4) .mini-bar {
-  background-color: rgba(76, 201, 240, 0.2);
+  background-color: rgba(76, 201, 240, 0.3);
 }
 
 .stat-card:nth-child(4) .mini-bar:nth-child(1) { height: 8px; }
@@ -437,16 +437,16 @@ button {
 }
 
 .panel {
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   padding: 24px;
   height: 100%;
   transition: all 0.3s ease;
 }
 
 .panel:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .panel-header {
@@ -465,13 +465,13 @@ button {
 .panel-header h2 {
   font-size: 18px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #ffffff;
   margin: 0;
 }
 
 .panel-subtitle {
   font-size: 13px;
-  color: #9e9ea7;
+  color: #a0a0a0;
 }
 
 .panel-actions {
@@ -486,7 +486,7 @@ button {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background-color: rgba(67, 97, 238, 0.08);
+  background-color: rgba(67, 97, 238, 0.15);
   color: #4361ee;
   border: none;
   border-radius: 12px;
@@ -496,14 +496,14 @@ button {
 }
 
 .filter-btn:hover, .export-btn:hover {
-  background-color: rgba(67, 97, 238, 0.15);
+  background-color: rgba(67, 97, 238, 0.25);
 }
 
 .view-all-btn, .view-details-btn {
   padding: 8px 12px;
   background-color: transparent;
   color: #4361ee;
-  border: 1px solid rgba(67, 97, 238, 0.3);
+  border: 1px solid rgba(67, 97, 238, 0.4);
   border-radius: 12px;
   font-size: 13px;
   font-weight: 500;
@@ -529,11 +529,11 @@ button {
   padding: 14px;
   border-radius: 12px;
   transition: all 0.3s ease;
-  background-color: rgba(245, 247, 250, 0.5);
+  background-color: rgba(40, 40, 40, 0.5);
 }
 
 .activity-item:hover {
-  background-color: rgba(245, 247, 250, 0.9);
+  background-color: rgba(50, 50, 50, 0.9);
   transform: translateY(-2px);
 }
 
@@ -549,22 +549,22 @@ button {
 
 /* Activity item types */
 .activity-item.user .activity-icon {
-  background-color: rgba(67, 97, 238, 0.12);
+  background-color: rgba(67, 97, 238, 0.15);
   color: #4361ee;
 }
 
 .activity-item.job .activity-icon {
-  background-color: rgba(255, 159, 28, 0.12);
+  background-color: rgba(255, 159, 28, 0.15);
   color: #ff9f1c;
 }
 
 .activity-item.skill .activity-icon {
-  background-color: rgba(60, 179, 113, 0.12);
+  background-color: rgba(60, 179, 113, 0.15);
   color: #3cb371;
 }
 
 .activity-item.company .activity-icon {
-  background-color: rgba(76, 201, 240, 0.12);
+  background-color: rgba(76, 201, 240, 0.15);
   color: #4cc9f0;
 }
 
@@ -575,13 +575,13 @@ button {
 .activity-text {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a2e;
+  color: #e0e0e0;
   margin-bottom: 4px;
 }
 
 .activity-time {
   font-size: 12px;
-  color: #9e9ea7;
+  color: #808080;
 }
 
 .activity-action {
@@ -601,11 +601,11 @@ button {
 }
 
 .action-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .action-btn i {
-  color: #9e9ea7;
+  color: #808080;
 }
 
 /* Chart controls */
@@ -616,9 +616,9 @@ button {
 
 .chart-btn {
   padding: 8px 12px;
-  background-color: transparent;
-  color: #4a4a68;
-  border: 1px solid rgba(0, 0, 0, 0.07);
+  background-color: #252525;
+  color: #a0a0a0;
+  border: 1px solid #333333;
   border-radius: 12px;
   font-size: 13px;
   font-weight: 500;
@@ -626,7 +626,7 @@ button {
 }
 
 .chart-btn:hover {
-  background-color: rgba(67, 97, 238, 0.05);
+  background-color: rgba(67, 97, 238, 0.15);
 }
 
 .chart-btn.active {
@@ -670,7 +670,7 @@ button {
 
 .legend-label {
   font-size: 13px;
-  color: #4a4a68;
+  color: #a0a0a0;
 }
 
 /* Chart */
@@ -690,7 +690,7 @@ button {
 
 .y-axis-label {
   font-size: 12px;
-  color: #9e9ea7;
+  color: #808080;
   height: 20px;
   text-align: right;
   display: flex;
@@ -711,7 +711,7 @@ button {
   left: 0;
   right: 0;
   height: 1px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .grid-line:nth-child(1) { top: 0; }
@@ -766,7 +766,7 @@ button {
 }
 
 .month-label {
-  color: #4a4a68;
+  color: #a0a0a0;
   font-size: 12px;
   margin-top: 8px;
 }
@@ -776,7 +776,7 @@ button {
   top: -36px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #1a1a2e;
+  background-color: #333333;
   color: white;
   padding: 6px 10px;
   border-radius: 8px;
@@ -797,7 +797,7 @@ button {
   transform: translateX(-50%) rotate(45deg);
   width: 8px;
   height: 8px;
-  background-color: #1a1a2e;
+  background-color: #333333;
 }
 
 .chart-bar:hover .bar-tooltip {
@@ -839,7 +839,7 @@ button {
 .demographics-info h4 {
   font-size: 14px;
   font-weight: 500;
-  color: #4a4a68;
+  color: #a0a0a0;
   margin: 0;
 }
 
@@ -852,18 +852,18 @@ button {
 .demographics-value {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #ffffff;
 }
 
 .demographics-label {
   font-size: 12px;
-  color: #9e9ea7;
+  color: #808080;
 }
 
 .progress-bar {
   height: 8px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 100px;
   overflow: hidden;
 }
@@ -885,7 +885,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .user-row:last-child {
@@ -901,13 +901,13 @@ button {
 .user-details h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #ffffff;
   margin: 0 0 4px 0;
 }
 
 .user-details span {
   font-size: 12px;
-  color: #9e9ea7;
+  color: #808080;
 }
 
 .user-status {
@@ -918,12 +918,12 @@ button {
 }
 
 .user-status.active {
-  background-color: rgba(60, 179, 113, 0.1);
+  background-color: rgba(60, 179, 113, 0.15);
   color: #3cb371;
 }
 
 .user-status.inactive {
-  background-color: rgba(230, 57, 70, 0.1);
+  background-color: rgba(230, 57, 70, 0.15);
   color: #e63946;
 }
 
@@ -964,131 +964,7 @@ button {
   }
 }
 
-/* Dark mode support (optional) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121826;
-    color: #e9ecef;
-  }
-  
-  .dashboard-container {
-    background-color: #121826;
-  }
-  
-  .dashboard-title {
-    color: #e9ecef;
-  }
-  
-  .dashboard-subtitle {
-    color: #adb5bd;
-  }
-  
-  .search-input {
-    background-color: #1c2333;
-    color: #e9ecef;
-  }
-  
-  .notification-btn {
-    background-color: #1c2333;
-  }
-  
-  .notification-btn i {
-    color: #adb5bd;
-  }
-  
-  .user-name {
-    color: #e9ecef;
-  }
-  
-  .user-role {
-    color: #6c757d;
-  }
-  
-  .stat-card {
-    background-color: #1c2333;
-  }
-  
-  .stat-title {
-    color: #adb5bd;
-  }
-  
-  .stat-value {
-    color: #e9ecef;
-  }
-  
-  .stat-period {
-    color: #6c757d;
-  }
-  
-  .panel {
-    background-color: #1c2333;
-  }
-  
-  .panel-header h2 {
-    color: #e9ecef;
-  }
-  
-  .panel-subtitle {
-    color: #6c757d;
-  }
-  
-  .activity-item {
-    background-color: rgba(28, 35, 51, 0.5);
-  }
-  
-  .activity-item:hover {
-    background-color: rgba(28, 35, 51, 0.9);
-  }
-  
-  .activity-text {
-    color: #e9ecef;
-  }
-  
-  .activity-time {
-    color: #6c757d;
-  }
-  
-  .action-btn i {
-    color: #6c757d;
-  }
-  
-  .chart-btn {
-    color: #adb5bd;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-  }
-  
-  .legend-label {
-    color: #adb5bd;
-  }
-  
-  .y-axis-label {
-    color: #6c757d;
-  }
-  
-  .month-label {
-    color: #adb5bd;
-  }
-  
-  .demographics-info h4 {
-    color: #adb5bd;
-  }
-  
-  .demographics-value {
-    color: #e9ecef;
-  }
-  
-  .demographics-label {
-    color: #6c757d;
-  }
-  
-  .user-details h4 {
-    color: #e9ecef;
-  }
-  
-  .user-details span {
-    color: #6c757d;
-  }
-  /* Additional styles for chart interactions */
+/* Chart interactions */
 .chart-bar:hover .bar {
   opacity: 0.9;
   box-shadow: 0 0 10px rgba(67, 97, 238, 0.5);
@@ -1111,7 +987,7 @@ button {
 
 /* Add hover effect to user rows */
 .user-row:hover {
-  background-color: rgba(245, 247, 250, 0.8);
+  background-color: rgba(40, 40, 40, 0.8);
   cursor: pointer;
   transform: translateX(5px);
   transition: all 0.3s ease;
@@ -1125,9 +1001,9 @@ button {
   right: 12px;
   width: 10px;
   height: 10px;
-  background-color: #ffffff;
+  background-color: #1e1e1e;
   transform: rotate(45deg);
-  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.04);
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Improve focus states for accessibility */
@@ -1153,42 +1029,7 @@ button:focus,
   .panel,
   .stat-card {
     box-shadow: none;
-    border: 1px solid #e0e0e0;
-  }
-}
-
-/* Improved dark mode support */
-@media (prefers-color-scheme: dark) {
-  .notification-tooltip,
-  .notification-tooltip::before {
-    background-color: #1c2333;
-    color: #e9ecef;
-  }
-  
-  .user-row:hover {
-    background-color: rgba(28, 35, 51, 0.7);
-  }
-  
-  .filter-btn, 
-  .export-btn {
-    background-color: rgba(67, 97, 238, 0.15);
-  }
-  
-  .progress-bar {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .grid-line {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-  
-  button:focus, 
-  .search-input:focus {
-    box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.25);
-  }
-  
-  .chart-btn:hover {
-    background-color: rgba(67, 97, 238, 0.2);
+    border: 1px solid #333333;
   }
 }
 
@@ -1199,7 +1040,7 @@ button:focus,
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(20, 20, 20, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1210,7 +1051,7 @@ button:focus,
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(67, 97, 238, 0.1);
+  border: 4px solid rgba(67, 97, 238, 0.2);
   border-left-color: #4361ee;
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -1233,6 +1074,7 @@ button:focus,
   margin-bottom: 16px;
 }
 
+/*  */
 .error-message {
   font-size: 16px;
   font-weight: 500;
@@ -1281,5 +1123,4 @@ button:focus,
 
 .add-btn:hover {
   background-color: #3a0ca3;
-}
 }
