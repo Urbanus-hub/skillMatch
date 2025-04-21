@@ -1,0 +1,414 @@
+/* Dashboard Main Content Styles */
+.dashboard-main {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: #f5f7fa;
+    overflow-y: auto;
+    min-height: calc(100vh - 70px); /* Adjust based on header height */
+  }
+  
+  /* Dashboard Section Styles */
+  .dashboard-section {
+    margin-bottom: 2rem;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Dashboard Cards Styles */
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  
+  .dashboard-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .card-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Profile Section Specific Styles */
+  .profile-summary {
+    grid-column: 1 / -1;
+  }
+  
+  .profile-info {
+    display: flex;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .profile-image-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #e1e5ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #fff;
+    font-weight: 600;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .info-details {
+    flex: 1;
+  }
+  
+  .info-details h3 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .job-title {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0.25rem 0;
+  }
+  
+  .location {
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 1rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Skills Card */
+  .skills-container {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .skill-tag {
+    background-color: #e9f0ff;
+    color: #3366cc;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  /* Experience & Education Cards */
+  .experience-card, .education-card {
+    padding-bottom: 1rem;
+  }
+  
+  .experience-item, .education-item {
+    display: flex;
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .company-logo, .institution-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: #f0f2f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    overflow: hidden;
+  }
+  
+  .company-logo img, .institution-logo img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .experience-content h4, .education-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .company, .institution {
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .period {
+    font-size: 0.85rem;
+    color: #777;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .description {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  /* Jobs Section Specific Styles */
+  .job-listings {
+    grid-template-columns: 1fr;
+  }
+  
+  .job-card {
+    display: flex;
+    padding: 1rem;
+  }
+  
+  .job-match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    min-width: 80px;
+  }
+  
+  .match-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3366cc;
+  }
+  
+  .match-text {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .job-details {
+    flex: 1;
+  }
+  
+  .job-title {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .company-name {
+    font-weight: 500;
+    color: #555;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .job-location, .job-salary {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .job-highlights {
+    margin: 0.75rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .highlight-tag {
+    background-color: #f0f2f8;
+    color: #555;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+  
+  .job-meta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #777;
+  }
+  
+  .job-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-left: 1rem;
+  }
+  
+  /* Button Styles */
+  .primary-btn, .secondary-btn, .edit-btn, .add-btn, .view-more-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .primary-btn {
+    background-color: #3366cc;
+    color: white;
+  }
+  
+  .primary-btn:hover {
+    background-color: #2855b0;
+  }
+  
+  .secondary-btn {
+    background-color: #f0f2f8;
+    color: #444;
+    border: 1px solid #ddd;
+  }
+  
+  .secondary-btn:hover {
+    background-color: #e5e8f0;
+  }
+  
+  .edit-btn {
+    background-color: transparent;
+    color: #3366cc;
+    border: 1px solid #3366cc;
+  }
+  
+  .edit-btn:hover {
+    background-color: #f0f5ff;
+  }
+  
+  .add-btn {
+    background-color: transparent;
+    color: #3366cc;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .add-btn:hover {
+    background-color: #f0f5ff;
+  }
+  
+  .view-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .view-more-btn {
+    background-color: transparent;
+    color: #3366cc;
+    border: 1px solid #3366cc;
+    padding: 0.6rem 1.5rem;
+  }
+  
+  .view-more-btn:hover {
+    background-color: #f0f5ff;
+  }
+  
+  /* Filter Options */
+  .filter-options {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .filter-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #444;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .dashboard-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .profile-info {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .action-buttons {
+      justify-content: center;
+    }
+    
+    .job-card {
+      flex-direction: column;
+    }
+    
+    .job-match {
+      flex-direction: row;
+      margin-right: 0;
+      margin-bottom: 1rem;
+      gap: 0.5rem;
+      justify-content: flex-start;
+    }
+    
+    .job-actions {
+      flex-direction: row;
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-main {
+      padding: 1rem;
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .filter-options {
+      width: 100%;
+    }
+    
+    .filter-select {
+      flex: 1;
+    }
+  }

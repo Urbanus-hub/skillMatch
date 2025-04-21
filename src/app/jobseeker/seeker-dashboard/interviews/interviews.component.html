@@ -1,0 +1,387 @@
+<!-- interviews.component.html -->
+<section class="dashboard-section interviews-dashboard">
+    <div class="section-header">
+      <div class="header-content">
+        <h2>Interviews</h2>
+        <p class="subtitle">Manage your interview schedule and preparation</p>
+      </div>
+    </div>
+  
+    <div class="interviews-container">
+      <!-- Sidebar with filters and interview list -->
+      <div class="interviews-sidebar">
+        <div class="sidebar-header">
+          <button class="add-interview-btn" (click)="openAddInterviewModal()">
+            <i class="fas fa-plus"></i>
+            <span>Add Interview</span>
+          </button>
+        </div>
+        
+        <div class="filters-container">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+              type="text" 
+              class="search-input" 
+              placeholder="Search interviews..." 
+              [(ngModel)]="searchQuery"
+              (input)="applyFilters()">
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <div class="filter-options">
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'all'"
+                   (click)="filters.status = 'all'; applyFilters()">All</div>
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'scheduled'"
+                   (click)="filters.status = 'scheduled'; applyFilters()">Scheduled</div>
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'completed'"
+                   (click)="filters.status = 'completed'; applyFilters()">Completed</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Type</label>
+            <div class="filter-options">
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'all'"
+                   (click)="filters.type = 'all'; applyFilters()">All</div>
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'phone'"
+                   (click)="filters.type = 'phone'; applyFilters()">Phone</div>
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'video'"
+                   (click)="filters.type = 'video'; applyFilters()">Video</div>
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'onsite'"
+                   (click)="filters.type = 'onsite'; applyFilters()">Onsite</div>
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'technical'"
+                   (click)="filters.type = 'technical'; applyFilters()">Technical</div>
+              <div class="filter-option" 
+                   [class.active]="filters.type === 'behavioral'"
+                   (click)="filters.type = 'behavioral'; applyFilters()">Behavioral</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Date</label>
+            <div class="filter-options">
+              <div class="filter-option" 
+                   [class.active]="filters.date === 'all'"
+                   (click)="filters.date = 'all'; applyFilters()">All</div>
+              <div class="filter-option" 
+                   [class.active]="filters.date === 'today'"
+                   (click)="filters.date = 'today'; applyFilters()">Today</div>
+              <div class="filter-option" 
+                   [class.active]="filters.date === 'tomorrow'"
+                   (click)="filters.date = 'tomorrow'; applyFilters()">Tomorrow</div>
+              <div class="filter-option" 
+                   [class.active]="filters.date === 'thisWeek'"
+                   (click)="filters.date = 'thisWeek'; applyFilters()">This Week</div>
+              <div class="filter-option" 
+                   [class.active]="filters.date === 'nextWeek'"
+                   (click)="filters.date = 'nextWeek'; applyFilters()">Next Week</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="interview-list">
+          <div *ngFor="let interview of filteredInterviews" 
+               class="interview-card" 
+               [class.active]="selectedInterview?.id === interview.id"
+               [class.completed]="interview.status === 'completed'"
+               [class.cancelled]="interview.status === 'cancelled'"
+               [class.rescheduled]="interview.status === 'rescheduled'"
+               (click)="selectInterview(interview.id)">
+            <div class="interview-company-logo">
+              <img [src]="interview.company.logo" [alt]="interview.company.name + ' logo'">
+            </div>
+            <div class="interview-details">
+              <div class="interview-company">{{ interview.company.name }}</div>
+              <div class="interview-position">{{ interview.position }}</div>
+              <div class="interview-meta">
+                <div class="interview-type">
+                  <i class="fas" [ngClass]="getTypeIcon(interview.type)"></i>
+                  <span>{{ getTypeLabel(interview.type) }}</span>
+                </div>
+                <div class="interview-time">
+                  <i class="far fa-clock"></i>
+                  <span>{{ formatInterviewTime(interview.date) }}</span>
+                </div>
+              </div>
+              <div class="interview-countdown" [ngClass]="getStatusClass(interview.status)">
+                <span *ngIf="interview.status === 'scheduled'">{{ getDaysUntil(interview.date) }}</span>
+                <span *ngIf="interview.status !== 'scheduled'">{{ getStatusLabel(interview.status) }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Empty state -->
+          <div class="empty-state" *ngIf="filteredInterviews.length === 0">
+            <div class="empty-icon">
+              <i class="far fa-calendar-times"></i>
+            </div>
+            <h3>No interviews found</h3>
+            <p>Try changing your filters or add a new interview</p>
+            <button class="add-interview-btn-empty" (click)="openAddInterviewModal()">
+              <i class="fas fa-plus"></i>
+              <span>Add Interview</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Interview details -->
+      <div class="interview-detail" *ngIf="selectedInterview">
+        <div class="detail-header">
+          <div class="header-left">
+            <div class="company-logo">
+              <img [src]="selectedInterview.company.logo" [alt]="selectedInterview.company.name + ' logo'">
+            </div>
+            <div class="header-info">
+              <h3 class="company-name">{{ selectedInterview.company.name }}</h3>
+              <h2 class="position-title">{{ selectedInterview.position }}</h2>
+              <span class="location" *ngIf="selectedInterview.company.location">
+                <i class="fas fa-map-marker-alt"></i>
+                {{ selectedInterview.company.location }}
+              </span>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="status-badge" [ngClass]="getStatusClass(selectedInterview.status)">
+              {{ getStatusLabel(selectedInterview.status) }}
+            </div>
+            <div class="header-actions">
+              <button class="action-btn" (click)="openEditInterviewModal()">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Edit</span>
+              </button>
+              <div class="action-dropdown">
+                <button class="action-btn">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item" (click)="toggleInterviewStatus(selectedInterview)">
+                    <i class="fas" [ngClass]="selectedInterview.status === 'scheduled' ? 'fa-check-circle' : 'fa-history'"></i>
+                    <span>{{ selectedInterview.status === 'scheduled' ? 'Mark as Completed' : 'Mark as Scheduled' }}</span>
+                  </div>
+                  <div class="dropdown-item" (click)="rescheduleInterview(selectedInterview)" *ngIf="selectedInterview.status !== 'rescheduled'">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Reschedule</span>
+                  </div>
+                  <div class="dropdown-item" (click)="cancelInterview(selectedInterview)" *ngIf="selectedInterview.status !== 'cancelled'">
+                    <i class="fas fa-times-circle"></i>
+                    <span>Cancel Interview</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="detail-content">
+          <div class="detail-section">
+            <div class="section-title">
+              <i class="far fa-calendar-alt"></i>
+              <h4>Interview Details</h4>
+            </div>
+            <div class="detail-grid">
+              <div class="detail-item">
+                <div class="detail-label">Date</div>
+                <div class="detail-value">{{ selectedInterview.date | date:'EEEE, MMMM d, y' }}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Time</div>
+                <div class="detail-value">{{ selectedInterview.date | date:'h:mm a' }}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Duration</div>
+                <div class="detail-value">{{ formatDuration(selectedInterview.duration) }}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Type</div>
+                <div class="detail-value">{{ getTypeLabel(selectedInterview.type) }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Interviewers section -->
+          <div class="detail-section" *ngIf="selectedInterview.interviewers && selectedInterview.interviewers.length > 0">
+            <div class="section-title">
+              <i class="fas fa-users"></i>
+              <h4>Interviewers</h4>
+            </div>
+            <div class="interviewers-list">
+              <div class="interviewer-card" *ngFor="let interviewer of selectedInterview.interviewers">
+                <div class="interviewer-avatar">
+                  <img [src]="interviewer.avatar" [alt]="interviewer.name + ' avatar'">
+                </div>
+                <div class="interviewer-info">
+                  <div class="interviewer-name">{{ interviewer.name }}</div>
+                  <div class="interviewer-title">{{ interviewer.title }}</div>
+                </div>
+                <div class="interviewer-actions" *ngIf="interviewer.linkedIn">
+                  <a [href]="interviewer.linkedIn" target="_blank" class="linkedin-link">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Preparation section -->
+          <div class="detail-section" *ngIf="selectedInterview.preparation">
+            <div class="section-title">
+              <i class="fas fa-tasks"></i>
+              <h4>Preparation</h4>
+            </div>
+            <div class="preparation-content">
+              <pre class="preparation-text">{{ selectedInterview.preparation }}</pre>
+            </div>
+          </div>
+          
+          <!-- Questions section -->
+          <div class="detail-section" *ngIf="selectedInterview.questions && selectedInterview.questions.length > 0">
+            <div class="section-title">
+              <i class="fas fa-question-circle"></i>
+              <h4>Questions</h4>
+            </div>
+            <div class="questions-list">
+              <div class="question-item" *ngFor="let question of selectedInterview.questions; let i = index">
+                <div class="question-header">
+                  <div class="question-number">Q{{ i + 1 }}</div>
+                  <div class="question-text">{{ question.question }}</div>
+                  <div class="question-status" *ngIf="question.answered !== undefined">
+                    <i class="fas" [ngClass]="question.answered ? 'fa-check-circle text-success' : 'fa-circle'"></i>
+                  </div>
+                </div>
+                <div class="question-notes" *ngIf="question.notes">
+                  <div class="notes-label">Notes:</div>
+                  <div class="notes-content">{{ question.notes }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Documents section -->
+          <div class="detail-section" *ngIf="selectedInterview.documents && selectedInterview.documents.length > 0">
+            <div class="section-title">
+              <i class="fas fa-file-alt"></i>
+              <h4>Documents</h4>
+            </div>
+            <div class="documents-list">
+              <div class="document-item" *ngFor="let doc of selectedInterview.documents">
+                <div class="document-icon">
+                  <i class="fas" [ngClass]="doc.type === 'PDF' ? 'fa-file-pdf' : doc.type === 'ZIP' ? 'fa-file-archive' : 'fa-file'"></i>
+                </div>
+                <div class="document-info">
+                  <div class="document-name">{{ doc.name }}</div>
+                  <div class="document-meta">{{ doc.type }} · {{ doc.size }}</div>
+                </div>
+                <div class="document-actions">
+                  <a [href]="doc.url" target="_blank" class="download-link">
+                    <i class="fas fa-download"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Feedback section (for completed interviews) -->
+          <div class="detail-section" *ngIf="selectedInterview.feedback">
+            <div class="section-title">
+              <i class="fas fa-comment-alt"></i>
+              <h4>Feedback</h4>
+            </div>
+            <div class="feedback-content">
+              <p class="feedback-text">{{ selectedInterview.feedback }}</p>
+            </div>
+          </div>
+          
+          <!-- Follow-up section (for completed interviews) -->
+          <div class="detail-section" *ngIf="selectedInterview.followUp && selectedInterview.followUp.sent">
+            <div class="section-title">
+              <i class="fas fa-reply"></i>
+              <h4>Follow-Up</h4>
+            </div>
+            <div class="followup-content">
+              <div class="followup-meta" *ngIf="selectedInterview.followUp.date">
+                Sent on {{ selectedInterview.followUp.date | date:'MMM d, y, h:mm a' }}
+              </div>
+              <p class="followup-text" *ngIf="selectedInterview.followUp.content">{{ selectedInterview.followUp.content }}</p>
+            </div>
+          </div>
+          
+          <!-- Notes section -->
+          <div class="detail-section" *ngIf="selectedInterview.notes">
+            <div class="section-title">
+              <i class="fas fa-sticky-note"></i>
+              <h4>Notes</h4>
+            </div>
+            <div class="notes-content">
+              <p class="notes-text">{{ selectedInterview.notes }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Empty state for when no interview is selected -->
+      <div class="interview-detail empty-detail" *ngIf="!selectedInterview">
+        <div class="empty-detail-content">
+          <div class="empty-icon">
+            <i class="far fa-calendar-check"></i>
+          </div>
+          <h3>No interview selected</h3>
+          <p>Select an interview from the list to view details or add a new interview</p>
+          <button class="add-interview-btn-empty" (click)="openAddInterviewModal()">
+            <i class="fas fa-plus"></i>
+            <span>Add Interview</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add Interview Modal -->
+    <div class="modal" *ngIf="isAddingInterview">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Interview</h3>
+          <button class="close-btn" (click)="closeAddInterviewModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form would go here -->
+          <p>Form for adding a new interview would be implemented here</p>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closeAddInterviewModal()">Cancel</button>
+          <button class="save-btn">Save Interview</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Edit Interview Modal -->
+    <div class="modal" *ngIf="isEditingInterview">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Edit Interview</h3>
+          <button class="close-btn" (click)="closeEditInterviewModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form would go here -->
+          <p>Form for editing the selected interview would be implemented here</p>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closeEditInterviewModal()">Cancel</button>
+          <button class="save-btn">Update Interview</button>
+        </div>
+      </div>
+    </div>
+  </section>

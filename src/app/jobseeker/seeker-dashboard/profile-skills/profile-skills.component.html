@@ -1,0 +1,172 @@
+<main class="dashboard-main">
+    <!-- Profile Section -->
+    <section class="dashboard-section" *ngIf="activeSection === 'profile'">
+      <div class="section-header">
+        <h2>Your Skill Profile</h2>
+        <button class="edit-btn" (click)="navigateToProfileEdit()">Edit Profile</button> <!-- Added click handler -->
+      </div>
+
+      <div class="dashboard-cards">
+        <div class="dashboard-card profile-summary">
+          <div class="card-header">
+            <h3>Profile Summary</h3>
+          </div>
+          <div class="profile-info">
+            <div class="profile-image-large" [style.backgroundImage]="'url(' + user.profileImage + ')'">
+              <span *ngIf="!user.profileImage">{{ user.name.charAt(0) }}</span>
+            </div>
+            <div class="info-details">
+              <h3>{{ user.name }}</h3>
+              <p class="job-title">{{ user.jobTitle || 'Job Title Not Set' }}</p>
+              <p class="location"><i class="fas fa-map-marker-alt"></i> {{ user.location || 'Location Not Set' }}</p>
+              <div class="action-buttons">
+                <button class="primary-btn">Download Resume</button>
+                <button class="secondary-btn">Share Profile</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card skills-card">
+          <div class="card-header">
+            <h3>Skills</h3>
+            <button class="add-btn" (click)="navigateToProfileEdit()"><i class="fas fa-plus"></i> Add</button> <!-- Added click handler -->
+          </div>
+          <div class="skills-container">
+            <span class="skill-tag" *ngFor="let skill of user.skills">{{ skill }}</span>
+            <p *ngIf="!user.skills || user.skills.length === 0">Add your skills!</p>
+          </div>
+        </div>
+
+        <div class="dashboard-card experience-card">
+          <div class="card-header">
+            <h3>Experience</h3>
+            <button class="add-btn" (click)="navigateToProfileEdit()"><i class="fas fa-plus"></i> Add</button> <!-- Added click handler -->
+          </div>
+          <div class="experience-details">
+            <!-- Example Experience Item (Replace with dynamic data later) -->
+            <div class="experience-item">
+              <div class="company-logo">
+                <img src="man1.png" alt="Company"> <!-- Placeholder -->
+              </div>
+              <div class="experience-content">
+                <h4>Senior Frontend Developer</h4>
+                <p class="company">TechCorp Inc.</p>
+                <p class="period">Jan 2021 - Present (2 years 3 months)</p>
+                <p class="description">Leading frontend development team, implementing React applications and improving performance.</p>
+              </div>
+            </div>
+            <div class="experience-item">
+              <div class="company-logo">
+                <img src="people.png" alt="Company"> <!-- Placeholder -->
+              </div>
+              <div class="experience-content">
+                <h4>Frontend Developer</h4>
+                <p class="company">InnovateSoft</p>
+                <p class="period">Mar 2018 - Dec 2020 (2 years 9 months)</p>
+                <p class="description">Developed and maintained frontend applications using React and Node.js.</p>
+              </div>
+            </div>
+            <p *ngIf="!user.experience">Add your work experience!</p> <!-- Placeholder if no experience -->
+          </div>
+        </div>
+
+        <div class="dashboard-card education-card">
+          <div class="card-header">
+            <h3>Education</h3>
+            <button class="add-btn" (click)="navigateToProfileEdit()"><i class="fas fa-plus"></i> Add</button> <!-- Added click handler -->
+          </div>
+          <div class="education-details">
+            <!-- Example Education Item (Replace with dynamic data later) -->
+            <div class="education-item">
+              <div class="institution-logo">
+                <img src="people.png" alt="University"> <!-- Placeholder -->
+              </div>
+              <div class="education-content">
+                <h4>BS Computer Science</h4>
+                <p class="institution">University of Technology</p>
+                <p class="period">2014 - 2018</p>
+                <p class="description">Focus on software engineering and web development.</p>
+              </div>
+            </div>
+            <p *ngIf="!user.education">Add your education details!</p> <!-- Placeholder if no education -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section class="dashboard-section" *ngIf="activeSection === 'jobs'">
+      <div class="section-header">
+        <h2>Recommended Jobs</h2>
+        <div class="filter-options">
+          <select class="filter-select">
+            <option>All Locations</option>
+            <option>Remote Only</option>
+            <option>Onsite Only</option>
+          </select>
+          <select class="filter-select">
+            <option>Best Matches</option>
+            <option>Newest First</option>
+            <option>Highest Salary</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="dashboard-cards job-listings">
+        <div class="dashboard-card job-card" *ngFor="let job of recommendedJobs">
+          <div class="job-match">
+            <div class="match-percentage">{{ job.matchPercentage }}%</div>
+            <div class="match-text">Match</div>
+          </div>
+          <div class="job-details">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <p class="company-name">{{ job.company }}</p>
+            <p class="job-location"><i class="fas fa-map-marker-alt"></i> {{ job.location }}</p>
+            <p class="job-salary"><i class="fas fa-money-bill-wave"></i> {{ job.salary }}</p>
+            <div class="job-highlights">
+              <!-- Assuming job highlights/skills are part of the job object -->
+              <span class="highlight-tag">JavaScript</span>
+              <span class="highlight-tag">React</span>
+              <span class="highlight-tag">Node.js</span>
+            </div>
+            <div class="job-meta">
+              <span class="posted-date">Posted {{ job.posted }}</span>
+              <span class="applicants">48 applicants</span> <!-- Example -->
+            </div>
+          </div>
+          <div class="job-actions">
+            <button class="primary-btn">Apply Now</button>
+            <button class="secondary-btn"><i class="far fa-bookmark"></i> Save</button>
+          </div>
+        </div>
+
+        <div class="view-more-container" *ngIf="recommendedJobs.length > 0">
+          <button class="view-more-btn">View More Jobs</button>
+        </div>
+        <p *ngIf="recommendedJobs.length === 0">No job recommendations available right now.</p>
+      </div>
+    </section>
+
+    <!-- Placeholder Sections for other navigation items -->
+    <section class="dashboard-section" *ngIf="activeSection === 'portfolio'">
+      <h2>Portfolio</h2>
+      <p>Portfolio section coming soon...</p>
+    </section>
+    <section class="dashboard-section" *ngIf="activeSection === 'career'">
+      <h2>Career Paths</h2>
+      <p>Career Paths section coming soon...</p>
+    </section>
+    <section class="dashboard-section" *ngIf="activeSection === 'messages'">
+      <h2>Messages</h2>
+      <p>Messages section coming soon...</p>
+    </section>
+    <section class="dashboard-section" *ngIf="activeSection === 'interviews'">
+      <h2>Interviews</h2>
+      <p>Interviews section coming soon...</p>
+    </section>
+    <section class="dashboard-section" *ngIf="activeSection === 'learning'">
+      <h2>Learning</h2>
+      <p>Learning section coming soon...</p>
+    </section>
+  </main>

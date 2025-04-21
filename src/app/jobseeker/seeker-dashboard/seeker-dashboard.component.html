@@ -1,279 +1,169 @@
-<!-- skillmatch-dashboard.component.html -->
+<!-- seeker-dashboard.component.html -->
 <div class="dashboard-container">
-    <!-- Header -->
-    <header class="dashboard-header">
-      <div class="logo-container">
-        <div class="logo">
-          <img src="logoImage.png" alt="SkillMatch" class="logo-icon">
-          <span class="logo-text">SkillMatch</span>
-        </div>
-        <div class="page-title">
-          <h1>Career Dashboard</h1>
-          <p>Find your dream job</p>
-        </div>
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="logo-container">
+      <div class="logo">
+        <img src="logoImage.png" alt="SkillMatch" class="logo-icon">
+        <span class="logo-text">SkillMatch</span>
       </div>
-      <div class="header-actions">
-        <div class="search-container">
-          <input type="text" placeholder="Search jobs, companies..." class="search-input">
-          <button class="search-btn">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-        <button class="settings-btn">View Settings</button>
-        <button class="toggle-btn" (click)="toggleNotifications()">
-          <i class="fas" [ngClass]="showNotifications ? 'fa-bell' : 'fa-bell-slash'"></i>
+      <div class="page-title">
+        <h1>Career Dashboard</h1>
+        <p>Find your dream job</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="search-container">
+        <input type="text" placeholder="Search jobs, companies..." class="search-input">
+        <button class="search-btn">
+          <i class="fas fa-search"></i>
         </button>
-        <div class="user-profile">
-          <div class="profile-image" [style.backgroundImage]="'url(' + user.profileImage + ')'">
-            <span *ngIf="!user.profileImage">{{ user.name.charAt(0) }}</span>
-          </div>
+      </div>
+      <button class="settings-btn">View Settings</button>
+      <button class="toggle-btn" (click)="toggleNotifications()">
+        <i class="fas" [ngClass]="showNotifications ? 'fa-bell' : 'fa-bell-slash'"></i>
+      </button>
+      <div class="user-profile">
+        <div class="profile-image" [style.backgroundImage]="'url(' + user.profileImage + ')'">
+          <span *ngIf="!user.profileImage">{{ user.name.charAt(0) }}</span>
         </div>
       </div>
-    </header>
-  
-    <!-- Main Content -->
-    <div class="dashboard-content">
-      <!-- Sidebar Navigation -->
-      <nav class="dashboard-sidebar" [ngClass]="{'collapsed': sidebarCollapsed}">
-        <!-- Toggle Button -->
-        <div class="sidebar-toggle">
-          <button class="toggle-sidebar-btn" (click)="toggleSidebar()">
-            <i class="fas" [ngClass]="sidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
-          </button>
-        </div>
-        
-        <ul class="nav-menu">
-          <li class="nav-item" [class.active]="activeSection === 'profile'" (click)="setActiveSection('profile')">
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="dashboard-content">
+    <!-- Sidebar Navigation -->
+    <nav class="dashboard-sidebar" [ngClass]="{'collapsed': sidebarCollapsed}">
+      <!-- Toggle Button -->
+      <div class="sidebar-toggle">
+        <button class="toggle-sidebar-btn" (click)="toggleSidebar()">
+          <i class="fas" [ngClass]="sidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+        </button>
+      </div>
+
+      <!-- ****** UPDATED NAVIGATION MENU ****** -->
+      <ul class="nav-menu">
+        <!-- Use routerLinkActive on the <li> and routerLink on an inner <a> -->
+        <!-- Adjust routerLink paths (e.g., './profile', './jobs') based on your child route configuration -->
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="./profile"> <!-- Relative path to child route -->
             <i class="fas fa-user"></i>
             <span *ngIf="!sidebarCollapsed">Skill Profile</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'portfolio'" (click)="setActiveSection('portfolio')">
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./portfolio"> <!-- Relative path to child route -->
             <i class="fas fa-briefcase"></i>
             <span *ngIf="!sidebarCollapsed">Portfolio</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'jobs'" (click)="setActiveSection('jobs')">
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./jobs"> <!-- Relative path to child route -->
             <i class="fas fa-search"></i>
             <span *ngIf="!sidebarCollapsed">Jobs</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'career'" (click)="setActiveSection('career')">
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./career"> <!-- Relative path to child route -->
             <i class="fas fa-route"></i>
             <span *ngIf="!sidebarCollapsed">Career Paths</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'messages'" (click)="setActiveSection('messages')">
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./messages"> <!-- Relative path to child route -->
             <i class="fas fa-envelope"></i>
             <span *ngIf="!sidebarCollapsed">Messages</span>
-            <span class="badge">3</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'interviews'" (click)="setActiveSection('interviews')">
+            <span class="badge">3</span> <!-- Keep badge if needed -->
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./interviews"> <!-- Relative path to child route -->
             <i class="fas fa-calendar-alt"></i>
             <span *ngIf="!sidebarCollapsed">Interviews</span>
-          </li>
-          <li class="nav-item" [class.active]="activeSection === 'learning'" (click)="setActiveSection('learning')">
+          </a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a routerLink="./learning"> <!-- Relative path to child route -->
             <i class="fas fa-graduation-cap"></i>
             <span *ngIf="!sidebarCollapsed">Learning</span>
-          </li>
-        </ul>
-        <div class="nav-footer" *ngIf="!sidebarCollapsed">
-          <div class="profile-completion">
-            <p>Profile Completion</p>
-            <div class="progress-bar">
-              <div class="progress" [style.width.%]="user.profileCompletion"></div>
-            </div>
-            <p class="percentage">{{ user.profileCompletion }}%</p>
+          </a>
+        </li>
+      </ul>
+      <!-- ****** END UPDATED NAVIGATION MENU ****** -->
+
+      <div class="nav-footer" *ngIf="!sidebarCollapsed">
+        <div class="profile-completion">
+          <p>Profile Completion</p>
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="user.profileCompletion"></div>
+          </div>
+          <p class="percentage">{{ user.profileCompletion }}%</p>
+          <!-- Complete Profile Button (Added based on previous request) -->
+          <button
+            *ngIf="user.profileCompletion !== undefined && user.profileCompletion < 100"
+            class="complete-profile-btn"
+            (click)="navigateToProfileEdit()">
+            Complete Profile
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Dashboard Area - Child components load here -->
+    <main class="dashboard-main">
+        <router-outlet></router-outlet>
+    </main>
+
+
+    <!-- Notifications Panel -->
+    <aside class="dashboard-notifications" *ngIf="showNotifications">
+      <div class="notifications-header">
+        <h3>Notifications</h3>
+        <button class="mark-read-btn" (click)="markAllAsRead()">Mark all as read</button>
+      </div>
+
+      <div class="notifications-list">
+        <div class="notification-item" *ngFor="let notification of notifications" [class.new]="notification.isNew">
+          <div class="notification-icon" [ngClass]="notification.type">
+            <i class="fas"
+               [ngClass]="{
+                 'fa-calendar-check': notification.type === 'interview',
+                 'fa-file-alt': notification.type === 'application',
+                 'fa-envelope': notification.type === 'message',
+                 'fa-briefcase': notification.type === 'job'
+               }"></i>
+          </div>
+          <div class="notification-content">
+            <h4>{{ notification.title }}</h4>
+            <p>{{ notification.description }}</p>
+            <span class="notification-time">{{ notification.time }}</span>
+          </div>
+          <div class="notification-actions">
+            <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
           </div>
         </div>
-      </nav>
-  
-      <!-- Main Dashboard Area -->
-      <main class="dashboard-main">
-        <!-- Profile Section -->
-        <section class="dashboard-section" *ngIf="activeSection === 'profile'">
-          <div class="section-header">
-            <h2>Your Skill Profile</h2>
-            <button class="edit-btn">Edit Profile</button>
+        <p *ngIf="!notifications || notifications.length === 0">No notifications.</p>
+      </div>
+
+      <div class="upcoming-interviews">
+        <h3>Upcoming Interviews</h3>
+        <!-- Example Interview Item (Replace with dynamic data later) -->
+        <div class="interview-item" *ngIf="upcomingInterviews && upcomingInterviews.length > 0">
+          <div class="interview-company-logo">
+            <img src="man1.png" alt="Google"> <!-- Placeholder -->
           </div>
-          
-          <div class="dashboard-cards">
-            <div class="dashboard-card profile-summary">
-              <div class="card-header">
-                <h3>Profile Summary</h3>
-              </div>
-              <div class="profile-info">
-                <div class="profile-image-large" [style.backgroundImage]="'url(' + user.profileImage + ')'">
-                  <span *ngIf="!user.profileImage">{{ user.name.charAt(0) }}</span>
-                </div>
-                <div class="info-details">
-                  <h3>{{ user.name }}</h3>
-                  <p class="job-title">{{ user.jobTitle }}</p>
-                  <p class="location"><i class="fas fa-map-marker-alt"></i> {{ user.location }}</p>
-                  <div class="action-buttons">
-                    <button class="primary-btn">Download Resume</button>
-                    <button class="secondary-btn">Share Profile</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <div class="dashboard-card skills-card">
-              <div class="card-header">
-                <h3>Skills</h3>
-                <button class="add-btn"><i class="fas fa-plus"></i> Add</button>
-              </div>
-              <div class="skills-container">
-                <span class="skill-tag" *ngFor="let skill of user.skills">{{ skill }}</span>
-              </div>
-            </div>
-  
-            <div class="dashboard-card experience-card">
-              <div class="card-header">
-                <h3>Experience</h3>
-                <button class="add-btn"><i class="fas fa-plus"></i> Add</button>
-              </div>
-              <div class="experience-details">
-                <div class="experience-item">
-                  <div class="company-logo">
-                    <img src="man1.png" alt="Company">
-                  </div>
-                  <div class="experience-content">
-                    <h4>Senior Frontend Developer</h4>
-                    <p class="company">TechCorp Inc.</p>
-                    <p class="period">Jan 2021 - Present (2 years 3 months)</p>
-                    <p class="description">Leading frontend development team, implementing React applications and improving performance.</p>
-                  </div>
-                </div>
-                <div class="experience-item">
-                  <div class="company-logo">
-                    <img src="people.png" alt="Company">
-                  </div>
-                  <div class="experience-content">
-                    <h4>Frontend Developer</h4>
-                    <p class="company">InnovateSoft</p>
-                    <p class="period">Mar 2018 - Dec 2020 (2 years 9 months)</p>
-                    <p class="description">Developed and maintained frontend applications using React and Node.js.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <div class="dashboard-card education-card">
-              <div class="card-header">
-                <h3>Education</h3>
-                <button class="add-btn"><i class="fas fa-plus"></i> Add</button>
-              </div>
-              <div class="education-details">
-                <div class="education-item">
-                  <div class="institution-logo">
-                    <img src="people.png" alt="University">
-                  </div>
-                  <div class="education-content">
-                    <h4>BS Computer Science</h4>
-                    <p class="institution">University of Technology</p>
-                    <p class="period">2014 - 2018</p>
-                    <p class="description">Focus on software engineering and web development.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="interview-details">
+            <h4>Technical Interview</h4>
+            <p>Google - Frontend Developer</p>
+            <p class="interview-time"><i class="far fa-calendar-alt"></i> Tomorrow, 10:00 AM</p>
           </div>
-        </section>
-  
-        <!-- Jobs Section -->
-        <section class="dashboard-section" *ngIf="activeSection === 'jobs'">
-          <div class="section-header">
-            <h2>Recommended Jobs</h2>
-            <div class="filter-options">
-              <select class="filter-select">
-                <option>All Locations</option>
-                <option>Remote Only</option>
-                <option>Onsite Only</option>
-              </select>
-              <select class="filter-select">
-                <option>Best Matches</option>
-                <option>Newest First</option>
-                <option>Highest Salary</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="dashboard-cards job-listings">
-            <div class="dashboard-card job-card" *ngFor="let job of recommendedJobs">
-              <div class="job-match">
-                <div class="match-percentage">{{ job.matchPercentage }}%</div>
-                <div class="match-text">Match</div>
-              </div>
-              <div class="job-details">
-                <h3 class="job-title">{{ job.title }}</h3>
-                <p class="company-name">{{ job.company }}</p>
-                <p class="job-location"><i class="fas fa-map-marker-alt"></i> {{ job.location }}</p>
-                <p class="job-salary"><i class="fas fa-money-bill-wave"></i> {{ job.salary }}</p>
-                <div class="job-highlights">
-                  <span class="highlight-tag">JavaScript</span>
-                  <span class="highlight-tag">React</span>
-                  <span class="highlight-tag">Node.js</span>
-                </div>
-                <div class="job-meta">
-                  <span class="posted-date">Posted {{ job.posted }}</span>
-                  <span class="applicants">48 applicants</span>
-                </div>
-              </div>
-              <div class="job-actions">
-                <button class="primary-btn">Apply Now</button>
-                <button class="secondary-btn"><i class="far fa-bookmark"></i> Save</button>
-              </div>
-            </div>
-            
-            <div class="view-more-container">
-              <button class="view-more-btn">View More Jobs</button>
-            </div>
-          </div>
-        </section>
-      </main>
-  
-      <!-- Notifications Panel -->
-      <aside class="dashboard-notifications" *ngIf="showNotifications">
-        <div class="notifications-header">
-          <h3>Notifications</h3>
-          <button class="mark-read-btn" (click)="markAllAsRead()">Mark all as read</button>
-        </div>
-        
-        <div class="notifications-list">
-          <div class="notification-item" *ngFor="let notification of notifications" [class.new]="notification.isNew">
-            <div class="notification-icon" [ngClass]="notification.type">
-              <i class="fas" 
-                 [ngClass]="{
-                   'fa-calendar-check': notification.type === 'interview',
-                   'fa-file-alt': notification.type === 'application',
-                   'fa-envelope': notification.type === 'message',
-                   'fa-briefcase': notification.type === 'job'
-                 }"></i>
-            </div>
-            <div class="notification-content">
-              <h4>{{ notification.title }}</h4>
-              <p>{{ notification.description }}</p>
-              <span class="notification-time">{{ notification.time }}</span>
-            </div>
-            <div class="notification-actions">
-              <button class="action-btn"><i class="fas fa-ellipsis-v"></i></button>
-            </div>
+          <div class="interview-actions">
+            <button class="primary-btn">Prepare</button>
           </div>
         </div>
-        
-        <div class="upcoming-interviews">
-          <h3>Upcoming Interviews</h3>
-          <div class="interview-item">
-            <div class="interview-company-logo">
-              <img src="man1.png" alt="Google">
-            </div>
-            <div class="interview-details">
-              <h4>Technical Interview</h4>
-              <p>Google - Frontend Developer</p>
-              <p class="interview-time"><i class="far fa-calendar-alt"></i> Tomorrow, 10:00 AM</p>
-            </div>
-            <div class="interview-actions">
-              <button class="primary-btn">Prepare</button>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </div>
+        <!-- <p *ngIf="!upcomingInterviews || upcomingInterviews.length === 0">No upcoming interviews scheduled.</p> -->
+      </div>
+    </aside>
   </div>
+</div>

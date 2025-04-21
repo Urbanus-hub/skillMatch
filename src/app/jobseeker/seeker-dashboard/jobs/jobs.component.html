@@ -1,0 +1,427 @@
+<!-- jobs.component.html -->
+<section class="dashboard-section jobs-dashboard">
+    <div class="section-header">
+      <div class="header-content">
+        <h2>Discover Your Next Opportunity</h2>
+        <p class="subtitle">We've found <span class="highlight">42 jobs</span> matching your skill profile</p>
+      </div>
+      <div class="header-actions">
+        <div class="filter-options">
+          <div class="filter-item">
+            <label for="jobLocation">Location</label>
+            <select id="jobLocation" class="filter-select">
+              <option value="all">All Locations</option>
+              <option value="remote">Remote Only</option>
+              <option value="onsite">Onsite Only</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="jobType">Job Type</label>
+            <select id="jobType" class="filter-select">
+              <option value="all">All Types</option>
+              <option value="fulltime">Full-time</option>
+              <option value="parttime">Part-time</option>
+              <option value="contract">Contract</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <label for="sortBy">Sort By</label>
+            <select id="sortBy" class="filter-select">
+              <option value="match">Best Match</option>
+              <option value="date">Newest First</option>
+              <option value="salary">Highest Salary</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Jobs Carousel -->
+    <div class="featured-jobs">
+      <h3 class="section-title">Featured Opportunities</h3>
+      <div class="featured-carousel">
+        <div class="carousel-container">
+          <div class="feature-job-card">
+            <div class="feature-banner">Featured</div>
+            <div class="feature-company-logo">
+              <!-- Updated URL -->
+              <img src="https://placehold.co/80x80/4a90e2/ffffff?text=TC" alt="TechCorp">
+            </div>
+            <div class="feature-content">
+              <h4>Senior Frontend Developer</h4>
+              <p class="feature-company">TechCorp Inc.</p>
+              <div class="feature-details">
+                <span><i class="fas fa-map-marker-alt"></i> Remote</span>
+                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                <span><i class="fas fa-money-bill-wave"></i> $120K-$150K</span>
+              </div>
+              <div class="match-indicator">
+                <div class="match-bar">
+                  <div class="match-progress" style="width: 94%"></div>
+                </div>
+                <span class="match-percentage">94% Match</span>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <button class="primary-btn">View Job</button>
+            </div>
+          </div>
+          <div class="feature-job-card">
+            <div class="feature-banner">Featured</div>
+            <div class="feature-company-logo">
+              <!-- Updated URL -->
+              <img src="https://placehold.co/80x80/f5a623/ffffff?text=IS" alt="InnoSoft">
+            </div>
+            <div class="feature-content">
+              <h4>React Developer Lead</h4>
+              <p class="feature-company">InnoSoft Solutions</p>
+              <div class="feature-details">
+                <span><i class="fas fa-map-marker-alt"></i> San Francisco</span>
+                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                <span><i class="fas fa-money-bill-wave"></i> $130K-$160K</span>
+              </div>
+              <div class="match-indicator">
+                <div class="match-bar">
+                  <div class="match-progress" style="width: 89%"></div>
+                </div>
+                <span class="match-percentage">89% Match</span>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <button class="primary-btn">View Job</button>
+            </div>
+          </div>
+          <div class="feature-job-card">
+            <div class="feature-banner">Featured</div>
+            <div class="feature-company-logo">
+              <!-- Updated URL -->
+              <img src="https://placehold.co/80x80/7ed321/ffffff?text=QD" alt="Quantum">
+            </div>
+            <div class="feature-content">
+              <h4>Angular Team Lead</h4>
+              <p class="feature-company">Quantum Digital</p>
+              <div class="feature-details">
+                <span><i class="fas fa-map-marker-alt"></i> Austin, TX</span>
+                <span><i class="fas fa-briefcase"></i> Full-time</span>
+                <span><i class="fas fa-money-bill-wave"></i> $125K-$155K</span>
+              </div>
+              <div class="match-indicator">
+                <div class="match-bar">
+                  <div class="match-progress" style="width: 85%"></div>
+                </div>
+                <span class="match-percentage">85% Match</span>
+              </div>
+            </div>
+            <div class="feature-actions">
+              <button class="primary-btn">View Job</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-control prev"><i class="fas fa-chevron-left"></i></button>
+          <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <button class="carousel-control next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Search Section -->
+    <div class="job-search-section">
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="job-search-input" placeholder="Search jobs by title, skills, or company...">
+        </div>
+        <button class="search-btn">Search</button>
+      </div>
+      <div class="quick-filters">
+        <span class="quick-filter active">All Jobs</span>
+        <span class="quick-filter">Recommended</span>
+        <span class="quick-filter">Applied</span>
+        <span class="quick-filter">Saved</span>
+      </div>
+    </div>
+
+    <!-- Job Listings -->
+    <div class="job-listings">
+      <!-- Job Card -->
+      <div class="job-card">
+        <div class="job-match">
+          <div class="match-circle">
+            <svg viewBox="0 0 36 36">
+              <path class="circle-bg"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#eee" stroke-width="3" />
+              <path class="circle-progress"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#3366cc" stroke-width="3" stroke-dasharray="93, 100" />
+            </svg>
+            <div class="match-percentage">93%</div>
+          </div>
+          <div class="match-text">Match</div>
+        </div>
+        <div class="job-details">
+          <div class="company-logo">
+            <!-- Updated URL -->
+            <img src="https://placehold.co/60x60/DB4437/ffffff?text=G" alt="Google">
+          </div>
+          <div class="job-content">
+            <div class="job-header">
+              <h3 class="job-title">Senior Frontend Engineer</h3>
+              <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+            </div>
+            <p class="company-name">Google</p>
+            <div class="job-info">
+              <span class="job-location"><i class="fas fa-map-marker-alt"></i> Mountain View, CA (Hybrid)</span>
+              <span class="job-salary"><i class="fas fa-money-bill-wave"></i> $140,000 - $180,000</span>
+              <span class="job-type"><i class="fas fa-briefcase"></i> Full-time</span>
+            </div>
+            <p class="job-description">Join our team to build the next generation of web applications. We're looking for experienced frontend engineers with expertise in modern JavaScript frameworks.</p>
+            <div class="job-skills">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag match">Angular</span>
+            </div>
+            <div class="job-meta">
+              <span class="posted-date">Posted 2 days ago</span>
+              <span class="applicants">134 applicants</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-actions">
+          <button class="primary-btn">Apply Now</button>
+          <button class="secondary-btn">View Details</button>
+        </div>
+      </div>
+
+      <!-- Job Card -->
+      <div class="job-card">
+        <div class="job-match">
+          <div class="match-circle">
+            <svg viewBox="0 0 36 36">
+              <path class="circle-bg"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#eee" stroke-width="3" />
+              <path class="circle-progress"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#3366cc" stroke-width="3" stroke-dasharray="88, 100" />
+            </svg>
+            <div class="match-percentage">88%</div>
+          </div>
+          <div class="match-text">Match</div>
+        </div>
+        <div class="job-details">
+          <div class="company-logo">
+            <!-- Updated URL -->
+            <img src="https://placehold.co/60x60/0078D4/ffffff?text=MS" alt="Microsoft">
+          </div>
+          <div class="job-content">
+            <div class="job-header">
+              <h3 class="job-title">UI/UX Developer</h3>
+              <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+            </div>
+            <p class="company-name">Microsoft</p>
+            <div class="job-info">
+              <span class="job-location"><i class="fas fa-map-marker-alt"></i> Remote</span>
+              <span class="job-salary"><i class="fas fa-money-bill-wave"></i> $110,000 - $140,000</span>
+              <span class="job-type"><i class="fas fa-briefcase"></i> Full-time</span>
+            </div>
+            <p class="job-description">Looking for a talented UI/UX Developer to create beautiful, intuitive interfaces for our cloud products. You'll work closely with designers and product managers.</p>
+            <div class="job-skills">
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag match">React</span>
+              <span class="skill-tag">UI/UX</span>
+              <span class="skill-tag">Figma</span>
+            </div>
+            <div class="job-meta">
+              <span class="posted-date">Posted 4 days ago</span>
+              <span class="applicants">98 applicants</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-actions">
+          <button class="primary-btn">Apply Now</button>
+          <button class="secondary-btn">View Details</button>
+        </div>
+      </div>
+
+      <!-- Job Card -->
+      <div class="job-card">
+        <div class="job-match new-match">
+          <div class="match-circle">
+            <svg viewBox="0 0 36 36">
+              <path class="circle-bg"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#eee" stroke-width="3" />
+              <path class="circle-progress"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none" stroke="#3366cc" stroke-width="3" stroke-dasharray="85, 100" />
+            </svg>
+            <div class="match-percentage">85%</div>
+          </div>
+          <div class="match-text">Match</div>
+          <div class="new-badge">New</div>
+        </div>
+        <div class="job-details">
+          <div class="company-logo">
+            <!-- Updated URL -->
+            <img src="https://placehold.co/60x60/FF9900/000000?text=A" alt="Amazon">
+          </div>
+          <div class="job-content">
+            <div class="job-header">
+              <h3 class="job-title">Frontend Developer</h3>
+              <button class="bookmark-btn"><i class="far fa-bookmark"></i></button>
+            </div>
+            <p class="company-name">Amazon</p>
+            <div class="job-info">
+              <span class="job-location"><i class="fas fa-map-marker-alt"></i> Seattle, WA</span>
+              <span class="job-salary"><i class="fas fa-money-bill-wave"></i> $120,000 - $150,000</span>
+              <span class="job-type"><i class="fas fa-briefcase"></i> Full-time</span>
+            </div>
+            <p class="job-description">Join our retail web team to build fast, responsive, and delightful customer experiences that millions of users interact with daily.</p>
+            <div class="job-skills">
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag match">React</span>
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag">CSS3</span>
+              <span class="skill-tag">AWS</span>
+            </div>
+            <div class="job-meta">
+              <span class="posted-date">Posted today</span>
+              <span class="applicants">42 applicants</span>
+            </div>
+          </div>
+        </div>
+        <div class="job-actions">
+          <button class="primary-btn">Apply Now</button>
+          <button class="secondary-btn">View Details</button>
+        </div>
+      </div>
+
+      <!-- Remote Placeholder for Loading More -->
+      <div class="load-more">
+        <button class="load-more-btn">Show More Jobs</button>
+        <p class="results-count">Showing 3 of 42 jobs</p>
+      </div>
+    </div>
+
+    <!-- Job Recommendations Sidebar -->
+    <aside class="job-recommendations">
+      <div class="recommendation-header">
+        <h3>Based on Your Profile</h3>
+        <p>Skills you should consider adding</p>
+      </div>
+      <div class="skill-recommendations">
+        <div class="recommended-skill">
+          <div class="skill-icon">
+            <i class="fab fa-react"></i>
+          </div>
+          <div class="skill-info">
+            <h4>React Native</h4>
+            <div class="skill-stats">
+              <span class="demand-indicator high">High Demand</span>
+              <span class="job-count">+420 jobs</span>
+            </div>
+            <div class="skill-progress">
+              <div class="progress-bar">
+                <div class="progress" style="width: 30%"></div>
+              </div>
+              <span class="progress-text">30% match with your skills</span>
+            </div>
+          </div>
+          <button class="add-skill-btn"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="recommended-skill">
+          <div class="skill-icon">
+            <i class="fab fa-node-js"></i>
+          </div>
+          <div class="skill-info">
+            <h4>GraphQL</h4>
+            <div class="skill-stats">
+              <span class="demand-indicator medium">Medium Demand</span>
+              <span class="job-count">+286 jobs</span>
+            </div>
+            <div class="skill-progress">
+              <div class="progress-bar">
+                <div class="progress" style="width: 45%"></div>
+              </div>
+              <span class="progress-text">45% match with your skills</span>
+            </div>
+          </div>
+          <button class="add-skill-btn"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="recommended-skill">
+          <div class="skill-icon">
+            <i class="fab fa-js"></i>
+          </div>
+          <div class="skill-info">
+            <h4>TypeScript</h4>
+            <div class="skill-stats">
+              <span class="demand-indicator high">High Demand</span>
+              <span class="job-count">+680 jobs</span>
+            </div>
+            <div class="skill-progress">
+              <div class="progress-bar">
+                <div class="progress" style="width: 60%"></div>
+              </div>
+              <span class="progress-text">60% match with your skills</span>
+            </div>
+          </div>
+          <button class="add-skill-btn"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+      <div class="salary-insights">
+        <h3>Salary Insights</h3>
+        <div class="salary-chart">
+          <div class="chart-placeholder">
+            <div class="bar-chart">
+              <div class="bar">
+                <div class="bar-fill" style="height: 60%"></div>
+                <span class="bar-label">Junior</span>
+                <span class="bar-value">$85k</span>
+              </div>
+              <div class="bar current">
+                <div class="bar-fill" style="height: 75%"></div>
+                <span class="bar-label">Mid</span>
+                <span class="bar-value">$110k</span>
+                <span class="you-are-here">You are here</span>
+              </div>
+              <div class="bar">
+                <div class="bar-fill" style="height: 90%"></div>
+                <span class="bar-label">Senior</span>
+                <span class="bar-value">$145k</span>
+              </div>
+              <div class="bar">
+                <div class="bar-fill" style="height: 100%"></div>
+                <span class="bar-label">Lead</span>
+                <span class="bar-value">$165k</span>
+              </div>
+            </div>
+          </div>
+          <p class="chart-caption">Average salary by experience level for Frontend Developers in your location</p>
+        </div>
+      </div>
+    </aside>
+  </section>

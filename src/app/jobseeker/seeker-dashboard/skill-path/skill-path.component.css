@@ -1,0 +1,537 @@
+/* skill-path.component.css */
+.skill-path-dashboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .section-header {
+    background: linear-gradient(135deg, #3366cc, #5c85d6);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(51, 102, 204, 0.2);
+  }
+  
+  .header-content h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .subtitle {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+  
+  /* Path Tabs */
+  .path-tabs {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eaeef5;
+  }
+  
+  .tab-container {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .path-tab {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+  }
+  
+  .path-tab:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 3px;
+    background-color: #3366cc;
+    transition: width 0.2s;
+  }
+  
+  .path-tab:hover {
+    color: #3366cc;
+  }
+  
+  .path-tab.active {
+    color: #3366cc;
+    font-weight: 500;
+  }
+  
+  .path-tab.active:after {
+    width: 100%;
+  }
+  
+  /* Path Visualization */
+  .path-visualization {
+    margin-bottom: 2rem;
+  }
+  
+  .path-track {
+    position: relative;
+    padding: 1rem 0;
+  }
+  
+  .skill-node {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .node-connector {
+    position: absolute;
+    left: 22px;
+    top: -20px;
+    width: 2px;
+    height: 32px;
+    background-color: #ddd;
+    z-index: 1;
+  }
+  
+  .node-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 1px solid #eaeef5;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .node-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  }
+  
+  .node-icon {
+    font-size: 1.5rem;
+    color: #ccc;
+    width: 40px;
+    text-align: center;
+    margin-top: 4px;
+  }
+  
+  .completed .node-icon {
+    color: #4CAF50;
+  }
+  
+  .node-content {
+    flex: 1;
+  }
+  
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .node-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .node-level {
+    font-size: 0.85rem;
+    color: #666;
+    padding: 0.25rem 0.75rem;
+    background-color: #f5f7fa;
+    border-radius: 20px;
+  }
+  
+  .node-description {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    color: #666;
+  }
+  
+  .node-progress {
+    margin-top: 0.75rem;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    border-radius: 3px;
+  }
+  
+  .progress.high {
+    background-color: #4CAF50;
+  }
+  
+  .progress.medium {
+    background-color: #FFC107;
+  }
+  
+  .progress.low {
+    background-color: #FF5722;
+  }
+  
+  .progress-text {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    margin-top: 0.4rem;
+  }
+  
+  .node-expand {
+    width: 24px;
+    text-align: center;
+    color: #999;
+    transition: transform 0.2s;
+  }
+  
+  .expanded .node-expand {
+    transform: rotate(180deg);
+  }
+  
+  /* Node Details */
+  .node-details {
+    background-color: #f9fafc;
+    border: 1px solid #eaeef5;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 1.25rem;
+    margin-top: -5px;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .node-details h5 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444;
+  }
+  
+  .sub-skills {
+    margin-bottom: 1.5rem;
+  }
+  
+  .sub-skill {
+    margin-bottom: 0.75rem;
+  }
+  
+  .sub-skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .sub-skill-mastery {
+    font-weight: 500;
+  }
+  
+  .sub-skill-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .sub-skill-progress {
+    height: 100%;
+    border-radius: 3px;
+  }
+  
+  .sub-skill-progress.high {
+    background-color: #4CAF50;
+  }
+  
+  .sub-skill-progress.medium {
+    background-color: #FFC107;
+  }
+  
+  .sub-skill-progress.low {
+    background-color: #FF5722;
+  }
+  
+  .node-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* Buttons */
+  .primary-btn {
+    background-color: #3366cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .primary-btn:hover {
+    background-color: #2855b0;
+  }
+  
+  .primary-btn.sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .secondary-btn {
+    background-color: #f5f7fa;
+    color: #444;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .secondary-btn:hover {
+    background-color: #e9ecf2;
+  }
+  
+  /* Skill Recommendations */
+  .skill-recommendations {
+    margin-bottom: 2rem;
+  }
+  
+  .skill-recommendations h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .recommendation-intro {
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+  }
+  
+  .recommendation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  
+  .recommendation-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.25rem;
+    border: 1px solid #eaeef5;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  }
+  
+  .recommendation-header h4 {
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+  }
+  
+  .parent-skill {
+    font-size: 0.85rem;
+    color: #666;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .recommendation-body {
+    margin-bottom: 1rem;
+  }
+  
+  .priority-indicator {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  
+  .priority-indicator.high {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: #4CAF50;
+  }
+  
+  .priority-indicator.medium {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: #FFC107;
+  }
+  
+  .priority-indicator.low {
+    background-color: rgba(255, 87, 34, 0.15);
+    color: #FF5722;
+  }
+  
+  .job-growth {
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .recommendation-actions {
+    margin-top: 1rem;
+  }
+  
+  /* Career Pathing */
+  .career-pathing {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid #eaeef5;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  }
+  
+  .career-path-header h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .career-path-header p {
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+    color: #666;
+  }
+  
+  .career-timeline {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    position: relative;
+  }
+  
+  .career-timeline:before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 40px;
+    right: 40px;
+    height: 3px;
+    background-color: #eee;
+    z-index: 1;
+  }
+  
+  .timeline-node {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ddd;
+    border: 3px solid white;
+    margin-bottom: 1rem;
+  }
+  
+  .timeline-node.current .timeline-dot {
+    background-color: #3366cc;
+  }
+  
+  .timeline-content {
+    text-align: center;
+    max-width: 140px;
+  }
+  
+  .timeline-content h4 {
+    font-size: 0.95rem;
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+  }
+  
+  .timeline-content p {
+    margin: 0 0 0.25rem;
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .timeline-salary {
+    font-size: 0.85rem;
+    color: #4CAF50;
+    font-weight: 500;
+  }
+  
+  .career-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .recommendation-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .career-timeline {
+      flex-direction: column;
+      margin: 1rem 0;
+    }
+    
+    .career-timeline:before {
+      top: 40px;
+      left: 28px;
+      right: auto;
+      width: 3px;
+      height: calc(100% - 80px);
+    }
+    
+    .timeline-node {
+      flex-direction: row;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+    
+    .timeline-dot {
+      margin-right: 1rem;
+      margin-bottom: 0;
+    }
+    
+    .timeline-content {
+      text-align: left;
+      max-width: none;
+    }
+    
+    .career-actions {
+      flex-direction: column;
+    }
+    
+    .career-actions button {
+      width: 100%;
+    }
+  }

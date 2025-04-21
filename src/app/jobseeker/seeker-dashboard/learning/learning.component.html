@@ -1,0 +1,509 @@
+<!-- learning.component.html -->
+<section class="dashboard-section learning-dashboard">
+    <div class="section-header">
+      <div class="header-content">
+        <h2>Learning</h2>
+        <p class="subtitle">Manage your learning resources and track your progress</p>
+      </div>
+    </div>
+  
+    <div class="learning-container">
+      <!-- Sidebar with filters and course list -->
+      <div class="learning-sidebar">
+        <div class="sidebar-header">
+          <button class="add-resource-btn" (click)="openAddResourceModal()">
+            <i class="fas fa-plus"></i>
+            <span>Add Resource</span>
+          </button>
+        </div>
+        
+        <div class="filters-container">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+              type="text" 
+              class="search-input" 
+              placeholder="Search resources..." 
+              [(ngModel)]="searchQuery"
+              (input)="applyFilters()">
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Category</label>
+            <div class="filter-options">
+              <div class="filter-option" 
+                   [class.active]="filters.category === 'all'"
+                   (click)="filters.category = 'all'; applyFilters()">All</div>
+              <div class="filter-option" 
+                   [class.active]="filters.category === 'courses'"
+                   (click)="filters.category = 'courses'; applyFilters()">Courses</div>
+              <div class="filter-option" 
+                   [class.active]="filters.category === 'books'"
+                   (click)="filters.category = 'books'; applyFilters()">Books</div>
+              <div class="filter-option" 
+                   [class.active]="filters.category === 'videos'"
+                   (click)="filters.category = 'videos'; applyFilters()">Videos</div>
+              <div class="filter-option" 
+                   [class.active]="filters.category === 'articles'"
+                   (click)="filters.category = 'articles'; applyFilters()">Articles</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <div class="filter-options">
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'all'"
+                   (click)="filters.status = 'all'; applyFilters()">All</div>
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'inProgress'"
+                   (click)="filters.status = 'inProgress'; applyFilters()">In Progress</div>
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'notStarted'"
+                   (click)="filters.status = 'notStarted'; applyFilters()">Not Started</div>
+              <div class="filter-option" 
+                   [class.active]="filters.status === 'completed'"
+                   (click)="filters.status = 'completed'; applyFilters()">Completed</div>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Tags</label>
+            <div class="filter-options">
+              <div *ngFor="let tag of availableTags" 
+                   class="filter-option tag-option" 
+                   [class.active]="selectedTags.includes(tag)"
+                   (click)="toggleTag(tag)">
+                {{ tag }}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="resources-list">
+          <div *ngFor="let resource of filteredResources" 
+               class="resource-card" 
+               [class.active]="selectedResource?.id === resource.id"
+               (click)="selectResource(resource.id)">
+            <div class="resource-icon">
+              <i class="fas" [ngClass]="getCategoryIcon(resource.category)"></i>
+            </div>
+            <div class="resource-details">
+              <div class="resource-title">{{ resource.title }}</div>
+              <div class="resource-provider">{{ resource.provider }}</div>
+              <div class="resource-meta">
+                <div class="resource-category">
+                  <i class="fas" [ngClass]="getCategoryIcon(resource.category)"></i>
+                  <span>{{ resource.category }}</span>
+                </div>
+                <div class="resource-duration" *ngIf="resource.duration">
+                  <i class="far fa-clock"></i>
+                  <span>{{ formatDuration(resource.duration) }}</span>
+                </div>
+              </div>
+              <div class="progress-container" *ngIf="resource.status !== 'notStarted'">
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width]="resource.progress + '%'"></div>
+                </div>
+                <span class="progress-text">{{ resource.progress }}%</span>
+              </div>
+              <div class="resource-status" *ngIf="resource.status === 'notStarted'">
+                <span class="status-badge not-started">Not Started</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Empty state -->
+          <div class="empty-state" *ngIf="filteredResources.length === 0">
+            <div class="empty-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3>No learning resources found</h3>
+            <p>Try changing your filters or add a new resource</p>
+            <button class="add-resource-btn-empty" (click)="openAddResourceModal()">
+              <i class="fas fa-plus"></i>
+              <span>Add Resource</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Resource details -->
+      <div class="resource-detail" *ngIf="selectedResource">
+        <div class="detail-header">
+          <div class="header-left">
+            <div class="resource-header-icon">
+              <i class="fas" [ngClass]="getCategoryIcon(selectedResource.category)"></i>
+            </div>
+            <div class="header-info">
+              <span class="resource-provider">{{ selectedResource.provider }}</span>
+              <h2 class="resource-title">{{ selectedResource.title }}</h2>
+              <div class="resource-tags">
+                <span class="tag" *ngFor="let tag of selectedResource.tags">{{ tag }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="header-right">
+            <div class="status-container">
+              <div class="status-badge" [ngClass]="getStatusClass(selectedResource.status)">
+                {{ getStatusLabel(selectedResource.status) }}
+              </div>
+              <div class="progress-container" *ngIf="selectedResource.status !== 'notStarted'">
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width]="selectedResource.progress + '%'"></div>
+                </div>
+                <span class="progress-text">{{ selectedResource.progress }}% Complete</span>
+              </div>
+            </div>
+            <div class="header-actions">
+              <button class="action-btn" (click)="openEditResourceModal()">
+                <i class="fas fa-pencil-alt"></i>
+                <span>Edit</span>
+              </button>
+              <div class="action-dropdown">
+                <button class="action-btn">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <div class="dropdown-item" (click)="toggleResourceStatus(selectedResource)">
+                    <i class="fas" [ngClass]="selectedResource.status === 'completed' ? 'fa-history' : 'fa-check-circle'"></i>
+                    <span>{{ selectedResource.status === 'completed' ? 'Mark as In Progress' : 'Mark as Completed' }}</span>
+                  </div>
+                  <div class="dropdown-item" (click)="startResource(selectedResource)" *ngIf="selectedResource.status === 'notStarted'">
+                    <i class="fas fa-play"></i>
+                    <span>Start Learning</span>
+                  </div>
+                  <div class="dropdown-item" (click)="deleteResource(selectedResource)">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>Delete Resource</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="detail-content">
+          <!-- Overview section -->
+          <div class="detail-section">
+            <div class="section-title">
+              <i class="fas fa-info-circle"></i>
+              <h4>Overview</h4>
+            </div>
+            <p class="resource-description" *ngIf="selectedResource.description">
+              {{ selectedResource.description }}
+            </p>
+            <div class="detail-grid">
+              <div class="detail-item" *ngIf="selectedResource.author">
+                <div class="detail-label">Author/Instructor</div>
+                <div class="detail-value">{{ selectedResource.author }}</div>
+              </div>
+              <div class="detail-item" *ngIf="selectedResource.category">
+                <div class="detail-label">Category</div>
+                <div class="detail-value">{{ selectedResource.category }}</div>
+              </div>
+              <div class="detail-item" *ngIf="selectedResource.duration">
+                <div class="detail-label">Duration</div>
+                <div class="detail-value">{{ formatDuration(selectedResource.duration) }}</div>
+              </div>
+              <div class="detail-item" *ngIf="selectedResource.language">
+                <div class="detail-label">Language</div>
+                <div class="detail-value">{{ selectedResource.language }}</div>
+              </div>
+              <div class="detail-item" *ngIf="selectedResource.level">
+                <div class="detail-label">Level</div>
+                <div class="detail-value">{{ selectedResource.level }}</div>
+              </div>
+              <div class="detail-item" *ngIf="selectedResource.dateAdded">
+                <div class="detail-label">Added On</div>
+                <div class="detail-value">{{ selectedResource.dateAdded | date:'MMM d, y' }}</div>
+              </div>
+            </div>
+            <div class="resource-buttons">
+              <a [href]="selectedResource.url" target="_blank" class="resource-btn primary-btn">
+                <i class="fas" [ngClass]="getActionIcon(selectedResource.category)"></i>
+                <span>{{ getActionText(selectedResource.category) }}</span>
+              </a>
+              <button class="resource-btn secondary-btn" (click)="updateProgress()" *ngIf="selectedResource.status === 'inProgress'">
+                <i class="fas fa-chart-line"></i>
+                <span>Update Progress</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Content section -->
+          <div class="detail-section" *ngIf="selectedResource.contents && selectedResource.contents.length > 0">
+            <div class="section-title">
+              <i class="fas fa-list"></i>
+              <h4>Contents</h4>
+            </div>
+            <div class="content-chapters">
+              <div *ngFor="let chapter of selectedResource.contents; let i = index" class="chapter-item">
+                <div class="chapter-header" (click)="toggleChapter(i)">
+                  <div class="chapter-index">{{ i + 1 }}</div>
+                  <div class="chapter-title">{{ chapter.title }}</div>
+                  <div class="chapter-status">
+                    <i class="fas" [ngClass]="chapter.completed ? 'fa-check-circle text-success' : 'fa-circle'"></i>
+                  </div>
+                  <div class="chapter-toggle">
+                    <i class="fas" [ngClass]="chapter.expanded ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                  </div>
+                </div>
+                <div class="chapter-content" *ngIf="chapter.expanded">
+                  <div *ngFor="let section of chapter.sections; let j = index" class="section-item">
+                    <div class="section-header">
+                      <div class="section-status">
+                        <input type="checkbox" 
+                               [checked]="section.completed" 
+                               (change)="toggleSectionComplete(i, j)">
+                      </div>
+                      <div class="section-title">{{ section.title }}</div>
+                      <div class="section-duration" *ngIf="section.duration">
+                        <i class="far fa-clock"></i>
+                        <span>{{ formatDuration(section.duration) }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Notes section -->
+          <div class="detail-section">
+            <div class="section-title">
+              <i class="fas fa-sticky-note"></i>
+              <h4>Notes</h4>
+              <button class="add-note-btn" (click)="addNote()">
+                <i class="fas fa-plus"></i>
+                <span>Add Note</span>
+              </button>
+            </div>
+            <div *ngIf="selectedResource.notes && selectedResource.notes.length > 0" class="notes-list">
+              <div *ngFor="let note of selectedResource.notes; let i = index" class="note-item">
+                <div class="note-header">
+                  <div class="note-date">{{ note.date | date:'MMM d, y' }}</div>
+                  <div class="note-actions">
+                    <button class="note-action-btn" (click)="editNote(i)">
+                      <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button class="note-action-btn" (click)="deleteNote(i)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="note-content">{{ note.content }}</div>
+              </div>
+            </div>
+            <div *ngIf="!selectedResource.notes || selectedResource.notes.length === 0" class="empty-notes">
+              <p>No notes added yet. Add notes to help with your learning.</p>
+            </div>
+          </div>
+          
+          <!-- Resources section -->
+          <div class="detail-section" *ngIf="selectedResource.resources && selectedResource.resources.length > 0">
+            <div class="section-title">
+              <i class="fas fa-link"></i>
+              <h4>Additional Resources</h4>
+            </div>
+            <div class="additional-resources">
+              <div *ngFor="let resource of selectedResource.resources" class="additional-resource-item">
+                <div class="resource-icon">
+                  <i class="fas" [ngClass]="getResourceTypeIcon(resource.type)"></i>
+                </div>
+                <div class="resource-info">
+                  <div class="resource-name">{{ resource.name }}</div>
+                  <div class="resource-description">{{ resource.description }}</div>
+                </div>
+                <div class="resource-actions">
+                  <a [href]="resource.url" target="_blank" class="resource-link">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Completion section -->
+          <div class="detail-section" *ngIf="selectedResource.status === 'completed'">
+            <div class="section-title">
+              <i class="fas fa-trophy"></i>
+              <h4>Completion</h4>
+            </div>
+            <div class="completion-content">
+              <div class="completion-info">
+                <div class="detail-item">
+                  <div class="detail-label">Completed On</div>
+                  <div class="detail-value">{{ selectedResource.completedDate | date:'MMM d, y' }}</div>
+                </div>
+                <div class="detail-item" *ngIf="selectedResource.rating">
+                  <div class="detail-label">Your Rating</div>
+                  <div class="detail-value rating">
+                    <i *ngFor="let star of [1,2,3,4,5]" 
+                       class="fas fa-star" 
+                       [class.active]="star <= selectedResource.rating"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="completion-certificate" *ngIf="selectedResource.certificate">
+                <div class="certificate-preview">
+                  <i class="fas fa-certificate"></i>
+                  <span>Certificate Earned</span>
+                </div>
+                <a [href]="selectedResource.certificate" target="_blank" class="view-certificate-btn">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span>View Certificate</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Empty state for when no resource is selected -->
+      <div class="resource-detail empty-detail" *ngIf="!selectedResource">
+        <div class="empty-detail-content">
+          <div class="empty-icon">
+            <i class="fas fa-book-reader"></i>
+          </div>
+          <h3>No resource selected</h3>
+          <p>Select a learning resource from the list to view details or add a new resource</p>
+          <button class="add-resource-btn-empty" (click)="openAddResourceModal()">
+            <i class="fas fa-plus"></i>
+            <span>Add Resource</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add Resource Modal -->
+    <div class="modal" *ngIf="isAddingResource">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Add New Learning Resource</h3>
+          <button class="close-btn" (click)="closeAddResourceModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form fields -->
+          <div class="form-group">
+            <label for="resourceTitle">Title</label>
+            <input type="text" id="resourceTitle" [(ngModel)]="newResource.title" placeholder="Enter title">
+          </div>
+          <div class="form-group">
+            <label for="resourceProvider">Provider</label>
+            <input type="text" id="resourceProvider" [(ngModel)]="newResource.provider" placeholder="Enter provider/platform">
+          </div>
+          <div class="form-group">
+            <label for="resourceCategory">Category</label>
+            <select id="resourceCategory" [(ngModel)]="newResource.category">
+              <option value="courses">Course</option>
+              <option value="books">Book</option>
+              <option value="videos">Video</option>
+              <option value="articles">Article</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="resourceUrl">URL</label>
+            <input type="url" id="resourceUrl" [(ngModel)]="newResource.url" placeholder="Enter URL">
+          </div>
+          <div class="form-group">
+            <label for="resourceDescription">Description</label>
+            <textarea id="resourceDescription" [(ngModel)]="newResource.description" placeholder="Enter description" rows="3"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group half">
+              <label for="resourceAuthor">Author/Instructor</label>
+              <input type="text" id="resourceAuthor" [(ngModel)]="newResource.author" placeholder="Enter author">
+            </div>
+            <div class="form-group half">
+              <label for="resourceLanguage">Language</label>
+              <input type="text" id="resourceLanguage" [(ngModel)]="newResource.language" placeholder="Enter language">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group half">
+              <label for="resourceDuration">Duration (minutes)</label>
+              <input type="number" id="resourceDuration" [(ngModel)]="newResource.duration" placeholder="Enter duration">
+            </div>
+            <div class="form-group half">
+              <label for="resourceLevel">Level</label>
+              <select id="resourceLevel" [(ngModel)]="newResource.level">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="all">All levels</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tags</label>
+            <div class="tags-input">
+              <div class="tag" *ngFor="let tag of newResource.tags; let i = index">
+                {{ tag }}
+                <span class="remove-tag" (click)="removeTag(i)">×</span>
+              </div>
+              <input type="text" [(ngModel)]="tagInput" placeholder="Add tags..." (keydown.enter)="addTag($event)">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closeAddResourceModal()">Cancel</button>
+          <button class="save-btn" (click)="saveNewResource()">Save Resource</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Update Progress Modal -->
+    <div class="modal" *ngIf="isUpdatingProgress">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Update Progress</h3>
+          <button class="close-btn" (click)="closeUpdateProgressModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="progress-update-content">
+            <p>How much of "{{ selectedResource?.title }}" have you completed?</p>
+            <div class="progress-slider-container">
+              <input type="range" 
+                     min="0" 
+                     max="100" 
+                     step="5" 
+                     [(ngModel)]="progressValue" 
+                     class="progress-slider">
+              <div class="progress-value">{{ progressValue }}%</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closeUpdateProgressModal()">Cancel</button>
+          <button class="save-btn" (click)="saveProgress()">Save Progress</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Add/Edit Note Modal -->
+    <div class="modal" *ngIf="isEditingNote">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>{{ editingNoteIndex === -1 ? 'Add Note' : 'Edit Note' }}</h3>
+          <button class="close-btn" (click)="closeNoteModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="noteContent">Note Content</label>
+            <textarea id="noteContent" [(ngModel)]="currentNoteContent" placeholder="Enter your note" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn" (click)="closeNoteModal()">Cancel</button>
+          <button class="save-btn" (click)="saveNote()">Save Note</button>
+        </div>
+      </div>
+    </div>
+  </section>

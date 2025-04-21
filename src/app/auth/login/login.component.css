@@ -109,6 +109,7 @@
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s;
+
 }
 
 .input-container input:focus {
@@ -117,13 +118,20 @@
   box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
 }
 
-.email-icon,
-.password-icon {
+.email-icon{
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: #9e9e9e;
+  color: #1e88e5;
+  cursor: pointer;
+}
+.password-icon {
+  position: absolute;
+  right: 12px;
+  bottom: 50%;
+  transform: translateY(-50%);
+  color: #1e88e5;
   cursor: pointer;
 }
 
@@ -251,7 +259,10 @@
 }
 
 .google-btn {
-  color: #ea4335;
+  color: #1877f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .facebook-btn {

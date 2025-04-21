@@ -2,123 +2,168 @@
 <div class="register-container">
   <div class="logo-section">
     <div class="logo">
-      <img src="logoImage.png" alt="SkillMatch">
+      <!-- Consider adding alt text if logoImage.png is meaningful -->
+      <img src="logoImage.png" alt="SkillMatch Logo"> 
       <span>SkillMatch</span>
     </div>
     <div class="wave-background"></div>
   </div>
-  
+
   <div class="content-wrapper">
     <div class="illustration">
       <div class="clock-icon">
-        <img src="assets/clock-icon.svg" alt="Clock">
+        <img src="assets/clock-icon.svg" alt=""> <!-- Alt text could be decorative or descriptive -->
       </div>
-      <img src="seeker.png" alt="People waiting illustration" class="people-img">
+      <!-- Consider more descriptive alt text -->
+      <img src="seeker.png" alt="Illustration of people waiting or job seeking" class="people-img"> 
     </div>
-    
+
     <div class="register-card">
       <div class="google-sign-in">
-        <button class="google-btn" (click)="signInWithGoogle()">
-          <img src="assets/google-icon.png" alt="Google">
-          <span>continue with Google account</span>
+        <button type="button" class="google-btn" (click)="signInWithGoogle()"> <!-- Use type="button" for non-submit actions -->
+          <img src="assets/google-icon.png" alt="Google Icon">
+          <span>Continue with Google account</span> <!-- Changed 'continue' to 'Continue' for consistency -->
         </button>
       </div>
-      
+
       <div class="divider">
         <span>OR</span>
       </div>
-      
+
       <h2 class="create-account-text">Create account</h2>
-      
+
+      <!-- Ensure ReactiveFormsModule is imported in your module or component -->
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="name-row">
           <div class="form-group">
             <label for="firstName">First name</label>
             <div class="input-container">
-              <input 
-                id="firstName" 
-                type="text" 
-                formControlName="firstName" 
+              <input
+                id="firstName"
+                type="text"
+                formControlName="firstName"
                 placeholder="John"
+                aria-required="true" 
               >
-              <i class="user-icon fa fa-user"></i>
+              <!-- Consider if this icon adds value or is just decorative -->
+              <i class="user-icon fa fa-user" aria-hidden="true"></i> 
+            </div>
+            <!-- More specific error messages can be helpful -->
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error-message">
+              First name is required.
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="lastName">Last name</label>
             <div class="input-container">
-              <input 
-                id="lastName" 
-                type="text" 
-                formControlName="lastName" 
+              <input
+                id="lastName"
+                type="text"
+                formControlName="lastName"
                 placeholder="Doe"
+                aria-required="true"
               >
-              <i class="user-icon fa fa-user"></i>
+              <i class="user-icon fa fa-user" aria-hidden="true"></i>
+            </div>
+             <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="error-message">
+              Last name is required.
             </div>
           </div>
         </div>
-        
+
         <div class="form-group">
           <label for="email">Email Address</label>
           <div class="input-container">
-            <input 
-              id="email" 
-              type="email" 
-              formControlName="email" 
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
               placeholder="example@gmail.com"
+              aria-required="true"
+              aria-describedby="email-error" 
             >
+            <!-- Icon could be added here if desired -->
           </div>
-          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
-            Please enter a valid email
+          <div id="email-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+             <!-- Check for specific errors -->
+             <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+             <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</span>
           </div>
         </div>
-        
+
         <div class="form-group">
-          <label for="password">password</label>
+          <!-- Consistent casing for label -->
+          <label for="password">Password</label> 
           <div class="input-container">
-            <input 
-              id="password" 
-              [type]="hidePassword ? 'password' : 'text'" 
-              formControlName="password" 
+            <input
+              id="password"
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
               placeholder="********"
+              aria-required="true"
+              aria-describedby="password-error"
             >
-            <i 
-              class="password-icon" 
-              [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
-              (click)="hidePassword = !hidePassword"
-            ></i>
+            <!-- Make icon clickable with keyboard -->
+            <button type="button" class="password-toggle-btn" (click)="hidePassword = !hidePassword" aria-label="Toggle password visibility">
+                <i
+                  class="password-icon"
+                  [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                  aria-hidden="true" 
+                ></i>
+            </button>
           </div>
-          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
-            Password must be at least 8 characters
+          <div id="password-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
+             <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
+             <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</span>
+             <!-- Add other potential password errors here -->
           </div>
         </div>
-        
+
         <div class="form-group">
-          <label for="confirmPassword">Confirm password</label>
+          <!-- Consistent casing for label -->
+          <label for="confirmPassword">Confirm password</label> 
           <div class="input-container">
-            <input 
-              id="confirmPassword" 
-              [type]="hideConfirmPassword ? 'password' : 'text'" 
-              formControlName="confirmPassword" 
+            <input
+              id="confirmPassword"
+              [type]="hideConfirmPassword ? 'password' : 'text'"
+              formControlName="confirmPassword"
               placeholder="********"
+              aria-required="true"
+              aria-describedby="confirm-password-error"
             >
-            <i 
-              class="password-icon" 
-              [ngClass]="hideConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
-              (click)="hideConfirmPassword = !hideConfirmPassword"
-            ></i>
+             <button type="button" class="password-toggle-btn" (click)="hideConfirmPassword = !hideConfirmPassword" aria-label="Toggle confirm password visibility">
+                <i
+                  class="password-icon"
+                  [ngClass]="hideConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                  aria-hidden="true"
+                ></i>
+             </button>
           </div>
-          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched" class="error-message">
-            Passwords do not match
+          <div id="confirm-password-error" *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" class="error-message">
+             <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</span>
+             <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match.</span>
           </div>
         </div>
-        
-        <button type="submit" class="register-btn"><a routerLink="/jobseeker">Register</a></button>
+
+        <!-- ****** MAIN FIX IS HERE ****** -->
+        <button
+          type="submit"
+          class="register-btn"
+          [disabled]="registerForm.invalid || isLoading">
+          {{ isLoading ? 'Registering...' : 'Register' }}
+        </button>
+        <!-- ****** END OF MAIN FIX ****** -->
+
       </form>
-      
+
+      <!-- Display potential API error messages -->
+      <div *ngIf="errorMessage" class="error-message api-error">
+        {{ errorMessage }}
+      </div>
+
       <div class="signin-link">
-        Already have an account? <a routerLink="/auth/login" >Sign In</a>
+        Already have an account? <a routerLink="/auth/login">Sign In</a>
       </div>
     </div>
   </div>

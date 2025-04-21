@@ -1,15 +1,14 @@
-// app.config.ts
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withComponentInputBinding, withEnabledBlockingInitialNavigation, withNavigationErrorHandler, withInMemoryScrolling } from '@angular/router';
+// src/app/app.config.ts
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http'; // Import provideHttpClient
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(
-      routes,
-      withComponentInputBinding(),
-      withEnabledBlockingInitialNavigation(),
-      withInMemoryScrolling({ anchorScrolling: 'enabled' }) // 🧠 this is key
-    )
-  ],
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient() // This line is crucial to make HttpClient available
+    // Add other global providers here if needed
+  ]
 };

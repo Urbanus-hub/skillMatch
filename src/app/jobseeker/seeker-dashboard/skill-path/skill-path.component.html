@@ -1,0 +1,154 @@
+<!-- skill-path.component.html -->
+<section class="dashboard-section skill-path-dashboard">
+    <div class="section-header">
+      <div class="header-content">
+        <h2>Your Skill Development Path</h2>
+        <p class="subtitle">Track your progress and find your next learning opportunity</p>
+      </div>
+    </div>
+  
+    <div class="skill-path-content">
+      <!-- Path Navigation Tabs -->
+      <div class="path-tabs">
+        <div class="tab-container">
+          <div *ngFor="let tab of tabs; let i = index" 
+               class="path-tab" 
+               [class.active]="activeTabIndex === i"
+               (click)="switchTab(i)">
+            {{ tab }}
+          </div>
+        </div>
+      </div>
+  
+      <!-- Main Path Visualization -->
+      <div class="path-visualization">
+        <div class="path-track">
+          <div *ngFor="let node of currentSkillPath; let i = index" 
+               class="skill-node" 
+               [class.completed]="node.completed"
+               [class.expanded]="expandedNodeId === node.id">
+            <div class="node-connector" *ngIf="i > 0"></div>
+            <div class="node-main" (click)="toggleNode(node.id)">
+              <div class="node-icon">
+                <i class="fas" [ngClass]="node.completed ? 'fa-check-circle' : 'fa-circle'"></i>
+              </div>
+              <div class="node-content">
+                <div class="node-header">
+                  <h4>{{ node.name }}</h4>
+                  <span class="node-level">{{ node.level }}</span>
+                </div>
+                <p class="node-description">{{ node.description }}</p>
+                <div class="node-progress">
+                  <div class="progress-bar">
+                    <div class="progress" [style.width.%]="node.progress"
+                         [ngClass]="getProgressClass(node.progress)"></div>
+                  </div>
+                  <span class="progress-text">{{ node.progress }}% Complete</span>
+                </div>
+              </div>
+              <div class="node-expand">
+                <i class="fas" [ngClass]="expandedNodeId === node.id ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+              </div>
+            </div>
+            
+            <!-- Expanded Node Details -->
+            <div class="node-details" *ngIf="expandedNodeId === node.id">
+              <h5>Sub-skills</h5>
+              <div class="sub-skills">
+                <div *ngFor="let child of node.children" class="sub-skill">
+                  <div class="sub-skill-header">
+                    <span class="sub-skill-name">{{ child.name }}</span>
+                    <span class="sub-skill-mastery">{{ child.mastery }}%</span>
+                  </div>
+                  <div class="sub-skill-bar">
+                    <div class="sub-skill-progress" [style.width.%]="child.mastery"
+                         [ngClass]="getProgressClass(child.mastery)"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="node-actions">
+                <button class="primary-btn">Practice This Skill</button>
+                <button class="secondary-btn">Find Resources</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Skill Recommendations -->
+      <div class="skill-recommendations">
+        <h3>Recommended Focus Areas</h3>
+        <p class="recommendation-intro">Based on your current progress, we suggest focusing on these skills:</p>
+        
+        <div class="recommendation-cards">
+          <div *ngFor="let recommendation of recommendedSkills" class="recommendation-card">
+            <div class="recommendation-header">
+              <h4>{{ recommendation.skillName }}</h4>
+              <span class="parent-skill">Part of {{ recommendation.parentName }}</span>
+            </div>
+            <div class="recommendation-body">
+              <div class="priority-indicator" [ngClass]="getProgressClass(recommendation.priority)">
+                <span>Priority: {{ recommendation.priority }}%</span>
+              </div>
+              <div class="job-growth">
+                <i class="fas fa-chart-line"></i>
+                <span>{{ recommendation.jobGrowth }}% job market growth</span>
+              </div>
+            </div>
+            <div class="recommendation-actions">
+              <button class="primary-btn sm">Start Learning</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Career Pathing Section -->
+    <div class="career-pathing">
+      <div class="career-path-header">
+        <h3>Your Career Progression</h3>
+        <p>Based on your skills and interests, here's your potential career path:</p>
+      </div>
+      
+      <div class="career-timeline">
+        <div class="timeline-node current">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Frontend Developer</h4>
+            <p>Current Position</p>
+            <span class="timeline-salary">$85K - $110K</span>
+          </div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Senior Frontend Developer</h4>
+            <p>1-2 Years</p>
+            <span class="timeline-salary">$110K - $140K</span>
+          </div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Frontend Lead</h4>
+            <p>3-4 Years</p>
+            <span class="timeline-salary">$140K - $165K</span>
+          </div>
+        </div>
+        <div class="timeline-node">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Frontend Architect</h4>
+            <p>5+ Years</p>
+            <span class="timeline-salary">$165K - $200K</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="career-actions">
+        <button class="primary-btn">View Detailed Career Plan</button>
+        <button class="secondary-btn">Explore Alternative Paths</button>
+      </div>
+    </div>
+  </section>

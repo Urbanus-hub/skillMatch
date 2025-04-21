@@ -209,6 +209,138 @@ body {
 .nav-item.active i {
   color: #2892D7;
 }
+/* seeker-dashboard.component.css */
+
+/* ... existing styles ... */
+
+/* Styling for the Profile Summary Card (assuming structure) */
+.profile-summary-card {
+  /* ... your existing styles for the card ... */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Add spacing */
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap */
+  gap: 20px; /* Add gap between flex items */
+}
+
+.user-info {
+  text-align: center;
+  flex-basis: 150px; /* Give user info a base width */
+  flex-grow: 1;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid var(--primary-color, #4a90e2); /* Example border */
+}
+
+.user-info h3 {
+  margin: 5px 0;
+  font-size: 1.2em;
+  color: var(--text-color-dark, #333);
+}
+
+.user-info p {
+  font-size: 0.9em;
+  color: var(--text-color-light, #666);
+  margin: 2px 0;
+}
+
+.profile-completion {
+  flex-basis: 200px; /* Give completion section a base width */
+  flex-grow: 2; /* Allow it to take more space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center items vertically */
+}
+
+.profile-completion h4 {
+  margin-bottom: 10px;
+  font-size: 1em;
+  color: var(--text-color-dark, #333);
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 15px; /* Adjust height */
+  margin-bottom: 15px; /* Space before the button */
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--success-color, #4caf50); /* Use a success color */
+  color: white;
+  text-align: center;
+  line-height: 15px; /* Match container height */
+  font-size: 0.8em;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+}
+
+
+/* --- Styles for the new "Complete Profile" Button --- */
+.complete-profile-btn {
+  background-color: var(--primary-color, #4a90e2); /* Use your primary color */
+  color: white;
+  border: none;
+  padding: 8px 15px; /* Adjust padding */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex; /* Use flex for icon alignment */
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  align-self: flex-start; /* Align button to the start if container is flex */
+}
+
+.complete-profile-btn:hover {
+  background-color: var(--primary-color-dark, #357abd); /* Darken on hover */
+  transform: translateY(-1px); /* Slight lift effect */
+}
+
+.complete-profile-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.complete-profile-btn i {
+  font-size: 0.9em; /* Adjust icon size if needed */
+}
+/* --- End Button Styles --- */
+
+
+.quick-stats {
+  flex-basis: 100%; /* Take full width on smaller screens or when wrapping */
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.quick-stats p {
+  font-size: 0.9em;
+  color: var(--text-color-light, #666);
+  margin-bottom: 5px;
+}
+
+.quick-stats strong {
+   color: var(--text-color-dark, #555);
+}
+
+/* ... other existing styles for dashboard grid, cards, sidebar, etc. ... */
+
+
 
 .nav-item.active::before {
   content: '';

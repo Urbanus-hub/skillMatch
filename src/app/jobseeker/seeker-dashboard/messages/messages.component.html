@@ -1,0 +1,268 @@
+<!-- messages.component.html -->
+<section class="dashboard-section messages-dashboard">
+    <div class="section-header">
+      <div class="header-content">
+        <h2>Messages</h2>
+        <p class="subtitle">Stay connected with recruiters and job opportunities</p>
+      </div>
+    </div>
+  
+    <div class="messages-container">
+      <!-- Sidebar with folders -->
+      <div class="messages-sidebar">
+        <button class="compose-btn" (click)="openComposeModal()">
+          <i class="fas fa-pen"></i>
+          <span>Compose</span>
+        </button>
+        
+        <div class="folder-list">
+          <div *ngFor="let folder of folders" 
+               class="folder-item" 
+               [class.active]="selectedFolderId === folder.id"
+               (click)="loadFolderMessages(folder.id)">
+            <div class="folder-icon">
+              <i class="fas" [ngClass]="folder.icon"></i>
+            </div>
+            <div class="folder-name">{{ folder.name }}</div>
+            <div class="folder-count" *ngIf="folder.count > 0">{{ folder.count }}</div>
+          </div>
+        </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="label-section">
+          <h3>Labels</h3>
+          <div class="label-list">
+            <div class="label-item">
+              <span class="label-dot" style="background-color: #ff5722;"></span>
+              <span class="label-name">Important</span>
+            </div>
+            <div class="label-item">
+              <span class="label-dot" style="background-color: #2196f3;"></span>
+              <span class="label-name">Interview</span>
+            </div>
+            <div class="label-item">
+              <span class="label-dot" style="background-color: #4caf50;"></span>
+              <span class="label-name">Offer</span>
+            </div>
+            <div class="label-item">
+              <span class="label-dot" style="background-color: #ff9800;"></span>
+              <span class="label-name">Webinar</span>
+            </div>
+            <div class="label-item">
+              <span class="label-dot" style="background-color: #9c27b0;"></span>
+              <span class="label-name">Urgent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Message list -->
+      <div class="messages-list">
+        <div class="list-header">
+          <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="message-search" placeholder="Search messages..." [(ngModel)]="searchQuery">
+          </div>
+          <div class="list-actions">
+            <button class="action-btn">
+              <i class="fas fa-filter"></i>
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-sort-amount-down"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="message-items">
+          <div *ngFor="let message of currentFolderMessages" 
+               class="message-item" 
+               [class.unread]="!message.read"
+               [class.selected]="selectedMessageId === message.id"
+               (click)="viewMessage(message.id)">
+            <div class="message-avatar">
+              <img [src]="message.sender.avatar" [alt]="message.sender.name">
+            </div>
+            <div class="message-content">
+              <div class="message-header">
+                <div class="message-sender">
+                  {{ message.sender.name }}
+                  <span class="sender-tag" *ngIf="message.sender.isRecruiter">Recruiter</span>
+                </div>
+                <div class="message-date">{{ formatMessageDate(message.timestamp) }}</div>
+              </div>
+              <div class="message-subject">
+                {{ message.subject }}
+                <span class="attachment-indicator" *ngIf="message.attachments && message.attachments.length > 0">
+                  <i class="fas fa-paperclip"></i>
+                </span>
+              </div>
+              <div class="message-preview">{{ message.preview }}</div>
+              <div class="message-labels" *ngIf="message.labels && message.labels.length > 0">
+                <span *ngFor="let label of message.labels" class="message-label" 
+                      [ngClass]="{'interview': label === 'Interview', 
+                                 'important': label === 'Important',
+                                 'urgent': label === 'Urgent',
+                                 'webinar': label === 'Webinar'}">
+                  {{ label }}
+                </span>
+              </div>
+            </div>
+            <div class="message-actions">
+              <button class="star-btn" (click)="toggleStar(message, $event)">
+                <i class="fas" [ngClass]="message.starred ? 'fa-star starred' : 'fa-star'"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Empty state -->
+          <div class="empty-state" *ngIf="currentFolderMessages.length === 0">
+            <div class="empty-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <h3>No messages found</h3>
+            <p>This folder is empty or no messages match your search.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Message detail -->
+      <div class="message-detail" *ngIf="selectedMessage">
+        <div class="detail-header">
+          <h3 class="detail-subject">{{ selectedMessage.subject }}</h3>
+          <div class="detail-actions">
+            <button class="detail-action-btn" title="Reply">
+              <i class="fas fa-reply"></i>
+            </button>
+            <button class="detail-action-btn" title="Forward">
+              <i class="fas fa-share"></i>
+            </button>
+            <button class="detail-action-btn" title="Print">
+              <i class="fas fa-print"></i>
+            </button>
+            <button class="detail-action-btn" title="Delete">
+              <i class="fas fa-trash"></i>
+            </button>
+            <button class="detail-action-btn" (click)="archiveMessage(selectedMessage.id)" title="Archive">
+              <i class="fas fa-archive"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="message-info">
+          <div class="sender-info">
+            <div class="sender-avatar">
+              <img [src]="selectedMessage.sender.avatar" [alt]="selectedMessage.sender.name">
+            </div>
+            <div class="sender-details">
+              <div class="sender-name">
+                {{ selectedMessage.sender.name }}
+                <span class="sender-tag" *ngIf="selectedMessage.sender.isRecruiter">Recruiter</span>
+              </div>
+              <div class="sender-company" *ngIf="selectedMessage.sender.company">
+                {{ selectedMessage.sender.company }}
+              </div>
+            </div>
+          </div>
+          <div class="message-meta">
+            <div class="message-timestamp">
+              {{ selectedMessage.timestamp | date:'medium' }}
+            </div>
+            <button class="star-detail-btn" (click)="toggleStar(selectedMessage, $event)">
+              <i class="fas" [ngClass]="selectedMessage.starred ? 'fa-star starred' : 'fa-star'"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="message-body" [innerHTML]="selectedMessage.content"></div>
+        
+        <div class="message-attachments" *ngIf="selectedMessage.attachments && selectedMessage.attachments.length > 0">
+          <h4>Attachments ({{ selectedMessage.attachments.length }})</h4>
+          <div class="attachments-list">
+            <div *ngFor="let attachment of selectedMessage.attachments" class="attachment-item">
+              <div class="attachment-icon">
+                <i class="fas" [ngClass]="attachment.type === 'PDF' ? 'fa-file-pdf' : 'fa-file'"></i>
+              </div>
+              <div class="attachment-details">
+                <div class="attachment-name">{{ attachment.name }}</div>
+                <div class="attachment-meta">{{ attachment.type }} · {{ attachment.size }}</div>
+              </div>
+              <div class="attachment-actions">
+                <button class="attachment-btn download">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button class="attachment-btn view">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="reply-section">
+          <div class="reply-avatar">
+            <div class="avatar-initials">{{ getInitials('Your Name') }}</div>
+          </div>
+          <div class="reply-input">
+            <textarea placeholder="Write your reply..."></textarea>
+            <div class="reply-actions">
+              <div class="reply-format-actions">
+                <button><i class="fas fa-bold"></i></button>
+                <button><i class="fas fa-italic"></i></button>
+                <button><i class="fas fa-link"></i></button>
+                <button><i class="fas fa-paperclip"></i></button>
+              </div>
+              <button class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+                <span>Send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Empty state for message detail when nothing is selected -->
+     
+        <div class="message-detail-empty" *ngIf="!selectedMessage">
+            <div class="empty-icon">
+              <i class="fas fa-envelope-open"></i>
+            </div>
+            <h3>No message selected</h3>
+            <p>Select a message from the list to view its contents</p>
+          </div>
+          <!-- Add this to the end of messages.component.html -->
+<div class="compose-modal" *ngIf="isComposing">
+    <div class="compose-content">
+      <div class="compose-header">
+        <h3 class="compose-title">Compose Message</h3>
+        <button class="close-compose" (click)="closeComposeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="compose-body">
+        <div class="compose-form-group">
+          <label for="compose-to">To:</label>
+          <input type="text" id="compose-to" placeholder="Enter recipient(s) email">
+        </div>
+        <div class="compose-form-group">
+          <label for="compose-cc">CC:</label>
+          <input type="text" id="compose-cc" placeholder="Carbon copy recipients">
+        </div>
+        <div class="compose-form-group">
+          <label for="compose-subject">Subject:</label>
+          <input type="text" id="compose-subject" placeholder="Enter subject">
+        </div>
+        <div class="compose-form-group">
+          <textarea placeholder="Write your message here..."></textarea>
+        </div>
+      </div>
+      <div class="compose-footer">
+        <button class="compose-attachment">
+          <i class="fas fa-paperclip"></i>
+          <span>Attach</span>
+        </button>
+        <button class="compose-cancel">Cancel</button>
+        <button class="compose-send">Send</button>
+      </div>
+    </div>
+  </div>
