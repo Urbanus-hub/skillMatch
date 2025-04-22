@@ -22,13 +22,14 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminAnalyticsComponent } from './admin/components/admin-analytics/admin-analytics.component';
 import { CompaniesComponent } from './admin/components/companies/companies.component';
 import { TalentBoardComponent } from './employerPart/talent-board/talent-board.component';
-import { ProfileSkillsComponent } from './jobseeker/seeker-dashboard/profile-skills/profile-skills.component';
+import { ProfileSkillsComponent } from './jobseeker/seeker-dashboard/portfolio-skill-match/profile-skills/profile-skills.component';
 // Import other child components for the dashboard if they exist
  import { JobsComponent } from './jobseeker/seeker-dashboard/jobs/jobs.component'; // Example
 import {SkillPathComponent} from './jobseeker/seeker-dashboard/skill-path/skill-path.component';
 import {MessagesComponent} from './jobseeker/seeker-dashboard/messages/messages.component';
 import {InterviewsComponent} from './jobseeker/seeker-dashboard/interviews/interviews.component'
 import { LearningComponent } from './jobseeker/seeker-dashboard/learning/learning.component';
+import { JobseekerComponent } from './jobseeker/jobseeker/jobseeker.component';
 
 
 export const routes: Routes = [
@@ -66,7 +67,8 @@ export const routes: Routes = [
 
   // --- Other Top-Level Routes (Review if needed) ---
   // These might be redundant if they are meant to be part of the dashboard
-  {path: 'profile', component: ProfileComponent}, // Is this different from ProfileSkills?
+  {path:'jobSeeker',component:JobseekerComponent},
+  {path: 'jobProfile', component: ProfileComponent}, // Is this different from ProfileSkills?
   {path:'skills', component: SkillsComponent},
   {path: 'resume', component: ResumeComponent},
   {path: 'welcome', component: WelcomeComponent},

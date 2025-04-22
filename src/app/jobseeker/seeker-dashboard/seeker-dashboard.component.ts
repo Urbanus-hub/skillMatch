@@ -197,8 +197,16 @@ export class SeekerDashboardComponent implements OnInit {
   }
 
   navigateToProfileEdit(): void {
-    // Navigate to the main profile editing component/route
-    this.router.navigate(['/jobseeker/profile']);
+    // Get auth token and user ID
+    const authToken = localStorage.getItem('authToken');
+    const userId = this.user.id;
+    
+    // Navigate with query parameters (not secure for tokens)
+    this.router.navigate(['/jobSeeker'], { 
+      queryParams: { 
+        userId: userId // Security risk - not recommended
+      }
+    });
   }
 
   animateElements(): void {

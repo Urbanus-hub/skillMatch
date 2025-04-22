@@ -1,133 +1,166 @@
 <!-- job-seeker-profile.component.html -->
 <div class="profile-container">
-    <!-- Header -->
-    <header class="profile-header">
-      <h1>JOB SEEKER PROFILE DETAILS</h1>
-    </header>
-  
-    <!-- Logo section -->
-    <div class="logo-section">
-      <div class="logo-container">
-        <img src="assets/icons/skillmatch-logo.svg" alt="SkillMatch" class="logo">
-        <span class="logo-text">SkillMatch</span>
-      </div>
-      <div class="wave-shape"></div>
+  <!-- Header -->
+  <header class="profile-header">
+    <h1>JOB SEEKER PROFILE DETAILS</h1>
+  </header>
+
+  <!-- Logo section -->
+  <div class="logo-section">
+    <div class="logo-container">
+      <img src="assets/icons/skillmatch-logo.svg" alt="SkillMatch" class="logo">
+      <span class="logo-text">SkillMatch</span>
     </div>
-  
-    <!-- Progress stepper -->
-    <div class="stepper-container">
-      <div class="stepper">
-        <div class="step" [ngClass]="{'active': currentStep === 1, 'completed': currentStep > 1}">
-          <div class="step-number">1</div>
-          <div class="step-label">Basic Info</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step" [ngClass]="{'active': currentStep === 2, 'completed': currentStep > 2}">
-          <div class="step-number">2</div>
-          <div class="step-label">Skills</div>
-        </div>
-        <div class="step-line"></div>
-        <div class="step" [ngClass]="{'active': currentStep === 3, 'completed': currentStep > 3}">
-          <div class="step-number">3</div>
-          <div class="step-label">Resume</div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Form content -->
-    <div class="form-container">
-      <!-- Step 1: Basic Info -->
-      <div class="form-card" *ngIf="currentStep === 1">
-        <div class="form-header">
-          <h2>Let's start with your basic information</h2>
-        </div>
-        <div class="form-content">
-          <form [formGroup]="basicInfoForm">
-            <div class="form-group">
-              <label for="jobTitle">Current job title</label>
-              <input 
-                type="text" 
-                id="jobTitle" 
-                formControlName="jobTitle" 
-                placeholder="e.g. software engineer">
-            </div>
-  
-            <div class="form-group">
-              <label for="experience">Years of work experience</label>
-              <div class="select-wrapper">
-                <select id="experience" formControlName="experience">
-                  <option value="" disabled selected>select experience level</option>
-                  <option *ngFor="let level of experienceLevels" [value]="level">{{ level }}</option>
-                </select>
-                <div class="select-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="industry">Primary industry</label>
-              <div class="select-wrapper">
-                <select id="industry" formControlName="industry">
-                  <option value="" disabled selected>Select industry</option>
-                  <option *ngFor="let industry of industries" [value]="industry">{{ industry }}</option>
-                </select>
-                <div class="select-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="location">Location</label>
-              <input 
-                type="text" 
-                id="location" 
-                formControlName="location"
-                placeholder="city/state/province/country">
-            </div>
-  
-            <div class="form-group">
-              <label for="summary">Professional summary</label>
-              <textarea 
-                id="summary" 
-                formControlName="summary"
-                rows="4"
-                placeholder="Write a brief summary of your professional background and career goals"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="form-actions">
-          <button class="btn-skip" (click)="skipForNow()"> <a [routerLink]="['/seekerDashboard']">Skip for now</a>
-            </button>
-          <button class="btn-continue" (click)="continue()"> <a [routerLink]="['/skills']" routerLinkActive="router-link-active" >Continue</a> </button>
-        </div>
-      </div>
-  
-      <!-- Placeholder for Step 2: Skills (will be implemented separately) -->
-      <div class="form-card" *ngIf="currentStep === 2">
-        <!-- Skills form content will go here -->
-        <h2>Skills section coming soon</h2>
-      </div>
-  
-      <!-- Placeholder for Step 3: Resume (will be implemented separately) -->
-      <div class="form-card" *ngIf="currentStep === 3">
-        <!-- Resume upload content will go here -->
-        <h2>Resume upload section coming soon</h2>
-      </div>
-    </div>
-  
-    <!-- Bottom zoom controls (for design conformity) -->
-    <div class="zoom-controls">
-      <button class="zoom-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
+    <div class="wave-shape"></div>
+  </div>
+
+  <!-- Authentication Error Banner (only shows when auth error occurs) -->
+  <div *ngIf="!authToken" class="auth-error-banner">
+    <div class="auth-error-content">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>You need to be logged in to save your profile. <a [routerLink]="['/login']">Log in now</a></span>
     </div>
   </div>
+
+  <!-- Progress stepper -->
+  <div class="stepper-container">
+    <div class="stepper">
+      <div class="step" [ngClass]="{'active': currentStep === 1, 'completed': currentStep > 1}">
+        <div class="step-number">1</div>
+        <div class="step-label">Basic Info</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [ngClass]="{'active': currentStep === 2, 'completed': currentStep > 2}">
+        <div class="step-number">2</div>
+        <div class="step-label">Skills</div>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [ngClass]="{'active': currentStep === 3, 'completed': currentStep > 3}">
+        <div class="step-number">3</div>
+        <div class="step-label">Resume</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form content -->
+  <div class="form-container">
+    <!-- Step 1: Basic Info -->
+    <div class="form-card" *ngIf="currentStep === 1">
+      <div class="form-header">
+        <h2>Let's start with your basic information</h2>
+      </div>
+      <div class="form-content">
+        <form [formGroup]="basicInfoForm">
+          <div class="form-group">
+            <label for="jobTitle">Current job title</label>
+            <input 
+              type="text" 
+              id="jobTitle" 
+              formControlName="jobTitle" 
+              placeholder="e.g. software engineer">
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Years of work experience</label>
+            <div class="select-wrapper">
+              <select id="experience" formControlName="experience">
+                <option value="" disabled selected>select experience level</option>
+                <option *ngFor="let level of experienceLevels" [value]="level">{{ level }}</option>
+              </select>
+              <div class="select-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div *ngIf="basicInfoForm.get('experience')?.invalid && basicInfoForm.get('experience')?.touched" class="error-message">
+              Experience level is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="industry">Primary industry</label>
+            <div class="select-wrapper">
+              <select id="industry" formControlName="industry">
+                <option value="" disabled selected>Select industry</option>
+                <option *ngFor="let industry of industries" [value]="industry">{{ industry }}</option>
+              </select>
+              <div class="select-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div *ngIf="basicInfoForm.get('industry')?.invalid && basicInfoForm.get('industry')?.touched" class="error-message">
+              Industry is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input 
+              type="text" 
+              id="location" 
+              formControlName="location"
+              placeholder="city/state/province/country">
+          </div>
+
+          <div class="form-group">
+            <label for="summary">Professional summary</label>
+            <textarea 
+              id="summary" 
+              formControlName="summary"
+              rows="4"
+              placeholder="Write a brief summary of your professional background and career goals"></textarea>
+          </div>
+        </form>
+
+        <!-- Error message display -->
+        <div *ngIf="errorMessage" class="error-alert">
+          {{ errorMessage }}
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-skip" (click)="skipForNow()">Skip for now</button>
+        <button 
+          class="btn-continue" 
+          (click)="continue()" 
+          [disabled]="isLoading || basicInfoForm.invalid">
+          <span *ngIf="!isLoading">Continue</span>
+          <span *ngIf="isLoading">
+            <svg class="spinner" viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+            Saving...
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Placeholder for Step 2: Skills (will be implemented separately) -->
+    <div class="form-card" *ngIf="currentStep === 2">
+      <!-- Skills form content will go here -->
+      <h2>Skills section coming soon</h2>
+    </div>
+
+    <!-- Placeholder for Step 3: Resume (will be implemented separately) -->
+    <div class="form-card" *ngIf="currentStep === 3">
+      <!-- Resume upload content will go here -->
+      <h2>Resume upload section coming soon</h2>
+    </div>
+  </div>
+
+  <!-- Bottom zoom controls (for design conformity) -->
+  <div class="zoom-controls">
+    <button class="zoom-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+    </button>
+  </div>
+</div>

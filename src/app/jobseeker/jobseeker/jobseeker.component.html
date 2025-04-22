@@ -1,110 +1,114 @@
 <!-- profile-onboarding.component.html -->
 <div class="onboarding-container">
-    <!-- Header with logo -->
-    <header class="header">
-      <div class="logo-container">
-        <img src="assets/logoImage.png" alt="SkillMatch Logo" class="logo">
-        <span class="logo-text">SkillMatch</span>
-      </div>
-    </header>
-  
-    <!-- Wavy background and welcome message -->
-    <div class="welcome-section">
-      <h1 class="welcome-text">Welcome, {{username}}</h1>
-      <div class="wave-shape"></div>
+  <!-- Header with logo -->
+  <header class="header">
+    <div class="logo-container">
+      <img src="assets/logoImage.png" alt="SkillMatch Logo" class="logo">
+      <span class="logo-text">SkillMatch</span>
     </div>
-  
-    <!-- Main content -->
-    <div class="main-content">
-      <h2 class="subtitle">Let's add you to SkillMatch pool!</h2>
-  
-      <div class="onboarding-layout">
-        <!-- User profile sidebar -->
-        <div class="profile-sidebar">
-          <div class="profile-avatar">
-            <div class="avatar-placeholder"></div>
-          </div>
-          <h3 class="username">{{username}}</h3>
-          <span class="user-status">{{profileStatus}}</span>
-          <span class="completion-text">Profile completion</span>
-          
-          <div class="progress-container">
-            <div class="progress-bar" [style.width.%]="currentStep * 33.3"></div>
-          </div>
-  
-          <nav class="profile-nav">
-            <ul>
-              <li [class.active]="currentStep === 1">
-                <a (click)="goToStep(1)">Personal information</a>
-                <span class="step-indicator" *ngIf="currentStep > 1">✓</span>
-              </li>
-              <li [class.active]="currentStep === 2">
-                <a (click)="goToStep(2)">Skills</a>
-                <span class="step-indicator" *ngIf="currentStep > 2">✓</span>
-              </li>
-              <li [class.active]="currentStep === 3">
-                <a (click)="goToStep(3)">Upload Resume</a>
-              </li>
-            </ul>
-          </nav>
+  </header>
+
+  <!-- Wavy background and welcome message -->
+  <div class="welcome-section">
+    <h1 class="welcome-text">Welcome, {{username}}</h1>
+    <div class="wave-shape"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <h2 class="subtitle">Let's add you to SkillMatch pool!</h2>
+
+    <div class="onboarding-layout">
+      <!-- User profile sidebar -->
+      <div class="profile-sidebar">
+        <div class="profile-avatar">
+          <div class="avatar-placeholder"></div>
         </div>
-  
-        <!-- Onboarding steps cards -->
-        <div class="steps-container">
-          <p class="instructions">Please complete your profile.</p>
-  
-          <div class="step-cards">
-            <!-- Step 1 Card -->
-            <div class="step-card" [class.completed]="currentStep > 1" (click)="goToStep(1)">
-              <div class="step-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-                  <path d="M12 14c-6.1 0-8 4-8 4v2h16v-2s-1.9-4-8-4z"></path>
-                </svg>
-              </div>
-              <div class="step-number">01</div>
-              <div class="step-description">Set up your personal profile</div>
-              <div class="step-time">~ 2 min</div>
-            </div>
-  
-            <!-- Step 2 Card -->
-            <div class="step-card" [class.completed]="currentStep > 2" (click)="goToStep(2)">
-              <div class="step-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="3" width="7" height="7"></rect>
-                  <rect x="14" y="14" width="7" height="7"></rect>
-                  <rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-              </div>
-              <div class="step-number">02</div>
-              <div class="step-description">Add your skills</div>
-              <div class="step-time">~ 3 min</div>
-            </div>
-  
-            <!-- Step 3 Card -->
-            <div class="step-card" [class.completed]="currentStep > 3" (click)="goToStep(3)">
-              <div class="step-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path>
-                </svg>
-              </div>
-              <div class="step-number">03</div>
-              <div class="step-description">Upload resume</div>
-              <div class="step-time">~ 2 min</div>
-            </div>
-          </div>
-  
-          <!-- Step indicator dots -->
-          <div class="step-dots">
-            <span class="dot" [class.active]="currentStep >= 1"></span>
-            <span class="dot" [class.active]="currentStep >= 2"></span>
-            <span class="dot" [class.active]="currentStep >= 3"></span>
-          </div>
-  
-          <!-- Complete button -->
-          <button class="complete-button" (click)="completeOnboarding()"> <a [routerLink]="['/profile']">Complete</a> </button>
+        <h3 class="username">{{username}}</h3>
+        <span class="user-status">{{profileStatus}}</span>
+        <span class="completion-text">Profile completion</span>
+
+        <div class="progress-container">
+          <div class="progress-bar" [style.width.%]="currentStep * 33.3"></div>
         </div>
+
+        <nav class="profile-nav">
+          <ul>
+            <li [class.active]="currentStep === 1">
+              <a (click)="goToStep(1)">Personal information</a>
+              <span class="step-indicator" *ngIf="currentStep > 1">✓</span>
+            </li>
+            <li [class.active]="currentStep === 2">
+              <a (click)="goToStep(2)">Skills</a>
+              <span class="step-indicator" *ngIf="currentStep > 2">✓</span>
+            </li>
+            <li [class.active]="currentStep === 3">
+              <a (click)="goToStep(3)">Upload Resume</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Onboarding steps cards -->
+      <div class="steps-container">
+        <p class="instructions">Please complete your profile.</p>
+
+        <div class="step-cards">
+          <!-- Step 1 Card -->
+          <div class="step-card" [class.completed]="currentStep > 1" (click)="goToStep(1)">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                <path d="M12 14c-6.1 0-8 4-8 4v2h16v-2s-1.9-4-8-4z"></path>
+              </svg>
+            </div>
+            <div class="step-number">01</div>
+            <div class="step-description">Set up your personal profile</div>
+            <div class="step-time">~ 2 min</div>
+          </div>
+
+          <!-- Step 2 Card -->
+          <div class="step-card" [class.completed]="currentStep > 2" (click)="goToStep(2)">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <div class="step-number">02</div>
+            <div class="step-description">Add your skills</div>
+            <div class="step-time">~ 3 min</div>
+          </div>
+
+          <!-- Step 3 Card -->
+          <div class="step-card" [class.completed]="currentStep > 3" (click)="goToStep(3)">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path>
+              </svg>
+            </div>
+            <div class="step-number">03</div>
+            <div class="step-description">Upload resume</div>
+            <div class="step-time">~ 2 min</div>
+          </div>
+        </div>
+
+        <!-- Step indicator dots -->
+        <div class="step-dots">
+          <span class="dot" [class.active]="currentStep >= 1"></span>
+          <span class="dot" [class.active]="currentStep >= 2"></span>
+          <span class="dot" [class.active]="currentStep >= 3"></span>
+        </div>
+
+        <!-- Complete button -->
+        <!-- ****** FIXED BUTTON ****** -->
+        <button class="complete-button" [routerLink]="['/jobProfile']">
+          Complete
+        </button>
+        <!-- ****** END FIX ****** -->
       </div>
     </div>
   </div>
+</div>

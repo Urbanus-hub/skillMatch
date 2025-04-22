@@ -2,7 +2,6 @@
 <div class="register-container">
   <div class="logo-section">
     <div class="logo">
-      <!-- Consider adding alt text if logoImage.png is meaningful -->
       <img src="logoImage.png" alt="SkillMatch Logo"> 
       <span>SkillMatch</span>
     </div>
@@ -12,17 +11,16 @@
   <div class="content-wrapper">
     <div class="illustration">
       <div class="clock-icon">
-        <img src="assets/clock-icon.svg" alt=""> <!-- Alt text could be decorative or descriptive -->
+        <img src="assets/clock-icon.svg" alt=""> 
       </div>
-      <!-- Consider more descriptive alt text -->
       <img src="seeker.png" alt="Illustration of people waiting or job seeking" class="people-img"> 
     </div>
 
     <div class="register-card">
       <div class="google-sign-in">
-        <button type="button" class="google-btn" (click)="signInWithGoogle()"> <!-- Use type="button" for non-submit actions -->
+        <button type="button" class="google-btn" (click)="signInWithGoogle()">
           <img src="assets/google-icon.png" alt="Google Icon">
-          <span>Continue with Google account</span> <!-- Changed 'continue' to 'Continue' for consistency -->
+          <span>Continue with Google account</span>
         </button>
       </div>
 
@@ -32,7 +30,18 @@
 
       <h2 class="create-account-text">Create account</h2>
 
-      <!-- Ensure ReactiveFormsModule is imported in your module or component -->
+      <!-- Display API errors at the top of the form -->
+      <div *ngIf="errorMessage || errorMessages.length > 0" class="error-message api-error">
+        <!-- Show single error message -->
+        <div *ngIf="errorMessage && !errorMessages.length">
+          {{ errorMessage }}
+        </div>
+        <!-- Show multiple error messages as a list -->
+        <ul *ngIf="errorMessages.length > 0" class="error-list">
+          <li *ngFor="let error of errorMessages">{{ error }}</li>
+        </ul>
+      </div>
+
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="name-row">
           <div class="form-group">
@@ -45,10 +54,8 @@
                 placeholder="John"
                 aria-required="true" 
               >
-              <!-- Consider if this icon adds value or is just decorative -->
               <i class="user-icon fa fa-user" aria-hidden="true"></i> 
             </div>
-            <!-- More specific error messages can be helpful -->
             <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="error-message">
               First name is required.
             </div>
@@ -83,17 +90,14 @@
               aria-required="true"
               aria-describedby="email-error" 
             >
-            <!-- Icon could be added here if desired -->
           </div>
           <div id="email-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
-             <!-- Check for specific errors -->
              <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
              <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</span>
           </div>
         </div>
 
         <div class="form-group">
-          <!-- Consistent casing for label -->
           <label for="password">Password</label> 
           <div class="input-container">
             <input
@@ -104,8 +108,7 @@
               aria-required="true"
               aria-describedby="password-error"
             >
-            <!-- Make icon clickable with keyboard -->
-            <button type="button" class="password-toggle-btn" (click)="hidePassword = !hidePassword" aria-label="Toggle password visibility">
+            <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility('password')" aria-label="Toggle password visibility">
                 <i
                   class="password-icon"
                   [ngClass]="hidePassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
@@ -116,12 +119,10 @@
           <div id="password-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-message">
              <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
              <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</span>
-             <!-- Add other potential password errors here -->
           </div>
         </div>
 
         <div class="form-group">
-          <!-- Consistent casing for label -->
           <label for="confirmPassword">Confirm password</label> 
           <div class="input-container">
             <input
@@ -132,7 +133,7 @@
               aria-required="true"
               aria-describedby="confirm-password-error"
             >
-             <button type="button" class="password-toggle-btn" (click)="hideConfirmPassword = !hideConfirmPassword" aria-label="Toggle confirm password visibility">
+             <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility('confirmPassword')" aria-label="Toggle confirm password visibility">
                 <i
                   class="password-icon"
                   [ngClass]="hideConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
@@ -146,21 +147,16 @@
           </div>
         </div>
 
-        <!-- ****** MAIN FIX IS HERE ****** -->
         <button
           type="submit"
           class="register-btn"
           [disabled]="registerForm.invalid || isLoading">
-          {{ isLoading ? 'Registering...' : 'Register' }}
+          <span *ngIf="isLoading">
+            <i class="fa fa-spinner fa-spin"></i> Registering...
+          </span>
+          <span *ngIf="!isLoading">Register</span>
         </button>
-        <!-- ****** END OF MAIN FIX ****** -->
-
       </form>
-
-      <!-- Display potential API error messages -->
-      <div *ngIf="errorMessage" class="error-message api-error">
-        {{ errorMessage }}
-      </div>
 
       <div class="signin-link">
         Already have an account? <a routerLink="/auth/login">Sign In</a>

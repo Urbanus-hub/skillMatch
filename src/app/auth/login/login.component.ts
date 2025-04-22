@@ -1,182 +1,255 @@
-// login.component.ts
-import { Component, OnInit, inject } from '@angular/core';
+// src/app/auth/login/login.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
-import { catchError, tap, finalize } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap, finalize, throwError, Subject, takeUntil } from 'rxjs';
+// Environment import removed
+
+// Interface for the expected API response structure
+interface LoginApiResponse {
+  success: boolean;
+  data: {
+    token: string;
+    user: {
+      user_type: string;
+      // Add other user properties if needed
+      [key: string]: any; // Allow other properties
+    };
+    // Add other data properties if needed
+    [key: string]: any; // Allow other properties
+  };
+  message?: string; // Optional message property
+}
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    ReactiveFormsModule, // For formGroup, formControlName
-    CommonModule,      // For *ngIf, ngClass
-    RouterLink,        // For routerLink directive (e.g., to registration)
-    HttpClientModule   // Provides HttpClient
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+    HttpClientModule
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // Make sure you have this CSS file
+  styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
-  isLoading = false; // Controls button state and loading text
-  errorMessage: string | null = null; // Holds API error messages for display
-  hidePassword = true; // Controls password field visibility
+  isLoading = false;
+  errorMessage: string | null = null;
+  hidePassword = true;
 
-  // Inject services using inject function
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private http = inject(HttpClient);
+  // Use constructor injection
+  private fb: FormBuilder;
+  private router: Router;
+  private http: HttpClient;
 
-  // API Base URL (Consider moving to environment config)
-  private apiBaseUrl = 'http://localhost:5000/api'; // Adjust if your backend URL is different
+  // --- MODIFIED LINE: Hardcoded API Base URL ---
+  // Replace 'YOUR_API_ENDPOINT_HERE' with your actual backend URL
+  private readonly apiBaseUrl = 'http://localhost:5000/api';
+  // Example: private readonly apiBaseUrl = 'http://localhost:5000/api';
+  // Example: private readonly apiBaseUrl = 'https://your-production-api.com/api';
+  // --- END MODIFICATION ---
 
-  constructor() {
-    // Initialize the form group
+  private destroy$ = new Subject<void>(); // For unsubscribing
+
+  constructor(fb: FormBuilder, router: Router, http: HttpClient) {
+    this.fb = fb;
+    this.router = router;
+    this.http = http;
+
     this.loginForm = this.fb.group({
-      // Define form controls with validators
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
-      // 'rememberMe' is not included as it was removed from the HTML
     });
   }
 
   ngOnInit(): void {
-    // Optional: You could add logic here to check if the user is already
-    // logged in (e.g., by checking localStorage or an AuthService) and
-    // redirect them immediately.
-    // Example:
-    // const token = localStorage.getItem('authToken');
-    // const userString = localStorage.getItem('currentUser');
-    // if (token && userString) {
-    //   try {
-    //     const user = JSON.parse(userString);
-    //     if (user && user.user_type) {
-    //        console.log('User already logged in, redirecting...');
-    //        this.navigateToDashboard(user.user_type);
-    //     }
-    //   } catch (e) {
-    //     console.error('Error parsing stored user data', e);
-    //     localStorage.removeItem('authToken'); // Clear invalid data
-    //     localStorage.removeItem('currentUser');
-    //   }
-    // }
+    this.checkExistingSession();
   }
 
-  // Handles the form submission
-  onSubmit(): void {
-    this.errorMessage = null; // Clear previous errors on a new submission attempt
-    this.loginForm.markAllAsTouched(); // Mark fields as touched to show validation errors
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    console.log('LoginComponent destroyed, subscriptions cleaned up.');
+  }
 
-    // Stop if the form is invalid
-    if (this.loginForm.invalid) {
-      console.log('Login form is invalid');
-      // Optionally find and log the first invalid control
-      for (const key of Object.keys(this.loginForm.controls)) {
-        if (this.loginForm.controls[key].invalid) {
-          console.log(`Invalid control: ${key}`, this.loginForm.controls[key].errors);
-          break;
+  /**
+   * Checks local storage for existing session data and redirects if found.
+   * Consider moving this logic to an AuthService.
+   */
+  checkExistingSession(): void {
+    const token = localStorage.getItem('authToken');
+    const userString = localStorage.getItem('currentUser');
+
+    if (token && userString) {
+      try {
+        const user = JSON.parse(userString);
+        if (user?.user_type) {
+          console.log('User already logged in, redirecting from session check...');
+          this.navigateToDashboard(user.user_type);
+        } else {
+           console.warn('Stored user data is invalid (missing user_type). Clearing session.');
+           this.clearUserSession();
         }
+      } catch (e) {
+        console.error('Error parsing stored user data:', e);
+        this.clearUserSession();
+      }
+    } else {
+        console.log('No active session found in local storage.');
+    }
+  }
+
+  onSubmit(): void {
+    this.errorMessage = null;
+    this.loginForm.markAllAsTouched();
+
+    if (this.loginForm.invalid) {
+      console.warn('Login form is invalid. Please check the fields.');
+      const firstInvalidControl = Object.keys(this.loginForm.controls).find(key => this.loginForm.controls[key].invalid);
+      if (firstInvalidControl) {
+        console.warn(`First invalid control: ${firstInvalidControl}`, this.loginForm.controls[firstInvalidControl].errors);
       }
       return;
     }
 
-    this.isLoading = true; // Set loading state for UI feedback
-    const credentials = this.loginForm.value; // Get email and password from the form
+    this.isLoading = true;
+    const credentials = this.loginForm.value;
 
     console.log('Attempting login for:', credentials.email);
 
-    // Make the POST request to the backend login endpoint
-    this.http.post<any>(`${this.apiBaseUrl}/auth/login`, credentials)
+    // Construct the full URL for the login endpoint
+    const loginUrl = `${this.apiBaseUrl}/auth/login`;
+    console.log(`Sending login request to: ${loginUrl}`); // Log the full URL
+
+    this.http.post<LoginApiResponse>(loginUrl, credentials)
       .pipe(
         tap(response => {
-          // --- Success Handling ---
-          console.log('Login successful:', response);
-          // Ensure the response contains the expected token and user info
-          if (response && response.token && response.user && response.user.user_type) {
-            // Store token and user data (Consider using AuthService for better practice)
-            localStorage.setItem('authToken', response.token);
-            localStorage.setItem('currentUser', JSON.stringify(response.user));
+          console.log('Login HTTP request successful, processing response:', response);
 
-            // Navigate based on the user type received from the backend
-            this.navigateToDashboard(response.user.user_type);
-          } else {
-            // Handle unexpected successful response format
-            console.error('Login response missing token, user data, or user_type.');
-            this.errorMessage = 'Login failed: Invalid response from server.';
-            // Clear potentially partial stored data
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('currentUser');
+          if (!response || !response.success || !response.data) {
+             console.error('Invalid response structure or login unsuccessful:', response);
+             throw new Error(response?.message || 'Login failed: Invalid response from server.');
           }
+
+          const responseData = response.data;
+
+          if (!responseData.token) {
+            console.error('Response data missing token:', responseData);
+            throw new Error('Authentication token not found in response data.');
+          }
+          if (!responseData.user) {
+            console.error('Response data missing user data:', responseData);
+            throw new Error('User data not found in response data.');
+          }
+          const userType = responseData.user.user_type;
+          if (!userType) {
+            console.error('Response user data missing user_type:', responseData.user);
+            throw new Error('User type not found in response data.');
+          }
+
+          console.log('Storing auth token and user data in local storage.');
+          localStorage.setItem('authToken', responseData.token);
+          localStorage.setItem('currentUser', JSON.stringify(responseData.user));
+
+          console.log(`Login successful, navigating with user type: ${userType}`);
+          this.navigateToDashboard(userType);
         }),
-        catchError((error: HttpErrorResponse) => {
-          // --- Error Handling ---
-          console.error('Login HTTP error:', error);
-          // Provide user-friendly error messages based on status code
-          if (error.status === 401 || error.status === 400) { // Unauthorized or Bad Request (often used for invalid creds)
-            this.errorMessage = error.error?.message || 'Invalid email or password.';
-          } else if (error.status === 0 || error.status >= 500) { // Network error or server-side issue
-            this.errorMessage = 'Could not connect to the server or server error occurred. Please try again later.';
-          } else { // Other client-side errors or unexpected statuses
-            this.errorMessage = error.error?.message || `An unexpected error occurred (Status: ${error.status}). Please try again.`;
+        catchError((error: HttpErrorResponse | Error) => {
+          console.error('Error during login HTTP request or processing:', error);
+
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 401 || error.status === 400) {
+              this.errorMessage = error.error?.message || 'Invalid email or password.';
+            } else if (error.status === 0) {
+               this.errorMessage = 'Could not connect to the server. Please check your network connection.';
+            } else if (error.status >= 500) {
+              this.errorMessage = 'A server error occurred. Please try again later.';
+            } else {
+              this.errorMessage = error.error?.message || `An unexpected error occurred (Status: ${error.status}).`;
+            }
+          } else {
+             this.errorMessage = error.message || 'An unexpected error occurred while processing the login response.';
           }
-          // Rethrow the error to be caught by the subscription's error handler if needed,
-          // or just signal that an error occurred.
-          return throwError(() => new Error(this.errorMessage || 'Login failed'));
+
+          return throwError(() => new Error(this.errorMessage || 'Login failed due to an unknown error.'));
         }),
         finalize(() => {
-          // --- Cleanup ---
-          // This block executes regardless of success or error
-          this.isLoading = false; // Ensure loading indicator is turned off
-          console.log('Login request finished.');
-        })
+          this.isLoading = false;
+          console.log('Login request sequence finished (finalize).');
+        }),
+        takeUntil(this.destroy$)
       )
       .subscribe({
-        // next: Handled by the 'tap' operator above
+        next: () => {
+            console.log('Login subscription received next notification (handled in tap).');
+        },
         error: (err) => {
-          // Error is already processed by 'catchError' and 'finalize'.
-          // You could potentially add specific UI updates here if needed,
-          // but usually setting isLoading=false and errorMessage is sufficient.
-          console.log('Login subscription received error:', err.message);
+          console.error('Login subscription received final error:', err.message);
+        },
+        complete: () => {
+            console.log('Login HTTP observable completed.');
         }
-        // complete: Can be added if you need to do something specifically on completion *after* success
       });
   }
 
-  // Navigates the user to the appropriate dashboard based on their type
   navigateToDashboard(userType: string): void {
-    console.log(`Navigating based on user type: ${userType}`);
+    const normalizedUserType = (typeof userType === 'string' ? userType : '').toLowerCase().trim();
     let destinationRoute: string;
 
-    switch (userType) {
-      case 'job_seeker': // Ensure this matches the value from your backend
-        destinationRoute = '/seekerDashboard'; // Example route
+    console.log(`Determining navigation route for user type: "${normalizedUserType}"`);
+
+    switch (normalizedUserType) {
+      case 'job_seeker':
+      case 'jobseeker':
+      case 'seeker':
+        destinationRoute = '/seekerDashboard';
         break;
-      case 'employer':   // Ensure this matches the value from your backend
-        destinationRoute = '/talentBoard'; // Example route
+      case 'employer':
+      case 'recruiter':
+        destinationRoute = '/talentBoard';
         break;
-      case 'admin':      // Ensure this matches the value from your backend
-        destinationRoute = '/admin/dashboard';   // Example route
+      case 'admin':
+      case 'administrator':
+        destinationRoute = '/admin/dashboard';
         break;
       default:
-        console.warn(`Unknown user type received: "${userType}". Navigating to default dashboard.`);
-        destinationRoute = '/dashboard'; // Define a sensible fallback route
+        console.warn(`Unknown or missing user type: "${userType}". Navigating to default fallback route.`);
+        destinationRoute = '/dashboard';
         break;
     }
-    this.router.navigate([destinationRoute]);
+
+    console.log(`Attempting navigation to: ${destinationRoute}`);
+    this.router.navigate([destinationRoute])
+      .then(success => {
+        if (success) {
+            console.log(`Navigation to ${destinationRoute} successful.`);
+        } else {
+          console.error(`Navigation to ${destinationRoute} failed. Check Angular Router configuration.`);
+          this.errorMessage = `Login successful, but couldn't navigate to your dashboard (Route: ${destinationRoute}). Please contact support.`;
+        }
+      })
+      .catch(err => {
+        console.error(`Error during navigation attempt to ${destinationRoute}:`, err);
+        this.errorMessage = `Login successful, but an error occurred during navigation: ${err.message}`;
+      });
   }
 
-  // Placeholder for Google Sign-In functionality
   signInWithGoogle(): void {
     console.log('Google Sign-In button clicked - implementation pending.');
-    // Set an error message or feedback for the user
     this.errorMessage = 'Google Sign-In is not yet implemented.';
-    // Add actual Google Sign-In library calls and backend integration here
   }
 
-  // Note: The password toggle is handled directly in the template via:
-  // (click)="hidePassword = !hidePassword"
-  // So, no specific toggle method is strictly required here unless you prefer one.
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  clearUserSession(): void {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
+      console.log('Cleared user session data from local storage.');
+  }
 }

@@ -15,7 +15,84 @@
     padding: 10px 20px;
     font-size: 14px;
   }
-  
+  /* profile.component.css */
+
+/* Auth error banner styles */
+.auth-error-banner {
+  background-color: #fff3cd;
+  border: 1px solid #ffecb5;
+  color: #856404;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-error-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-error-content a {
+  color: #0056b3;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* Loading spinner for continue button */
+.spinner {
+  animation: rotate 2s linear infinite;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.spinner circle {
+  stroke: white;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+/* Ensure error messages stand out */
+.error-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 4px;
+  font-size: 14px;
+  border-left: 4px solid #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
   .profile-header h1 {
     margin: 0;
     font-weight: 400;
