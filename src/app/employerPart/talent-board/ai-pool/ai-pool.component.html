@@ -1,178 +1,179 @@
+
 <!-- talent-pool.component.html -->
 <div class="talent-pool-container">
-    <div class="talent-pool-header">
-      <h1>Talent Pool</h1>
-      <p>Find and connect with top talent matching your requirements</p>
+  <div class="talent-pool-header">
+    <h1>Talent Pool</h1>
+    <p>Find and connect with top talent matching your requirements</p>
+  </div>
+  
+  <div class="search-filters-container">
+    <div class="search-bar">
+      <i class="fa fa-search search-icon"></i>
+      <input 
+        type="text" 
+        [formControl]="searchControl" 
+        placeholder="Search by name, skill, or job title..."
+        class="search-input"
+      >
     </div>
     
-    <div class="search-filters-container">
-      <div class="search-bar">
-        <i class="fa fa-search search-icon"></i>
-        <input 
-          type="text" 
-          [formControl]="searchControl" 
-          placeholder="Search by name, skill, or job title..."
-          class="search-input"
-        >
+    <div class="filters">
+      <div class="filter-group">
+        <label>Skills</label>
+        <div class="skills-filter">
+          <span 
+            *ngFor="let skill of availableSkills" 
+            [class.active]="skillFilters.includes(skill)"
+            (click)="toggleSkillFilter(skill)" 
+            class="skill-chip">
+            {{ skill }}
+          </span>
+        </div>
       </div>
       
-      <div class="filters">
-        <div class="filter-group">
-          <label>Skills</label>
-          <div class="skills-filter">
-            <span 
-              *ngFor="let skill of availableSkills" 
-              [class.active]="skillFilters.includes(skill)"
-              (click)="toggleSkillFilter(skill)" 
-              class="skill-chip">
-              {{ skill }}
-            </span>
-          </div>
-        </div>
-        
-        <div class="filter-group">
-          <label>Location</label>
-          <div class="dropdown">
-            <button class="dropdown-toggle">
-              {{ selectedLocation }}
-              <i class="fa fa-chevron-down"></i>
-            </button>
-            <div class="dropdown-content">
-              <a *ngFor="let location of locations" (click)="setLocation(location)">{{ location }}</a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="filter-group">
-          <label>Sort By</label>
-          <div class="dropdown">
-            <button class="dropdown-toggle">
-              {{ sortBy | titlecase }}
-              <i class="fa fa-chevron-down"></i>
-            </button>
-            <div class="dropdown-content">
-              <a (click)="setSortBy('relevance')">Relevance</a>
-              <a (click)="setSortBy('rating')">Highest Rating</a>
-              <a (click)="setSortBy('experience')">Experience</a>
-              <a (click)="setSortBy('availability')">Availability</a>
-              <a (click)="setSortBy('recent')">Recently Active</a>
-            </div>
-          </div>
-        </div>
-        
-        <div class="view-toggle">
-          <button 
-            [class.active]="viewMode === 'grid'" 
-            (click)="viewMode = 'grid'"
-            title="Grid View">
-            <i class="fa fa-th-large"></i>
+      <div class="filter-group">
+        <label>Location</label>
+        <div class="dropdown">
+          <button class="dropdown-toggle">
+            {{ selectedLocation }}
+            <i class="fa fa-chevron-down"></i>
           </button>
-          <button 
-            [class.active]="viewMode === 'list'" 
-            (click)="viewMode = 'list'"
-            title="List View">
-            <i class="fa fa-list"></i>
-          </button>
+          <div class="dropdown-content">
+            <a *ngFor="let location of locations" (click)="setLocation(location)">{{ location }}</a>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <div class="results-summary">
-      <p>Showing <span>{{ filteredCandidates.length }}</span> candidates</p>
-      <div class="active-filters" *ngIf="skillFilters.length > 0 || selectedLocation !== 'All Locations'">
-        <div class="filter-tag" *ngFor="let skill of skillFilters">
-          {{ skill }} <span class="remove-filter" (click)="toggleSkillFilter(skill)">×</span>
-        </div>
-        <div class="filter-tag" *ngIf="selectedLocation !== 'All Locations'">
-          {{ selectedLocation }} <span class="remove-filter" (click)="setLocation('All Locations')">×</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="loading-spinner" *ngIf="isLoading">
-      <div class="spinner"></div>
-      <p>Loading talent pool...</p>
-    </div>
-    
-    <div [class]="viewMode === 'grid' ? 'grid-view' : 'list-view'" *ngIf="!isLoading">
-      <ng-container *ngIf="filteredCandidates.length > 0; else noResults">
-        <div class="candidate-card" *ngFor="let candidate of filteredCandidates">
-          <div class="candidate-header">
-            <div class="candidate-photo">
-              <img [src]="getCandidatePhotoUrl(candidate)" [alt]="candidate.name">
-              <span class="activity-status" [class.active]="candidate.lastActive === 'Today'"></span>
-            </div>
-            <div class="candidate-info">
-              <h3>{{ candidate.name }}</h3>
-              <h4>{{ candidate.title }}</h4>
-              <div class="candidate-meta">
-                <span><i class="fa fa-map-marker"></i> {{ candidate.location }}</span>
-                <span><i class="fa fa-briefcase"></i> {{ candidate.experience }} years</span>
-                <span><i class="fa fa-calendar"></i> {{ candidate.availability }}</span>
-              </div>
-            </div>
-            <div class="candidate-actions">
-              <button class="action-btn save" (click)="saveCandidate(candidate.id)" title="Save to favorites">
-                <i class="fa fa-bookmark-o"></i>
-              </button>
-            </div>
-          </div>
-          
-          <div class="candidate-skills">
-            <span *ngFor="let skill of candidate.skills" class="skill-tag">{{ skill }}</span>
-          </div>
-          
-          <div class="candidate-footer">
-            <div class="candidate-rating">
-              <span class="rating-value">{{ candidate.rating }}</span>
-              <div class="stars">
-                <i class="fa fa-star" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= candidate.rating"></i>
-              </div>
-            </div>
-            <div class="candidate-salary">
-              <i class="fa fa-money"></i> {{ candidate.salary }}
-            </div>
-            <div class="candidate-activity">
-              Active {{ candidate.lastActive }}
-            </div>
-          </div>
-          
-          <div class="card-actions">
-            <button class="contact-btn primary-btn" (click)="contactCandidate(candidate.id)">
-              Contact
-            </button>
-            <button class="view-profile-btn secondary-btn">
-              View Profile
-            </button>
-          </div>
-        </div>
-      </ng-container>
       
-      <ng-template #noResults>
-        <div class="no-results">
-          <i class="fa fa-search no-results-icon"></i>
-          <h3>No candidates found</h3>
-          <p>Try adjusting your search or filters to find more candidates</p>
-          <button class="clear-filters-btn" (click)="searchControl.setValue(''); skillFilters = []; selectedLocation = 'All Locations'; filterCandidates()">
-            Clear all filters
+      <div class="filter-group">
+        <label>Sort By</label>
+        <div class="dropdown">
+          <button class="dropdown-toggle">
+            {{ sortBy | titlecase }}
+            <i class="fa fa-chevron-down"></i>
           </button>
+          <div class="dropdown-content">
+            <a (click)="setSortBy('relevance')">Relevance</a>
+            <a (click)="setSortBy('rating')">Highest Rating</a>
+            <a (click)="setSortBy('experience')">Experience</a>
+            <a (click)="setSortBy('availability')">Availability</a>
+            <a (click)="setSortBy('recent')">Recently Active</a>
+          </div>
         </div>
-      </ng-template>
-    </div>
-    
-    <div class="pagination" *ngIf="filteredCandidates.length > 0">
-      <button class="pagination-btn" disabled>
-        <i class="fa fa-chevron-left"></i> Previous
-      </button>
-      <div class="page-numbers">
-        <button class="page-number active">1</button>
-        <button class="page-number">2</button>
-        <button class="page-number">3</button>
-        <span>...</span>
-        <button class="page-number">10</button>
       </div>
-      <button class="pagination-btn">
-        Next <i class="fa fa-chevron-right"></i>
-      </button>
+      
+      <div class="view-toggle">
+        <button 
+          [class.active]="viewMode === 'grid'" 
+          (click)="viewMode = 'grid'"
+          title="Grid View">
+          <i class="fa fa-th-large"></i>
+        </button>
+        <button 
+          [class.active]="viewMode === 'list'" 
+          (click)="viewMode = 'list'"
+          title="List View">
+          <i class="fa fa-list"></i>
+        </button>
+      </div>
     </div>
   </div>
+  
+  <div class="results-summary">
+    <p>Showing <span>{{ filteredCandidates.length }}</span> candidates</p>
+    <div class="active-filters" *ngIf="skillFilters.length > 0 || selectedLocation !== 'All Locations'">
+      <div class="filter-tag" *ngFor="let skill of skillFilters">
+        {{ skill }} <span class="remove-filter" (click)="toggleSkillFilter(skill)">×</span>
+      </div>
+      <div class="filter-tag" *ngIf="selectedLocation !== 'All Locations'">
+        {{ selectedLocation }} <span class="remove-filter" (click)="setLocation('All Locations')">×</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="loading-spinner" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading talent pool...</p>
+  </div>
+  
+  <div [class]="viewMode === 'grid' ? 'grid-view' : 'list-view'" *ngIf="!isLoading">
+    <ng-container *ngIf="filteredCandidates.length > 0; else noResults">
+      <div class="candidate-card" *ngFor="let candidate of filteredCandidates">
+        <div class="candidate-header">
+          <div class="candidate-photo">
+            <img src="man1.jpg" [alt]="candidate.name">
+            <span class="activity-status" [class.active]="candidate.lastActive === 'Today'"></span>
+          </div>
+          <div class="candidate-info">
+            <h3>{{ candidate.name }}</h3>
+            <h4>{{ candidate.title }}</h4>
+            <div class="candidate-meta">
+              <span><i class="fa fa-map-marker"></i> {{ candidate.location }}</span>
+              <span><i class="fa fa-briefcase"></i> {{ candidate.experience }} years</span>
+              <span><i class="fa fa-calendar"></i> {{ candidate.availability }}</span>
+            </div>
+          </div>
+          <div class="candidate-actions">
+            <button class="action-btn save" (click)="saveCandidate(candidate.id)" title="Save to favorites">
+              <i class="fa fa-bookmark-o"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="candidate-skills">
+          <span *ngFor="let skill of candidate.skills" class="skill-tag">{{ skill }}</span>
+        </div>
+        
+        <div class="candidate-footer">
+          <div class="candidate-rating">
+            <span class="rating-value">{{ candidate.rating }}</span>
+            <div class="stars">
+              <i class="fa fa-star" *ngFor="let i of [1,2,3,4,5]" [class.filled]="i <= candidate.rating"></i>
+            </div>
+          </div>
+          <div class="candidate-salary">
+            <i class="fa fa-money"></i> {{ candidate.salary }}
+          </div>
+          <div class="candidate-activity">
+            Active {{ candidate.lastActive }}
+          </div>
+        </div>
+        
+        <div class="card-actions">
+          <button class="contact-btn primary-btn" (click)="contactCandidate(candidate.id)">
+            Contact
+          </button>
+          <button class="view-profile-btn secondary-btn">
+            View Profile
+          </button>
+        </div>
+      </div>
+    </ng-container>
+    
+    <ng-template #noResults>
+      <div class="no-results">
+        <i class="fa fa-search no-results-icon"></i>
+        <h3>No candidates found</h3>
+        <p>Try adjusting your search or filters to find more candidates</p>
+        <button class="clear-filters-btn" (click)="searchControl.setValue(''); skillFilters = []; selectedLocation = 'All Locations'; filterCandidates()">
+          Clear all filters
+        </button>
+      </div>
+    </ng-template>
+  </div>
+  
+  <div class="pagination" *ngIf="filteredCandidates.length > 0">
+    <button class="pagination-btn" disabled>
+      <i class="fa fa-chevron-left"></i> Previous
+    </button>
+    <div class="page-numbers">
+      <button class="page-number active">1</button>
+      <button class="page-number">2</button>
+      <button class="page-number">3</button>
+      <span>...</span>
+      <button class="page-number">10</button>
+    </div>
+    <button class="pagination-btn">
+      Next <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+</div>

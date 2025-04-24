@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 
 interface Job {
@@ -20,41 +20,21 @@ interface Job {
   contactEmail: string;
 }
 
-// Basic auth service interface - you'll implement this properly later
-interface AuthService {
-  getToken(): string | null;
-}
-
-// Simple auth service implementation
-class BasicAuthService implements AuthService {
-  getToken(): string | null {
-    // This is a placeholder - in a real app, you'd retrieve from localStorage, sessionStorage, etc.
-    // Example: return localStorage.getItem('auth_token');
-    return localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
-  }
-}
-
 @Component({
   selector: 'app-job-post',
   templateUrl: './job-posts.component.html',
   styleUrls: ['./job-posts.component.css'],
   imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   standalone: true,
-  providers: [
-    { provide: 'AuthService', useClass: BasicAuthService }
-  ]
 })
 export class JobPostsComponent implements OnInit {
   jobs: Job[] = [];
   jobForm: FormGroup;
   showPostForm = false;
-  viewMode = 'list'; // 'list' or 'grid'
+  viewMode = 'list';
   filterText = '';
-  private authService: AuthService;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.authService = new BasicAuthService(); // Simple implementation
-    
     this.jobForm = this.fb.group({
       title: ['', Validators.required],
       company: ['', Validators.required],
@@ -69,7 +49,6 @@ export class JobPostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Mock data for demonstration
     this.jobs = [
       {
         id: 1,
@@ -77,8 +56,8 @@ export class JobPostsComponent implements OnInit {
         company: 'DataInsights LLC',
         location: 'San Francisco, CA',
         type: 'Full-time',
-        description: 'We are looking for a Senior Data Scientist to join our team. You will be responsible for analyzing data, building machine learning models, and providing insights to our clients.',
-        requirements: ['5+ years of experience in data science', 'Proficiency in Python, R, and SQL', 'Experience with machine learning algorithms', 'PhD or MS in Statistics, Computer Science or related field'],
+        description: 'We are looking for a Senior Data Scientist to join our team.',
+        requirements: ['5+ years of experience in data science', 'Proficiency in Python, R, and SQL'],
         postedDate: new Date('2025-04-15'),
         deadline: new Date('2025-05-15'),
         salary: '$150,000 - $180,000',
@@ -90,8 +69,8 @@ export class JobPostsComponent implements OnInit {
         company: 'TechSolutions Inc.',
         location: 'Remote',
         type: 'Contract',
-        description: 'We are seeking a talented Frontend Developer to create responsive and user-friendly web applications.',
-        requirements: ['3+ years of experience with Angular', 'Strong knowledge of TypeScript', 'Experience with RESTful APIs', 'Familiarity with CSS preprocessors'],
+        description: 'We are seeking a talented Frontend Developer.',
+        requirements: ['3+ years of experience with Angular', 'Strong knowledge of TypeScript'],
         postedDate: new Date('2025-04-20'),
         deadline: new Date('2025-05-20'),
         salary: '$100,000 - $130,000',
@@ -103,31 +82,24 @@ export class JobPostsComponent implements OnInit {
         company: 'CreativeMinds',
         location: 'New York, NY',
         type: 'Full-time',
-        description: 'Join our creative team to design beautiful and intuitive user interfaces for web and mobile applications.',
-        requirements: ['Portfolio showcasing UI/UX projects', 'Proficiency in Figma and Adobe Creative Suite', 'Understanding of user-centered design principles', '2+ years of experience in a similar role'],
+        description: 'Join our creative team to design UI/UX.',
+        requirements: ['Portfolio showcasing UI/UX projects', 'Proficiency in Figma'],
         postedDate: new Date('2025-04-18'),
         deadline: new Date('2025-05-18'),
         salary: '$90,000 - $110,000',
         contactEmail: 'design@creativeminds.com'
       }
     ];
-    
-    // You could load jobs from API here with auth token
+
     this.loadJobs();
   }
 
   loadJobs(): void {
-    const token = localStorage.getItem('token');
-    
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-    // Example of getting jobs with authentication
-    this.http.get<Job[]>('http://localhost:3000/api/jobs', { headers })
+    this.http.get<Job[]>('http://localhost:3000/api/jobs')
       .subscribe({
         next: (jobs) => {
-          // Use this if you want to replace mock data with real data
-          // this.jobs = jobs;
           console.log('Jobs loaded successfully');
+          // this.jobs = jobs;
         },
         error: (err) => {
           console.error('Failed to load jobs', err);
@@ -145,7 +117,7 @@ export class JobPostsComponent implements OnInit {
   submitJob(): void {
     if (this.jobForm.valid) {
       const newJob: Job = {
-        id: 0, // backend will assign id
+        id: 0,
         title: this.jobForm.value.title,
         company: this.jobForm.value.company,
         location: this.jobForm.value.location,
@@ -158,13 +130,7 @@ export class JobPostsComponent implements OnInit {
         contactEmail: this.jobForm.value.contactEmail
       };
 
-      // Get token and set headers
-      const token = localStorage.getItem('token');
-      console.log(token);
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-      // Include headers in request
-      this.http.post<Job>('http://localhost:3000/api/jobs', newJob, { headers })
+      this.http.post<Job>('http://localhost:3000/api/jobs', newJob)
         .subscribe({
           next: (job) => {
             this.jobs.unshift(job);
@@ -172,11 +138,6 @@ export class JobPostsComponent implements OnInit {
           },
           error: (err) => {
             console.error('Failed to post job', err);
-            // Handle specific error cases
-            if (err.status === 401) {
-              console.log('Authentication failed. Please login again.');
-              // Here you could redirect to login page or show a login dialog
-            }
           }
         });
     }
@@ -188,9 +149,9 @@ export class JobPostsComponent implements OnInit {
 
   getDaysAgo(date: Date): string {
     const now = new Date();
-    const diffTime = Math.abs(now.getTime() - date.getTime());
+    const diffTime = Math.abs(now.getTime() - new Date(date).getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 0) {
       return 'Today';
     } else if (diffDays === 1) {
@@ -202,7 +163,7 @@ export class JobPostsComponent implements OnInit {
 
   getDaysLeft(date: Date): number {
     const now = new Date();
-    const diffTime = Math.abs(date.getTime() - now.getTime());
+    const diffTime = Math.abs(new Date(date).getTime() - now.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 

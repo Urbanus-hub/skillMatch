@@ -22,7 +22,8 @@ interface Candidate {
   selector: 'app-talent-pool',
   templateUrl: './ai-pool.component.html',
   styleUrls: ['./ai-pool.component.css'],
-  imports:[FormsModule,CommonModule,ReactiveFormsModule]
+  standalone: true,
+  imports: [FormsModule, CommonModule, ReactiveFormsModule]
 })
 export class AiPoolComponent implements OnInit {
   candidates: Candidate[] = [];
@@ -35,50 +36,27 @@ export class AiPoolComponent implements OnInit {
   viewMode: 'grid' | 'list' = 'grid';
   sortBy: string = 'relevance';
   isLoading: boolean = true;
-  
-  constructor() { }
+
+  constructor() {}
 
   ngOnInit(): void {
     this.loadCandidates();
-    
+
     this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()
-    ).subscribe(searchTerm => {
+    ).subscribe(() => {
       this.filterCandidates();
     });
   }
-  
-getCandidatePhotoUrl(candidate: any): string {
-  // Use a different avatar style based on candidate ID to get some variety
-  const avatarStyle = candidate.id % 4;
-  
-  switch(avatarStyle) {
-    case 0:
-      // Professional photo-like avatars
-      return `https://i.pravatar.cc/150?img=${candidate.id % 70}`; 
-    case 1:
-      // Initials-based avatars
-      return `https://ui-avatars.com/api/?name=${encodeURIComponent(candidate.name)}&background=random&size=150`;
-    case 2:
-      // Identicon style
-      return `https://avatars.dicebear.com/api/identicon/${candidate.id}.svg`;
-    case 3:
-      // Robot avatars
-      return `https://robohash.org/${candidate.id}?size=150x150&set=set3`;
-    default:
-      return `https://i.pravatar.cc/150?img=${candidate.id % 70}`;
-  }
-}
 
   loadCandidates(): void {
-    // Simulate API call with timeout
     setTimeout(() => {
       this.candidates = [
         {
           id: 1,
           name: 'Alex Johnson',
-          photo: 'assets/avatars/avatar1.jpg',
+          photo: 'https://i.pravatar.cc/300?img=11',
           title: 'Senior Frontend Developer',
           skills: ['Angular', 'TypeScript', 'React', 'CSS'],
           experience: 6,
@@ -91,7 +69,7 @@ getCandidatePhotoUrl(candidate: any): string {
         {
           id: 2,
           name: 'Sarah Williams',
-          photo: 'assets/avatars/avatar2.jpg',
+          photo: 'https://i.pravatar.cc/300?img=5',
           title: 'Full Stack Developer',
           skills: ['Node.js', 'React', 'MongoDB', 'AWS'],
           experience: 4,
@@ -104,7 +82,7 @@ getCandidatePhotoUrl(candidate: any): string {
         {
           id: 3,
           name: 'Miguel Rodriguez',
-          photo: 'assets/avatars/avatar3.jpg',
+          photo: 'https://i.pravatar.cc/300?img=13',
           title: 'UX/UI Designer',
           skills: ['UI/UX', 'Figma', 'Sketch', 'Adobe XD'],
           experience: 5,
@@ -117,7 +95,7 @@ getCandidatePhotoUrl(candidate: any): string {
         {
           id: 4,
           name: 'Priya Patel',
-          photo: 'assets/avatars/avatar4.jpg',
+          photo: 'https://i.pravatar.cc/300?img=23',
           title: 'DevOps Engineer',
           skills: ['DevOps', 'Kubernetes', 'Docker', 'CI/CD'],
           experience: 3,
@@ -130,7 +108,7 @@ getCandidatePhotoUrl(candidate: any): string {
         {
           id: 5,
           name: 'David Kim',
-          photo: 'assets/avatars/avatar5.jpg',
+          photo: 'https://i.pravatar.cc/300?img=53', 
           title: 'Product Manager',
           skills: ['Product Management', 'Agile', 'Roadmapping', 'User Research'],
           experience: 7,
@@ -143,7 +121,7 @@ getCandidatePhotoUrl(candidate: any): string {
         {
           id: 6,
           name: 'Lisa Chen',
-          photo: 'assets/avatars/avatar6.jpg',
+          photo: 'https://i.pravatar.cc/300?img=47',
           title: 'Backend Developer',
           skills: ['Python', 'Django', 'PostgreSQL', 'Redis'],
           experience: 5,
@@ -154,12 +132,11 @@ getCandidatePhotoUrl(candidate: any): string {
           lastActive: 'Today'
         }
       ];
-      
       this.filteredCandidates = [...this.candidates];
       this.isLoading = false;
     }, 800);
   }
-  
+
   toggleSkillFilter(skill: string): void {
     const index = this.skillFilters.indexOf(skill);
     if (index >= 0) {
@@ -169,47 +146,44 @@ getCandidatePhotoUrl(candidate: any): string {
     }
     this.filterCandidates();
   }
-  
+
   setLocation(location: string): void {
     this.selectedLocation = location;
     this.filterCandidates();
   }
-  
+
   toggleViewMode(): void {
     this.viewMode = this.viewMode === 'grid' ? 'list' : 'grid';
   }
-  
+
   setSortBy(criteria: string): void {
     this.sortBy = criteria;
     this.sortCandidates();
   }
-  
+
   filterCandidates(): void {
     const searchTerm = this.searchControl.value?.toLowerCase() || '';
-    
+
     this.filteredCandidates = this.candidates.filter(candidate => {
-      // Filter by search term
-      const matchesSearch = searchTerm === '' || 
-        candidate.name.toLowerCase().includes(searchTerm) || 
+      const matchesSearch = searchTerm === '' ||
+        candidate.name.toLowerCase().includes(searchTerm) ||
         candidate.title.toLowerCase().includes(searchTerm) ||
         candidate.skills.some(skill => skill.toLowerCase().includes(searchTerm));
-      
-      // Filter by skills
-      const matchesSkills = this.skillFilters.length === 0 || 
+
+      const matchesSkills = this.skillFilters.length === 0 ||
         this.skillFilters.every(skill => candidate.skills.includes(skill));
-      
-      // Filter by location
-      const matchesLocation = this.selectedLocation === 'All Locations' || 
+
+      const matchesLocation = this.selectedLocation === 'All Locations' ||
         candidate.location === this.selectedLocation;
-      
+
       return matchesSearch && matchesSkills && matchesLocation;
     });
-    
+
     this.sortCandidates();
   }
-  
+
   sortCandidates(): void {
-    switch(this.sortBy) {
+    switch (this.sortBy) {
       case 'rating':
         this.filteredCandidates.sort((a, b) => b.rating - a.rating);
         break;
@@ -232,19 +206,18 @@ getCandidatePhotoUrl(candidate: any): string {
           return a.lastActive.localeCompare(b.lastActive);
         });
         break;
-      default: // relevance or default
-        // Keep original order which is presumed to be by relevance
+      default:
         break;
     }
   }
-  
+
   saveCandidate(candidateId: number): void {
     console.log('Saving candidate to favorites:', candidateId);
-    // Implementation for saving to favorites would go here
+    // Save logic
   }
-  
+
   contactCandidate(candidateId: number): void {
     console.log('Contacting candidate:', candidateId);
-    // Implementation for contacting would go here
+    // Contact logic
   }
 }
