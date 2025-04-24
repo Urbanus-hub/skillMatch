@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
 import { catchError, tap, finalize, throwError, Subject, takeUntil } from 'rxjs';
-// Environment import removed
 
 // Interface for the expected API response structure
 interface LoginApiResponse {
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // --- MODIFIED LINE: Hardcoded API Base URL ---
   // Replace 'YOUR_API_ENDPOINT_HERE' with your actual backend URL
-  private readonly apiBaseUrl = 'http://localhost:5000/api';
+  private readonly apiBaseUrl = 'http://localhost:3000/api';
   // Example: private readonly apiBaseUrl = 'http://localhost:5000/api';
   // Example: private readonly apiBaseUrl = 'https://your-production-api.com/api';
   // --- END MODIFICATION ---
@@ -67,7 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.checkExistingSession();
+    // Automatic login logic removed
+    console.log('LoginComponent initialized without automatic login check');
   }
 
   ngOnDestroy(): void {
@@ -77,30 +77,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Checks local storage for existing session data and redirects if found.
-   * Consider moving this logic to an AuthService.
+   * Previously used to check for existing session and auto-login.
+   * Now just a utility method to clear session data if needed.
    */
-  checkExistingSession(): void {
-    const token = localStorage.getItem('authToken');
-    const userString = localStorage.getItem('currentUser');
-
-    if (token && userString) {
-      try {
-        const user = JSON.parse(userString);
-        if (user?.user_type) {
-          console.log('User already logged in, redirecting from session check...');
-          this.navigateToDashboard(user.user_type);
-        } else {
-           console.warn('Stored user data is invalid (missing user_type). Clearing session.');
-           this.clearUserSession();
-        }
-      } catch (e) {
-        console.error('Error parsing stored user data:', e);
-        this.clearUserSession();
-      }
-    } else {
-        console.log('No active session found in local storage.');
-    }
+  clearUserSession(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    console.log('Cleared user session data from local storage.');
   }
 
   onSubmit(): void {
@@ -204,16 +187,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     switch (normalizedUserType) {
       case 'job_seeker':
-      case 'jobseeker':
-      case 'seeker':
         destinationRoute = '/seekerDashboard';
         break;
       case 'employer':
-      case 'recruiter':
         destinationRoute = '/talentBoard';
         break;
       case 'admin':
-      case 'administrator':
         destinationRoute = '/admin/dashboard';
         break;
       default:
@@ -245,11 +224,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
-  }
-
-  clearUserSession(): void {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('currentUser');
-      console.log('Cleared user session data from local storage.');
   }
 }

@@ -36,13 +36,13 @@ export class ProfileSkillsComponent implements OnInit {
   activeSection: string = 'profile'; // Default active section
   sidebarCollapsed: boolean = false;
   
-  // User data
+  // User data with default values (will be overridden from localStorage)
   user: User = {
-    name: 'John Doe',
+    name: '',
     profileImage: '',
-    jobTitle: 'Frontend Developer',
-    location: 'San Francisco, CA',
-    skills: ['JavaScript', 'React', 'Angular', 'TypeScript', 'Node.js', 'CSS', 'HTML5']
+    jobTitle: '',
+    location: '',
+    skills: []
   };
 
   // Recommended jobs
@@ -85,6 +85,9 @@ export class ProfileSkillsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Load user data from localStorage
+    this.loadUserFromLocalStorage();
+    
     // Check for section parameter in URL
     this.route.queryParams.subscribe(params => {
       if (params['section']) {
@@ -101,6 +104,24 @@ export class ProfileSkillsComponent implements OnInit {
         }, 100 * (index + 1));
       });
     }, 300);
+  }
+
+  // Load user data from localStorage
+  loadUserFromLocalStorage(): void {
+    try {
+      const userData = localStorage.getItem('currentUser');
+      if (userData) {
+        const parsedUser = JSON.parse(userData);
+        this.user = {
+          ...this.user,
+          ...parsedUser
+        };
+      } else {
+        console.warn('No user data found in localStorage');
+      }
+    } catch (error) {
+      console.error('Error loading user data from localStorage:', error);
+    }
   }
 
   // Toggle active section

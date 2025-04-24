@@ -10,7 +10,7 @@ import { finalize, catchError, tap, throwError } from 'rxjs'; // Added RxJS oper
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterModule, HttpClientModule] // Added HttpClientModule
+  imports: [CommonModule,RouterModule, HttpClientModule] // Added HttpClientModule
 })
 export class ResumeComponent implements OnInit {
 

@@ -1,0 +1,187 @@
+<!-- job-post.component.html -->
+<div class="main-content">
+    <!-- Header and controls -->
+    <div class="page-header">
+      <h1>Job Post</h1>
+      <div class="header-actions">
+        <button class="post-job-btn" (click)="togglePostForm()">
+          <span class="btn-icon">+</span>
+          {{ showPostForm ? 'Cancel' : 'Post a Job' }}
+        </button>
+      </div>
+    </div>
+  
+    <!-- Job Post Form -->
+    <div class="job-post-form" *ngIf="showPostForm">
+      <div class="form-container">
+        <h2>Post a New Job</h2>
+        <form [formGroup]="jobForm" (ngSubmit)="submitJob()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="title">Job Title*</label>
+              <input type="text" id="title" formControlName="title" placeholder="e.g. Senior Data Scientist">
+              <div class="error-message" *ngIf="jobForm.get('title')?.invalid && jobForm.get('title')?.touched">
+                Job title is required
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="company">Company*</label>
+              <input type="text" id="company" formControlName="company" placeholder="e.g. DataInsights LLC">
+              <div class="error-message" *ngIf="jobForm.get('company')?.invalid && jobForm.get('company')?.touched">
+                Company name is required
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="location">Location*</label>
+              <input type="text" id="location" formControlName="location" placeholder="e.g. San Francisco, CA">
+              <div class="error-message" *ngIf="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
+                Location is required
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="type">Job Type*</label>
+              <select id="type" formControlName="type">
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Contract">Contract</option>
+                <option value="Internship">Internship</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label for="salary">Salary Range*</label>
+              <input type="text" id="salary" formControlName="salary" placeholder="e.g. $100,000 - $130,000">
+              <div class="error-message" *ngIf="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched">
+                Salary range is required
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="deadline">Application Deadline*</label>
+              <input type="date" id="deadline" formControlName="deadline">
+              <div class="error-message" *ngIf="jobForm.get('deadline')?.invalid && jobForm.get('deadline')?.touched">
+                Deadline is required
+              </div>
+            </div>
+          </div>
+  
+          <div class="form-group full-width">
+            <label for="description">Job Description*</label>
+            <textarea id="description" rows="5" formControlName="description" placeholder="Describe the job role, responsibilities, and other details..."></textarea>
+            <div class="error-message" *ngIf="jobForm.get('description')?.invalid && jobForm.get('description')?.touched">
+              Job description is required
+            </div>
+          </div>
+  
+          <div class="form-group full-width">
+            <label for="requirements">Requirements (one per line)*</label>
+            <textarea id="requirements" rows="4" formControlName="requirements" placeholder="e.g.&#10;5+ years of experience in data science&#10;Proficiency in Python, R, and SQL"></textarea>
+            <div class="error-message" *ngIf="jobForm.get('requirements')?.invalid && jobForm.get('requirements')?.touched">
+              Requirements are required
+            </div>
+          </div>
+  
+          <div class="form-group full-width">
+            <label for="contactEmail">Contact Email*</label>
+            <input type="email" id="contactEmail" formControlName="contactEmail" placeholder="e.g. careers@company.com">
+            <div class="error-message" *ngIf="jobForm.get('contactEmail')?.invalid && jobForm.get('contactEmail')?.touched">
+              Valid email is required
+            </div>
+          </div>
+  
+          <div class="form-actions">
+            <button type="button" class="cancel-btn" (click)="togglePostForm()">Cancel</button>
+            <button type="submit" class="submit-btn"  [disabled]="jobForm.invalid">Post Job</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Job List Controls -->
+    <div class="filters-section">
+      <div class="section-title">Find Jobs</div>
+      <div class="filter-controls">
+        <div class="search-bar">
+          <input type="text" placeholder="Search jobs by title, company or location" [(ngModel)]="filterText">
+          <span class="search-icon">🔍</span>
+        </div>
+        
+        <div class="view-toggle">
+          <button class="view-button" [class.active]="viewMode === 'list'" (click)="setViewMode('list')">
+            <span class="view-icon">≡</span> List
+          </button>
+          <button class="view-button" [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')">
+            <span class="view-icon">⊞</span> Grid
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Jobs List -->
+    <div class="jobs-list" [class.grid-view]="viewMode === 'grid'">
+      <div class="no-results" *ngIf="filteredJobs.length === 0">
+        No jobs match your search criteria.
+      </div>
+      
+      <div class="job-card" *ngFor="let job of filteredJobs">
+        <div class="job-header">
+          <div class="job-title-section">
+            <h3 class="job-title">{{ job.title }}</h3>
+            <div class="job-company">{{ job.company }}</div>
+          </div>
+          <div class="job-type-badge" [ngClass]="{'full-time': job.type === 'Full-time', 
+                                                'part-time': job.type === 'Part-time',
+                                                'contract': job.type === 'Contract',
+                                                'internship': job.type === 'Internship',
+                                                'remote': job.type === 'Remote'}">
+            {{ job.type }}
+          </div>
+        </div>
+        
+        <div class="job-info">
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            {{ job.location }}
+          </div>
+          <div class="info-item">
+            <span class="info-icon">💰</span>
+            {{ job.salary }}
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📅</span>
+            Posted {{ getDaysAgo(job.postedDate) }}
+          </div>
+        </div>
+        
+        <div class="job-description">
+          <p>{{ job.description }}</p>
+        </div>
+        
+        <div class="job-requirements">
+          <h4>Requirements:</h4>
+          <ul>
+            <li *ngFor="let req of job.requirements">{{ req }}</li>
+          </ul>
+        </div>
+        
+        <div class="job-footer">
+          <div class="deadline-info">
+            <span class="deadline-icon">⏱️</span>
+            <span class="deadline-text">{{ getDaysLeft(job.deadline) }} days left to apply</span>
+          </div>
+          <div class="job-actions">
+            <button class="action-button apply">Apply Now</button>
+            <button class="action-button save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

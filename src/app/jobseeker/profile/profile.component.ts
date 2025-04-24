@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   private router = inject(Router);
 
   // Use hardcoded API URL
-  private apiUrl = 'http://localhost:5000/api';
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor() {
     this.basicInfoForm = this.fb.group({
@@ -138,7 +138,7 @@ export class ProfileComponent implements OnInit {
       
       // Redirect to login page after a short delay
       setTimeout(() => {
-        this.router.navigate(['/login'], { 
+        this.router.navigate(['/auth/login'], { 
           queryParams: { returnUrl: this.router.url }  // Store current URL to return after login
         });
       }, 2000);

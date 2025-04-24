@@ -1,7 +1,7 @@
 // talent-board.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule,RouterLink,RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Candidate } from './model/canditate.model';
 
@@ -10,7 +10,7 @@ import { Candidate } from './model/canditate.model';
   templateUrl: './talent-board.component.html',
   styleUrls: ['./talent-board.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule]
+  imports: [CommonModule, RouterModule, FormsModule,RouterLink,RouterOutlet]
 })
 export class TalentBoardComponent implements OnInit {
   candidates: Candidate[] = [];

@@ -30,6 +30,10 @@ import {MessagesComponent} from './jobseeker/seeker-dashboard/messages/messages.
 import {InterviewsComponent} from './jobseeker/seeker-dashboard/interviews/interviews.component'
 import { LearningComponent } from './jobseeker/seeker-dashboard/learning/learning.component';
 import { JobseekerComponent } from './jobseeker/jobseeker/jobseeker.component';
+import { TalentsComponent } from './employerPart/talent-board/talents/talents.component';
+import { JobPostsComponent } from './employerPart/talent-board/job-posts/job-posts.component';
+import { AiPoolComponent } from './employerPart/talent-board/ai-pool/ai-pool.component';
+import { AiHunterComponent } from './employerPart/talent-board/ai-hunter/ai-hunter.component';
 
 
 export const routes: Routes = [
@@ -56,7 +60,8 @@ export const routes: Routes = [
         { path: 'career', component: SkillPathComponent }, // Example
         { path: 'messages', component:MessagesComponent }, // Example
         { path: 'interviews', component: InterviewsComponent }, // Example
-        { path: 'learning', component: LearningComponent }, // Example
+        { path: 'learning', component: LearningComponent }, 
+        // Example
 
         // Default child route for the dashboard
         { path: '', redirectTo: 'profile', pathMatch: 'full' }
@@ -80,7 +85,29 @@ export const routes: Routes = [
   {path:'contactForm',component: ContactFormComponent},
   {path:'careerFields',component: CareerFieldsComponent},
   {path:'enterpriseDetails',component: EnterpriseDetailsComponent},
-  {path:'talentBoard',component:TalentBoardComponent},
+  {path: 'talentBoard', // Adjust this path as needed
+  component: TalentBoardComponent,
+  children: [ // Define child routes to render inside TalentBoardComponent's <router-outlet>
+    {
+      path: 'talents', 
+      component:TalentsComponent
+    },
+    {
+      path: 'jobPosts', 
+      component: JobPostsComponent
+    },
+    {
+      path: 'aiHunter', 
+      component: AiHunterComponent
+    },
+    {
+      path: 'aiPool', 
+      component: AiPoolComponent
+    },
+    
+    { path: '', redirectTo: 'talents', pathMatch: 'full' }
+  ]
+},
 
   // --- Admin Routes ---
   {

@@ -1,0 +1,774 @@
+/* talent-pool.component.css */
+:host {
+    display: block;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .talent-pool-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: #f8fafc;
+  }
+  
+  .talent-pool-header {
+    margin-bottom: 32px;
+  }
+  
+  .talent-pool-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+  }
+  
+  .talent-pool-header p {
+    font-size: 16px;
+    color: #64748b;
+    font-weight: 400;
+  }
+  
+  .search-filters-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .search-bar {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    color: #94a3b8;
+  }
+  
+  .search-bar .search-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px 0 44px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  
+  .search-bar .search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+  
+  .search-bar .search-input::placeholder {
+    color: #94a3b8;
+  }
+  
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .filters .filter-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .filters .filter-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+  
+  .skills-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .skills-filter .skill-chip {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f1f5f9;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .skills-filter .skill-chip:hover {
+    background-color: #e2e8f0;
+  }
+  
+  .skills-filter .skill-chip.active {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 16px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .dropdown .dropdown-toggle:hover {
+    border-color: #cbd5e1;
+  }
+  
+  .dropdown .dropdown-toggle i {
+    margin-left: 8px;
+  }
+  
+  .dropdown .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: none;
+  }
+  
+  .dropdown .dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #334155;
+    cursor: pointer;
+  }
+  
+  .dropdown .dropdown-content a:hover {
+    background-color: #f8fafc;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .view-toggle {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .view-toggle button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #64748b;
+    cursor: pointer;
+  }
+  
+  .view-toggle button:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  
+  .view-toggle button:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+  
+  .view-toggle button.active {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+  }
+  
+  .results-summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .results-summary p {
+    font-size: 14px;
+    color: #64748b;
+  }
+  
+  .results-summary p span {
+    font-weight: 600;
+    color: #334155;
+  }
+  
+  .active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .active-filters .filter-tag {
+    display: flex;
+    align-items: center;
+    padding: 4px 10px;
+    background-color: #e0f2fe;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #0369a1;
+  }
+  
+  .active-filters .filter-tag .remove-filter {
+    margin-left: 6px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .active-filters .filter-tag .remove-filter:hover {
+    color: #0c4a6e;
+  }
+  
+  .loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+  }
+  
+  .loading-spinner .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  .loading-spinner p {
+    margin-top: 16px;
+    color: #64748b;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .list-view {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .list-view .candidate-card {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .list-view .candidate-card .candidate-header {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  
+  .list-view .candidate-card .candidate-header .candidate-photo {
+    margin-right: 16px;
+    margin-bottom: 0;
+  }
+  
+  .list-view .candidate-card .candidate-header .candidate-info {
+    flex: 1;
+  }
+  
+  .list-view .candidate-card .candidate-skills {
+    margin: 0 16px;
+    flex-wrap: wrap;
+    max-width: 300px;
+  }
+  
+  .list-view .candidate-card .candidate-footer {
+    margin-left: auto;
+    margin-right: 16px;
+  }
+  
+  .list-view .candidate-card .card-actions {
+    flex-shrink: 0;
+  }
+  
+  .candidate-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    transition: all 0.2s;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+  }
+  
+  .candidate-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .candidate-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .candidate-header .candidate-photo {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  
+  .candidate-header .candidate-photo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f1f5f9;
+  }
+  
+  .candidate-header .candidate-photo .activity-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    border: 2px solid white;
+  }
+  
+  .candidate-header .candidate-photo .activity-status.active {
+    background-color: #10b981;
+  }
+  
+  .candidate-header .candidate-info {
+    text-align: center;
+  }
+  
+  .candidate-header .candidate-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+  
+  .candidate-header .candidate-info h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+  
+  .candidate-header .candidate-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .candidate-header .candidate-meta span {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #64748b;
+  }
+  
+  .candidate-header .candidate-meta span i {
+    margin-right: 4px;
+    color: #94a3b8;
+  }
+  
+  .candidate-header .candidate-actions {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .candidate-header .candidate-actions .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #f8fafc;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .candidate-header .candidate-actions .action-btn:hover {
+    background-color: #e2e8f0;
+  }
+  
+  .candidate-header .candidate-actions .action-btn.save:hover {
+    color: #f59e0b;
+  }
+  
+  .candidate-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .candidate-skills .skill-tag {
+    padding: 4px 10px;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #475569;
+    transition: all 0.2s;
+  }
+  
+  .candidate-skills .skill-tag:hover {
+    background-color: #e2e8f0;
+  }
+  
+  .candidate-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin-bottom: 16px;
+    border-top: 1px solid #f1f5f9;
+  }
+  
+  .candidate-footer .candidate-rating {
+    display: flex;
+    align-items: center;
+  }
+  
+  .candidate-footer .candidate-rating .rating-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-right: 8px;
+  }
+  
+  .candidate-footer .candidate-rating .stars {
+    display: flex;
+  }
+  
+  .candidate-footer .candidate-rating .stars i {
+    color: #cbd5e1;
+    font-size: 12px;
+  }
+  
+  .candidate-footer .candidate-rating .stars i.filled {
+    color: #f59e0b;
+  }
+  
+  .candidate-footer .candidate-salary {
+    font-size: 14px;
+    color: #64748b;
+  }
+  
+  .candidate-footer .candidate-salary i {
+    color: #10b981;
+    margin-right: 4px;
+  }
+  
+  .candidate-footer .candidate-activity {
+    font-size: 13px;
+    color: #94a3b8;
+  }
+  
+  .card-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .card-actions button {
+    flex: 1;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .card-actions .primary-btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+  }
+  
+  .card-actions .primary-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+  }
+  
+  .card-actions .secondary-btn {
+    background-color: #f8fafc;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .card-actions .secondary-btn:hover {
+    background-color: #f1f5f9;
+    transform: translateY(-2px);
+  }
+  
+  .no-results {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .no-results .no-results-icon {
+    font-size: 48px;
+    color: #cbd5e1;
+    margin-bottom: 16px;
+  }
+  
+  .no-results h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 8px;
+  }
+  
+  .no-results p {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+  
+  .no-results .clear-filters-btn {
+    padding: 10px 20px;
+    background-color: #e2e8f0;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .no-results .clear-filters-btn:hover {
+    background-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+  
+  /* Adding the pagination styling that was incomplete in the original SCSS */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .pagination .pagination-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .pagination .pagination-btn:hover:not([disabled]) {
+    background-color: #f1f5f9;
+  }
+  
+  .pagination .pagination-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .pagination .pagination-btn i {
+    font-size: 12px;
+  }
+  
+  .pagination .pagination-btn:first-child i {
+    margin-right: 8px;
+  }
+  
+  .pagination .pagination-btn:last-child i {
+    margin-left: 8px;
+  }
+  
+  .pagination .page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .pagination .page-numbers .page-number {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .pagination .page-numbers .page-number:hover:not(.active) {
+    background-color: #f1f5f9;
+  }
+  
+  .pagination .page-numbers .page-number.active {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+  }
+  
+  .pagination .page-numbers span {
+    color: #64748b;
+  }
+  
+  /* Enhanced design elements */
+  @media (max-width: 768px) {
+    .filters {
+      gap: 16px;
+    }
+    
+    .filters .filter-group {
+      min-width: 100%;
+    }
+    
+    .grid-view {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .list-view .candidate-card {
+      flex-direction: column;
+    }
+    
+    .list-view .candidate-card .candidate-header {
+      flex-direction: column;
+    }
+    
+    .list-view .candidate-card .candidate-skills {
+      margin: 16px 0;
+      max-width: none;
+    }
+    
+    .list-view .candidate-card .candidate-footer {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  
+  /* Beautiful animations & enhancements */
+  .skill-chip, .skill-tag {
+    transition: all 0.3s ease;
+  }
+  
+  .skill-chip:hover, .skill-tag:hover {
+    transform: translateY(-2px);
+  }
+  
+  .candidate-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .candidate-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    border-radius: 12px;
+  }
+  
+  .candidate-card:hover::after {
+    opacity: 1;
+  }
+  
+  .candidate-photo img {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .candidate-card:hover .candidate-photo img {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-input:focus + .search-icon {
+    color: #3b82f6;
+  }
+  
+  /* Focus styles for improved accessibility */
+  button:focus, a:focus, input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Custom scrollbar for dropdown menus */
+  .dropdown-content {
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f8fafc;
+  }
+  
+  .dropdown-content::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .dropdown-content::-webkit-scrollbar-track {
+    background: #f8fafc;
+  }
+  
+  .dropdown-content::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 6px;
+  }

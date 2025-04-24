@@ -22,7 +22,7 @@ export class AuthSelectionComponent {
 
     // Navigate based on user type
     switch (userType) {
-      case 'jobseeker': // Handle the value coming from the template
+      // Handle the value coming from the template
       case 'job_seeker': // Handle the value expected by the backend/register component
         // Navigate both variations to registration with the standardized 'job_seeker' query param
         this.router.navigate([registrationRoute], { queryParams: { userType: 'job_seeker' } });

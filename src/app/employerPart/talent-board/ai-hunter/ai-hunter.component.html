@@ -1,0 +1,252 @@
+<!-- ai-headhunter.component.html -->
+<div class="main-content">
+    <!-- Header and controls -->
+    <div class="page-header">
+      <h1>AI HeadHunter</h1>
+      <div class="header-actions">
+        <button class="new-search-btn">
+          <span class="btn-icon">+</span>
+          New Search
+        </button>
+      </div>
+    </div>
+  
+    <!-- AI Search Panel -->
+    <div class="ai-search-panel">
+      <div class="panel-header">
+        <div class="header-title">
+          <div class="ai-icon">
+            <span class="icon">🤖</span>
+          </div>
+          <div class="title-text">
+            <h2>Intelligent Talent Matching</h2>
+            <p>Let our AI find the perfect candidates for your positions</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="search-container">
+        <div class="search-methods">
+          <div class="method-tabs">
+            <button class="method-tab active">Job Description</button>
+            <button class="method-tab">Skills & Requirements</button>
+            <button class="method-tab">Team Fit</button>
+          </div>
+        </div>
+        
+        <div class="search-input-container">
+          <textarea 
+            class="job-description-input" 
+            placeholder="Paste your job description or explain what you're looking for in a candidate..."></textarea>
+          
+          <div class="ai-controls">
+            <label class="setting">
+              <span>Search precision</span>
+              <select>
+                <option>Exact match</option>
+                <option selected>Balanced</option>
+                <option>Broader match</option>
+              </select>
+            </label>
+            
+            <label class="setting">
+              <span>Experience level</span>
+              <select>
+                <option>Entry level</option>
+                <option>Mid-level</option>
+                <option selected>Senior</option>
+                <option>Executive</option>
+              </select>
+            </label>
+            
+            <label class="setting">
+              <span>Location preference</span>
+              <select>
+                <option selected>Any location</option>
+                <option>Remote only</option>
+                <option>On-site</option>
+                <option>Hybrid</option>
+              </select>
+            </label>
+            
+            <button class="search-btn">
+              <span class="search-icon">🔍</span>
+              Find Candidates
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Candidates Results -->
+    <div class="results-container">
+      <div class="results-header">
+        <h3>Top Candidate Matches</h3>
+        <div class="results-stats">
+          <span class="candidate-count">25 candidates</span>
+          <span class="match-info">sorted by match score</span>
+        </div>
+        <div class="filter-options">
+          <button class="filter-btn">
+            <span class="filter-icon">⚙️</span>
+            Filters
+          </button>
+          <button class="save-search-btn">
+            <span class="save-icon">💾</span>
+            Save Search
+          </button>
+        </div>
+      </div>
+  
+      <!-- Candidates List -->
+      <div class="candidates-list">
+        <!-- Candidate 1 -->
+        <div class="candidate-card">
+          <div class="match-score">
+            <div class="score-value">96<span class="percent">%</span></div>
+            <div class="match-label">Match</div>
+          </div>
+          
+          <div class="candidate-info">
+            <div class="candidate-header">
+              <h4 class="candidate-name">Alexander Chen</h4>
+              <span class="candidate-title">Senior Machine Learning Engineer</span>
+            </div>
+            
+            <div class="candidate-details">
+              <div class="detail-item">
+                <span class="detail-icon">🏢</span>
+                <span class="detail-text">Google, 6 years</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">📍</span>
+                <span class="detail-text">San Francisco, CA</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">🎓</span>
+                <span class="detail-text">PhD in Computer Science</span>
+              </div>
+            </div>
+            
+            <div class="skill-matches">
+              <div class="skill-match">Python</div>
+              <div class="skill-match">Machine Learning</div>
+              <div class="skill-match">Data Science</div>
+              <div class="skill-match">TensorFlow</div>
+              <div class="skill-match">+6 more</div>
+            </div>
+            
+            <div class="ai-insights">
+              <div class="insight-icon">💡</div>
+              <div class="insight-text">Strong match for team culture based on collaborative projects and mentorship experience.</div>
+            </div>
+          </div>
+          
+          <div class="candidate-actions">
+            <button class="action-button view-profile">View Profile</button>
+            <button class="action-button contact">Contact</button>
+          </div>
+        </div>
+        
+        <!-- Candidate 2 -->
+        <div class="candidate-card">
+          <div class="match-score">
+            <div class="score-value">94<span class="percent">%</span></div>
+            <div class="match-label">Match</div>
+          </div>
+          
+          <div class="candidate-info">
+            <div class="candidate-header">
+              <h4 class="candidate-name">Priya Sharma</h4>
+              <span class="candidate-title">Data Scientist & ML Specialist</span>
+            </div>
+            
+            <div class="candidate-details">
+              <div class="detail-item">
+                <span class="detail-icon">🏢</span>
+                <span class="detail-text">Microsoft Research, 4 years</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">📍</span>
+                <span class="detail-text">Remote (PST timezone)</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">🎓</span>
+                <span class="detail-text">MS in Statistics</span>
+              </div>
+            </div>
+            
+            <div class="skill-matches">
+              <div class="skill-match">R</div>
+              <div class="skill-match">SQL</div>
+              <div class="skill-match">Data Visualization</div>
+              <div class="skill-match">Statistical Analysis</div>
+              <div class="skill-match">+5 more</div>
+            </div>
+            
+            <div class="ai-insights">
+              <div class="insight-icon">💡</div>
+              <div class="insight-text">Published research aligns perfectly with your company's current machine learning projects.</div>
+            </div>
+          </div>
+          
+          <div class="candidate-actions">
+            <button class="action-button view-profile">View Profile</button>
+            <button class="action-button contact">Contact</button>
+          </div>
+        </div>
+        
+        <!-- Candidate 3 -->
+        <div class="candidate-card">
+          <div class="match-score">
+            <div class="score-value">89<span class="percent">%</span></div>
+            <div class="match-label">Match</div>
+          </div>
+          
+          <div class="candidate-info">
+            <div class="candidate-header">
+              <h4 class="candidate-name">Marcus Johnson</h4>
+              <span class="candidate-title">Lead Data Scientist</span>
+            </div>
+            
+            <div class="candidate-details">
+              <div class="detail-item">
+                <span class="detail-icon">🏢</span>
+                <span class="detail-text">Salesforce, 5 years</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">📍</span>
+                <span class="detail-text">Austin, TX</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">🎓</span>
+                <span class="detail-text">PhD in Statistics</span>
+              </div>
+            </div>
+            
+            <div class="skill-matches">
+              <div class="skill-match">Python</div>
+              <div class="skill-match">SQL</div>
+              <div class="skill-match">Deep Learning</div>
+              <div class="skill-match">Cloud Computing</div>
+              <div class="skill-match">+8 more</div>
+            </div>
+            
+            <div class="ai-insights">
+              <div class="insight-icon">💡</div>
+              <div class="insight-text">Experience with large-scale data pipelines makes them valuable for your expanding data operations.</div>
+            </div>
+          </div>
+          
+          <div class="candidate-actions">
+            <button class="action-button view-profile">View Profile</button>
+            <button class="action-button contact">Contact</button>
+          </div>
+        </div>
+        
+        <div class="load-more">
+          <button class="load-more-btn">Show More Candidates</button>
+        </div>
+      </div>
+    </div>
+  </div>

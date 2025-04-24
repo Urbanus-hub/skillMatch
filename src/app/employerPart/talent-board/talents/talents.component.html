@@ -1,0 +1,130 @@
+<!-- talent-board.component.html -->
+
+<div class="main-content">
+    <div class="filters-section">
+      <h2 class="section-title">Find Top Talent</h2>
+      <div class="filter-controls">
+        <div class="filter-dropdown">
+          <select [(ngModel)]="selectedCategory" (change)="filterCandidates()">
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+        <div class="filter-dropdown">
+          <select [(ngModel)]="selectedLocation" (change)="filterCandidates()">
+            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+          </select>
+        </div>
+        <div class="view-toggle">
+          <button class="view-button" [class.active]="viewMode === 'list'" (click)="setViewMode('list')">
+            <i class="view-icon">📋</i> List
+          </button>
+          <button class="view-button" [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')">
+            <i class="view-icon">📊</i> Grid
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="content-container">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h3>Talent board</h3>
+          <button class="edit-button">
+            <i class="edit-icon">✏️</i>
+          </button>
+        </div>
+        
+        <div class="category-list">
+          <div *ngFor="let category of categories" 
+               class="category-item" 
+               [class.active]="selectedCategory === category"
+               (click)="setCategory(category)">
+            <span>{{ category }}</span>
+            <i class="arrow-icon">›</i>
+          </div>
+        </div>
+      </aside>
+  
+      <section class="talent-list">
+        <h2 class="section-header">Top talents picked for you</h2>
+        
+        <div class="talent-cards" [ngClass]="{'grid-view': viewMode === 'grid'}">
+          <div class="talent-card" *ngFor="let candidate of filteredCandidates">
+            <div class="candidate-profile">
+              <div class="profile-image">
+                <img src="person3.jpg" [alt]="candidate.name" class="candidate-avatar">
+              </div>
+              <div class="profile-info">
+                <h3 class="candidate-name">{{ candidate.name }}</h3>
+                
+                <div class="info-grid">
+                  <div class="info-column">
+                    <div class="info-label">Title</div>
+                    <div class="info-value">{{ candidate.title }}</div>
+                    
+                    <div class="info-label">Years of experience</div>
+                    <div class="info-value">{{ candidate.yearsOfExperience }}</div>
+                  </div>
+                  
+                  <div class="info-column">
+                    <div class="info-label">Employer</div>
+                    <div class="info-value">{{ candidate.employer }}</div>
+                    
+                    <div class="info-label">Occupation</div>
+                    <div class="info-value">{{ candidate.occupation }}</div>
+                  </div>
+                  
+                  <div class="info-column">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">{{ candidate.location }}</div>
+                    
+                    <div class="info-label">Education</div>
+                    <div class="info-value">{{ candidate.education }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="candidate-details">
+              <div class="skills-container">
+                <h4 class="skills-title">Skills</h4>
+                <div class="skills-tags">
+                  <span class="skill-tag" *ngFor="let skill of candidate.skills">{{ skill }}</span>
+                </div>
+              </div>
+              
+              <div class="candidate-metrics">
+                <div class="metric">
+                  <span class="metric-icon">📊</span>
+                  <span class="metric-value">{{ candidate.projectCount }} Projects</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-icon">⭐</span>
+                  <span class="metric-value">{{ candidate.rating }}/5.0</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-icon">🕒</span>
+                  <span class="metric-value">{{ candidate.availability }}</span>
+                </div>
+              </div>
+              
+              <div class="candidate-actions">
+                <button class="action-button view" (click)="viewCandidateDetails(candidate.id)">
+                  View Profile
+                </button>
+                <button class="action-button contact" (click)="contactCandidate(candidate.id)">
+                  Contact
+                </button>
+                <button class="action-button save" (click)="saveCandidateProfile(candidate.id)">
+                  <i class="save-icon">🔖</i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="filteredCandidates.length === 0" class="no-results">
+            No candidates match your current filters
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>

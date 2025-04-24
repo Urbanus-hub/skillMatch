@@ -1,6 +1,6 @@
 // register.component.ts
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms'; // Import AbstractControl, ValidationErrors
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpClientModule } from '@angular/common/http';
@@ -39,21 +39,19 @@ export class RegisterComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
 
-  private apiBaseUrl = 'http://localhost:5000/api';
+  private apiBaseUrl = 'http://localhost:3000/api';
 
   constructor() {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      // Add password pattern validation to match backend
       password: ['', [
         Validators.required,
-        Validators.minLength(8),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].*$/) // Added pattern
+        Validators.minLength(8)
       ]],
       confirmPassword: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator }); // Changed 'validator' to 'validators'
+    }, { validators: this.passwordMatchValidator });
   }
 
   ngOnInit(): void {
@@ -71,7 +69,7 @@ export class RegisterComponent implements OnInit {
   }
 
   // Custom validator for password matching
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null { // Correct signature
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
 
@@ -99,7 +97,6 @@ export class RegisterComponent implements OnInit {
       return null; // Passwords match, return null for the FormGroup
     }
   }
-
 
   onSubmit(): void {
     this.errorMessage = null;
@@ -150,10 +147,10 @@ export class RegisterComponent implements OnInit {
           console.log('Registration successful:', response);
           // Ensure response structure is as expected before accessing properties
           if (response && response.data && response.data.token && response.data.user) {
-              localStorage.setItem('authToken', response.data.token);
-              localStorage.setItem('currentUser', JSON.stringify(response.data.user));
-              alert('Registration successful! Redirecting to login...'); // Consider a less intrusive notification
-              this.router.navigate(['/auth/login']); // Redirect to login after successful registration
+              
+              
+              // Remove the blocking alert and just navigate directly to login
+              this.router.navigate(['/auth/login']);
           } else {
               console.error('Unexpected success response structure:', response);
               this.errorMessage = 'Registration succeeded but received unexpected data.';
@@ -213,8 +210,7 @@ export class RegisterComponent implements OnInit {
         })
       )
       .subscribe({
-        // next: Handled by tap
-        // error: Handled by catchError
+        // next and error are handled by tap and catchError
       });
   }
 
